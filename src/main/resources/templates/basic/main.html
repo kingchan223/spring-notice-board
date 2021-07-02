@@ -18,7 +18,7 @@
             <button class="btn btn-primary float-end"
                     th:onclick="|location.href='@{/writings/add}'|"
                     onclick="location.href='addForm.html'"
-                    type="button">상품 등록</button>
+                    type="button">글쓰기</button>
         </div>
     </div>
     <hr class="my-4">
@@ -28,12 +28,14 @@
             <tr>
                 <th>ID</th>
                 <th>글제목</th>
+                <th>작성일</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="writing:${writings}">
                 <td><a href="writing.html" th:href="@{/writings/{writingId}(writingId=${writing.id})}" th:text="${writing.id}">id</a></td>
                 <td><a href="writing.html" th:href="@{|/writings/${writing.id}|}" th:text="${writing.title}">글제목</a></td>
+<!--                <td><span th:text:="${writing.date}"></span></td>-->
             </tr>
             </tbody>
         </table>

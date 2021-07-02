@@ -26,9 +26,10 @@ public class MemoryWritingRepository implements WritingRepository{
     }
 
     @Override
-    public void add(Writing writing) {
+    public Writing add(Writing writing) {
         writing.setId(sequence++);
         store.put(writing.getId(), writing);
+        return writing;
     }
 
     @Override

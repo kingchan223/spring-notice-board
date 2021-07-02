@@ -20,7 +20,7 @@ public interface WritingRepository {
     Writing getOne(Long id);
 
     //POST /writings : 글 생성
-    void add(Writing writing);
+    Writing add(Writing writing);
 
     //POST /writings/{writingNum} : 글 수정
     void update(Writing writing);
