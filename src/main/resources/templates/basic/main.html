@@ -10,15 +10,29 @@
 <div class="container" style="max-width: 600px">
     <div class="py-5 text-center">
         <h2>게시글 목록</h2>
+        <br>
         <h2 th:if="${param.status}" th:text="삭제되었습니다."></h2>
+        <h4 class="mb-3" th:text="|${user.username}님 안녕하세요!🖥|"></h4>
     </div>
 
     <div class="row">
         <div class="col">
             <button class="btn btn-primary float-end"
-                    th:onclick="|location.href='@{/writings/add}'|"
+                    th:onclick="|location.href='@{/writing}'|"
                     onclick="location.href='addForm.html'"
                     type="button">글쓰기</button>
+        </div>
+        <div class="col">
+            <button class="btn btn-primary float-end"
+                    th:onclick="|location.href='@{/logout}'|"
+                    onclick="location.href='main.html'"
+                    type="button">회원상세정보</button>
+        </div>
+        <div class="col">
+            <button class="btn btn-primary float-end"
+                    th:onclick="|location.href='@{/logout}'|"
+                    onclick="location.href='main.html'"
+                    type="button">회원정보수정</button>
         </div>
         <div class="col">
             <button class="btn btn-primary float-end"
@@ -33,8 +47,9 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>이름</th>
+                <th>글제목</th>
                 <th>작성일</th>
+                <th>작성자</th>
             </tr>
             </thead>
             <tbody>
@@ -42,6 +57,7 @@
                 <td><a href="writing.html" th:href="@{/{writingId}(writingId=${writing.id})}" th:text="${writing.id}"></a></td>
                 <td><a href="writing.html" th:href="@{|/${writing.id}|}" th:text="${writing.title}">글제목</a></td>
                 <td><a href="writing.html" th:href="@{|/${writing.id}|}" th:text="${writing.date}">날짜</a></td>
+                <td><a href="writing.html" th:href="@{|/${writing.id}|}" th:text="${writing.user.loginId}">작성자</a></td>
             </tr>
             </tbody>
         </table>

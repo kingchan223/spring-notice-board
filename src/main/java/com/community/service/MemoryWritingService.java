@@ -1,7 +1,10 @@
-package com.community.repository;
+package com.community.service;
 
+import com.community.entity.User;
 import com.community.entity.Writing;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -9,9 +12,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Repository
-public class MemoryWritingRepository implements WritingRepository{
+@Service
+@RequiredArgsConstructor
+public class MemoryWritingService implements WritingService {
 
+    private final UserService userService;
     Map<Long, Writing> store = new ConcurrentHashMap<>();
     Long sequence = 1L;
 
@@ -46,8 +51,13 @@ public class MemoryWritingRepository implements WritingRepository{
 
     @PostConstruct
     public void init(){
-        Writing writing1 = new Writing("안녕하세요", "하하하");
-        Writing writing2 = new Writing("하이~", "하하하");
+        User user1 = new User("찬영", "kinhchan223@gmail.com", "1111", "k");
+        User user2 = new User("상운", "sanhun@gmail.com", "1111", "sang112");
+        userService.addUserBasic(user1);
+        userService.addUserBasic(user2);
+
+        Writing writing1 = new Writing("안녕하세요", "하하하", user1);
+        Writing writing2 = new Writing("하이~", "하하하", user2);
         add(writing1);
         add(writing2);
     }

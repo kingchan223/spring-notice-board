@@ -48,11 +48,11 @@ public class UserServiceImpl implements UserService{
         return new ArrayList<>(store.values());
     }
 
-    @PostConstruct
-    public void initUser(){
-        User user1 = new User("찬영", "kinhchan223@gmail.com", "1111", "kingchan223");
-        User user2 = new User("상운", "sanhun@gmail.com", "1111", "sang112");
-        addUserBasic(user1);
-        addUserBasic(user2);
-    }
+//    @PostConstruct
+//    public void initUser(){
+//        User user1 = new User("찬영", "kinhchan223@gmail.com", "1111", "k");
+//        User user2 = new User("상운", "sanhun@gmail.com", "1111", "sang112");
+//        addUserBasic(user1);
+//        addUserBasic(user2);
+//    }
 }

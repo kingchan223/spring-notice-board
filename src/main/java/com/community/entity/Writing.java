@@ -36,4 +36,11 @@ public class Writing {
         this.content = content;
         this.date = LocalDate.now().toString();
     }
+
+    public Writing(String title, String content, User user) {
+        this.title = title;
+        this.content = content;
+        this.user = user;
+        this.date = LocalDate.now().toString();
+    }
 }

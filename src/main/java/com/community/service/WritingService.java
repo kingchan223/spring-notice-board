@@ -1,10 +1,10 @@
-package com.community.repository;
+package com.community.service;
 
 import com.community.entity.Writing;
 
 import java.util.List;
 
-public interface WritingRepository {
+public interface WritingService {
     /*
      *  GET /writings  : 글목록 조회(main)
      *  POST /writings : 글 생성

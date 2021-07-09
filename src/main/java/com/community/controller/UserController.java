@@ -4,7 +4,7 @@ import com.community.SessionConst;
 import com.community.entity.LoginUserForm;
 import com.community.entity.User;
 import com.community.entity.Writing;
-import com.community.repository.WritingRepository;
+import com.community.service.WritingService;
 import com.community.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ import java.util.List;
 @RequestMapping
 public class UserController {
 
-    private final WritingRepository repository;
+    private final WritingService writingService;
     private final UserService userService;
 
 
@@ -34,8 +34,10 @@ public class UserController {
         if(loginMember==null){
             return "redirect:/login";
         }
-        List<Writing> result = repository.getAll();
+
+        List<Writing> result = writingService.getAll();
         model.addAttribute("writings", result);
+        model.addAttribute("user", loginMember);
         return "/basic/main";
     }
 

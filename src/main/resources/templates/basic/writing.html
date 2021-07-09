@@ -28,7 +28,7 @@
     <br>
     <div>
         <label>글 내용:</label>
-        <text type="textarea" class="form-control"  th:text="${writing.context}" readonly></text>
+        <text type="textarea" class="form-control"  th:text="${writing.content}" readonly></text>
     </div>
 
     <hr class="my-4">
@@ -38,12 +38,12 @@
             <button class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='editForm.html'"
                     th:onclick="|location.href='@{/writings/{writingId}/edit(writingId=${writing.id})}'|"
-                    type="button">상품 수정</button>
+                    type="button">글 수정</button>
         </div>
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg"
                     onclick="location.href='main.html'"
-                    th:onclick="|location.href='@{/writings}'|"
+                    th:onclick="|location.href='@{/}'|"
                     type="button">목록으로</button>
         </div>
 
