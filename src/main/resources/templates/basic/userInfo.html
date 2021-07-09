@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link
+            th:href="@{/css/bootstrap.min.css}"
+            href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2>회원정보</h2>
+    </div>
+    <!-- -->
+<!--    <h2 th:if="${param.status}" th:text="'상품등록이 완료되었습니다.'"></h2>-->
+
+    <br>
+    <br>
+    <div>
+        <label>이름</label>
+        <text type="textarea" class="form-control"  th:text="${user.username}" readonly></text>
+    </div>
+    <div>
+        <label>이메일</label>
+        <text type="textarea" class="form-control"  th:text="${user.email}" readonly></text>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="row">
+<!--        <div class="col">-->
+<!--            <button class="w-100 btn btn-primary btn-lg"-->
+<!--                    onclick="location.href='editForm.html'"-->
+<!--                    th:onclick="|location.href='@{/writings/{writingId}/edit(writingId=${writing.id})}'|"-->
+<!--                    type="button">상품 수정</button>-->
+<!--        </div>-->
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='main.html'"
+                    th:onclick="|location.href='@{/}'|"
+                    type="button">목록으로</button>
+        </div>
+
+<!--        <div class="col">-->
+<!--            <button class="w-100 btn btn-danger btn-lg"-->
+<!--                    onclick="location.href='main.html'"-->
+<!--                    th:onclick="|location.href='@{/writings/{writingId}/delete/(writingId=${writing.id})}'|"-->
+<!--                    type="button">삭제하기</button>-->
+<!--        </div>-->
+    </div>
+
+</div> <!-- /container -->
+</body>
+</html>

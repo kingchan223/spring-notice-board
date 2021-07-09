@@ -36,7 +36,7 @@ public class MemoryWritingRepository implements WritingRepository{
     public void update(Writing writing) {
         Writing findWriting = getOne(writing.getId());
         findWriting.setTitle(writing.getTitle());
-        findWriting.setContext(writing.getContext());
+        findWriting.setContent(writing.getContent());
     }
 
     @Override

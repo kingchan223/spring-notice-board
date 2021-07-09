@@ -22,9 +22,9 @@
         </div>
         <div class="col">
             <button class="btn btn-primary float-end"
-                    th:onclick="|location.href='@{/logout}'|"
-                    onclick="location.href='main.html'"
-                    type="button">로그아웃</button>
+                    th:onclick="|location.href='@{/addUser}'|"
+                    onclick="location.href='addForm.html'"
+                    type="button">회원가입</button>
         </div>
     </div>
     <hr class="my-4">
@@ -33,15 +33,20 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>이름</th>
-                <th>작성일</th>
+                <th>글제목</th>
+                <th>작성자</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="writing:${writings}">
-                <td><a href="writing.html" th:href="@{/{writingId}(writingId=${writing.id})}" th:text="${writing.id}"></a></td>
-                <td><a href="writing.html" th:href="@{|/${writing.id}|}" th:text="${writing.title}">글제목</a></td>
-                <td><a href="writing.html" th:href="@{|/${writing.id}|}" th:text="${writing.date}">날짜</a></td>
+                <td><a href="writing.html" th:href="@{/{userId}(userId=${user.id})}" th:text="${user.id}"></a></td>
+                <td><a href="writing.html" th:href="@{|/${user.id}|}" th:text="${user.userName}">이름</a></td>
+                <td><a href="writing.html" th:href="@{|/${user.id}|}" th:text="${user.email}">이메일</a></td>
+                <td><button class="btn btn-primary float-end"
+                                        th:onclick="|location.href='@{/addUser}'|"
+                                        onclick="location.href='addForm.html'"
+                                        type="button">회원가입</button></td>
+<!--                <td><span th:text:="${writing.date}"></span></td>-->
             </tr>
             </tbody>
         </table>
