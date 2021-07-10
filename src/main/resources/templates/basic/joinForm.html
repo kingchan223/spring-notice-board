@@ -23,43 +23,57 @@
     <div class="py-5 text-center">
         <h2>회원가입</h2>
     </div>
+<!--    <div th:if="${#fields.hasGlobalErrors()}">-->
+<!--        <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>-->
+<!--    </div>-->
 
-    <form action="joinForm.html" th:action="@{/join}" th:object="${user}" method="post">
+    <form action="joinForm.html"
+          th:action="@{/join}"
+          th:object="${joinUserForm}"
+          method="post">
         <div>
             <label for="username">이름</label>
-            <input type="text" id="username" name="username"
-                    class="form-control" placeholder="이름을 입력하세요">
-<!--            <div class="field-error" th:errors="*{username}">-->
-<!--                이름 오류-->
-<!--            </div>-->
+            <input type="text" id="username" name="username" class="form-control" placeholder="이름을 입력하세요"
+                   th:field="*{username}"
+                   th:errorclass="field-error" />
+
+            <div class="field-error" th:errors="*{username}">
+                이름 오류
+            </div>
 <!--            <input type="text" id="username" name="username" class="form-control" placeholder="이름을 입력하세요">-->
         </div>
         <div>
             <label for="email">이메일</label>
 <!--            <input type="text" id="email" name="email" class="form-control" placeholder="이메일을 입력하세요">-->
             <input type="text" id="email" name="email"
+                   th:field="*{email}"
+                   th:errorclass="field-error"
                    class="form-control" placeholder="이름을 입력하세요">
-<!--            <div class="field-error" th:errors="*{email}">-->
-<!--                이메일 오류-->
-<!--            </div>-->
+            <div class="field-error" th:errors="*{email}">
+                이메일 오류
+            </div>
         </div>
         <div>
             <label for="loginId">아이디</label>
             <!--            <input type="text" id="email" name="email" class="form-control" placeholder="이메일을 입력하세요">-->
             <input type="text" id="loginId" name="loginId"
-                   class="form-control" placeholder="이름을 입력하세요">
-<!--            <div class="field-error" th:errors="*{loginId}">-->
-<!--                아이디 오류-->
-<!--            </div>-->
+                   th:field="*{loginId}"
+                   th:errorclass="field-error"
+                   class="form-control" placeholder="아이디를 입력하세요">
+            <div class="field-error" th:errors="*{loginId}">
+                아이디 오류
+            </div>
         </div>
         <div>
             <label for="password">패스워드</label>
 <!--            <input type="password" id="password" name="password" class="form-control" placeholder="패스워드 입력하세요">-->
             <input type="password" id="password" name="password"
+                   th:field="*{password}"
+                   th:errorclass="field-error"
                   class="form-control" placeholder="이름을 입력하세요">
-<!--            <div class="field-error" th:errors="*{password}">-->
-<!--                패스워드 오류-->
-<!--            </div>-->
+            <div class="field-error" th:errors="*{password}">
+                패스워드 오류
+            </div>
         </div>
 
         <hr class="my-4">

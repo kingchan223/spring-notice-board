@@ -1,6 +1,7 @@
 package com.community.controller;
 
 import com.community.SessionConst;
+import com.community.entity.JoinUserForm;
 import com.community.entity.LoginUserForm;
 import com.community.entity.User;
 import com.community.entity.Writing;
@@ -41,21 +42,25 @@ public class UserController {
         return "/basic/main";
     }
 
+    /*로그인 view*/
     @GetMapping("/login")
-    public String loginForm(){
+    public String loginForm(@ModelAttribute("loginUserForm") LoginUserForm loginUserForm){
         return "/basic/loginForm";
     }
 
     /*로그인*/
     @PostMapping("/login")
-    public String login(@Validated @ModelAttribute LoginUserForm form, BindingResult bindingResult
+    public String login(@Validated @ModelAttribute("loginUserForm") LoginUserForm loginUserForm,
+                        BindingResult bindingResult
                         ,HttpServletRequest request){
 
+        log.info("bindingResult={}", bindingResult);
         if(bindingResult.hasErrors()){
             return "/basic/loginForm";
         }
 
-        User loginUser = userService.login(form.getLoginId(), form.getPassword());
+        User loginUser = userService.login(loginUserForm.getLoginId(),
+                loginUserForm.getPassword());
 
         if(loginUser==null){
             bindingResult.reject("loginFail", "아이디 또는 비밀번호를 확인하세요.");
@@ -77,23 +82,30 @@ public class UserController {
         return "redirect:/";
     }
 
+    /*회원가입 view*/
     @GetMapping("/join")
-    public String join(){
+    public String join(@ModelAttribute("joinUserForm") JoinUserForm joinUserForm){
         return "/basic/joinForm";
     }
 
 
     /*회원가입*/
     @PostMapping("/join")
-    public String join(@Validated @ModelAttribute User user, BindingResult bindingResult, Model model){
-
+    public String join(@Validated @ModelAttribute("joinUserForm") JoinUserForm joinUserForm,
+                       BindingResult bindingResult, Model model){
+        log.info("bindingResult={}", bindingResult);
         if(bindingResult.hasErrors()){
 //            log.info("bindingResult = {}", bindingResult);
             return "/basic/joinForm";
         }
 
-        userService.addUserBasic(user);
+        User savedUser = new User(joinUserForm.getUsername(), joinUserForm.getEmail(),
+                joinUserForm.getPassword(), joinUserForm.getLoginId());
+
+        userService.addUserBasic(savedUser);
         model.addAttribute("param", true);
+        LoginUserForm loginUserForm = new LoginUserForm(savedUser.getLoginId(), savedUser.getPassword());
+        model.addAttribute("loginUserForm", loginUserForm);
         return "/basic/loginForm";
     }
 

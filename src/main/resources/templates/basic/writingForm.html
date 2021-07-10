@@ -24,24 +24,27 @@
         <h2>글쓰기</h2>
     </div>
 
-    <form action="joinForm.html" th:action="@{/writing}" method="post">
+    <form action="joinForm.html" th:action="@{/writing}" th:object="${writingForm}" method="post" enctype="multipart/form-data">
         <div>
             <label for="title">글제목</label>
             <input type="text" id="title" name="title"
-                    class="form-control" placeholder="글제목 입력하세요">
-<!--            <div class="field-error" th:errors="*{username}">-->
-<!--                이름 오류-->
-<!--            </div>-->
-<!--            <input type="text" id="username" name="username" class="form-control" placeholder="이름을 입력하세요">-->
+                    class="form-control"
+                   th:field="*{title}"
+                   th:errorclass="field-error"
+                   placeholder="글제목 입력하세요">
+            <div class="field-error" th:errors="*{title}">제목 오류</div>
         </div>
         <div>
             <label for="content">글 내용</label>
-<!--            <input type="text" id="email" name="email" class="form-control" placeholder="이메일을 입력하세요">-->
             <textarea type="text" id="content" name="content"
-                   class="form-control" placeholder="글을 입력하세요"></textarea>
-<!--            <div class="field-error" th:errors="*{email}">-->
-<!--                이메일 오류-->
-<!--            </div>-->
+                      th:field="*{content}"
+                      th:errorclass="field-error"
+                      class="form-control" placeholder="글을 입력하세요"></textarea>
+            <div class="field-error" th:errors="*{content}">글 내용</div>
+        </div>
+        <div>
+            <input type="file" value="파일 선택" name="file"/>
+            <input type="submit" value="업로드"/>
         </div>
 
         <hr class="my-4">

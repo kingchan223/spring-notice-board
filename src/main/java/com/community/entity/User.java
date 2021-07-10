@@ -46,5 +46,6 @@ public class User {
         this.password = password;
         this.loginId = loginId;
         this.joinedDate = LocalDateTime.now().toString();
+        this.role = RoleType.USER;
     }
 }

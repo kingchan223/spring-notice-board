@@ -31,7 +31,7 @@ public class MemoryWritingService implements WritingService {
     }
 
     @Override
-    public Writing add(Writing writing) {
+    public Writing add(Writing writing){
         writing.setId(sequence++);
         store.put(writing.getId(), writing);
         return writing;

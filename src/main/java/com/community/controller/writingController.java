@@ -3,12 +3,14 @@ package com.community.controller;
 import com.community.SessionConst;
 import com.community.entity.User;
 import com.community.entity.Writing;
+import com.community.entity.WritingForm;
 import com.community.service.WritingService;
 import com.community.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,21 +42,36 @@ public class writingController {
         return "/basic/writing";
     }
 
+    //글쓰기 폼
     @GetMapping("writing")
-    public String writingForm(){
+    public String writingForm(@SessionAttribute(name= SessionConst.LOGIN_MEMBER, required = false) User user,
+            @ModelAttribute("writingForm") WritingForm writingForm){
+        if(user == null){
+            return "redirect:/";
+        }
         return "/basic/writingForm";
     }
 
     @PostMapping("writing")
-    public String writing(HttpServletRequest request, @ModelAttribute Writing writing, Model model){
+    public String writing(HttpServletRequest request,
+                          @ModelAttribute("writingForm") WritingForm writingForm,
+                          BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()) {
+            log.info("bindingResult={}", bindingResult);
+            return "/basic/writingForm";
+        }
+
+
         //유저찾기
         HttpSession session = request.getSession(false);
         User user = (User)session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         //글 작성자에 유저 등록
-        writing.setUser(user);
+        Writing savedWriting = new Writing(writingForm.getTitle(), writingForm.getContent());
+        savedWriting.setUser(user);
         //글 저장
-        writingService.add(writing);
+
+        writingService.add(savedWriting);
 
 
         model.addAttribute("writings",writingService.getAll());

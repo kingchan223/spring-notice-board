@@ -29,24 +29,27 @@
         <h2>로그인</h2>
     </div>
 
-    <form action="loginForm.html" th:action="@{/login}" method="post">
+    <form action="loginForm.html"
+          th:action="@{/login}"
+          th:object="${loginUserForm}"
+          method="post">
         <div>
             <label for="loginId">아이디</label>
             <input type="text" id="loginId"
-                  name="loginId" class="form-control" placeholder="아이디를 입력하세요">
-<!--            <div class="field-error">-->
-<!--                아이디 오류-->
-<!--            </div>-->
-<!--            <input type="text" id="username" name="username" class="form-control" placeholder="이름을 입력하세요">-->
+                   name="loginId" class="form-control" placeholder="아이디를 입력하세요"
+                   th:field="*{loginId}"
+                   th:errorclass="field-error">
+            <div class="field-error" th:errors="*{loginId}">아이디 오류</div>
         </div>
         <div>
             <label for="password">패스워드</label>
-<!--            <input type="password" id="password" name="password" class="form-control" placeholder="패스워드 입력하세요">-->
             <input type="password" id="password"
-                   name="password" class="form-control" placeholder="패스워드를 입력하세요">
-<!--            <div class="field-error">-->
-<!--                패스워드 오류-->
-<!--            </div>-->
+                   name="password"
+                   class="form-control"
+                   th:field="*{password}"
+                   th:errorclass="field-error"
+                   placeholder="패스워드를 입력하세요">
+            <div class="field-error" th:errors="*{password}">패스워드 오류</div>
         </div>
         <hr class="my-4">
         <div class="row">
