@@ -8,10 +8,13 @@ import com.community.service.WritingService;
 import com.community.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.connector.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,6 +35,8 @@ public class writingController {
     *  DELETE /writings/{writingNum} : 글 삭제
     */
 
+
+    /*글 상세*/
     @GetMapping("{writingId}")
     public String detail(@SessionAttribute(name= SessionConst.LOGIN_MEMBER, required = false) User user,
                          @PathVariable Long writingId, Model model){
@@ -42,7 +47,7 @@ public class writingController {
         return "/basic/writing";
     }
 
-    //글쓰기 폼
+    /*글쓰기로 이동*/
     @GetMapping("writing")
     public String writingForm(@SessionAttribute(name= SessionConst.LOGIN_MEMBER, required = false) User user,
             @ModelAttribute("writingForm") WritingForm writingForm){
@@ -52,10 +57,12 @@ public class writingController {
         return "/basic/writingForm";
     }
 
+    /*글 작성*/
     @PostMapping("writing")
     public String writing(HttpServletRequest request,
                           @ModelAttribute("writingForm") WritingForm writingForm,
-                          BindingResult bindingResult, Model model){
+                          BindingResult bindingResult, Model model,
+                          RedirectAttributes redirectAttributes){
         if (bindingResult.hasErrors()) {
             log.info("bindingResult={}", bindingResult);
             return "/basic/writingForm";
@@ -76,7 +83,10 @@ public class writingController {
 
         model.addAttribute("writings",writingService.getAll());
         model.addAttribute("user", user);
-        return "/basic/main";
 
+        redirectAttributes.addAttribute("writingId", savedWriting.getId());
+        redirectAttributes.addAttribute("status", true);
+
+        return "redirect:/{writingId}";
     }
 }
