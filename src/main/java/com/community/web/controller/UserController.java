@@ -59,8 +59,7 @@ public class UserController {
             return "/basic/loginForm";
         }
 
-        User loginUser = userService.login(loginUserForm.getLoginId(),
-                loginUserForm.getPassword());
+        User loginUser = userService.login(loginUserForm.getLoginId(),  loginUserForm.getPassword());
 
         if(loginUser==null){
             bindingResult.reject("loginFail", "아이디 또는 비밀번호를 확인하세요.");

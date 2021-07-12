@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(String loginId, String password) {
         User loginUser = store.get(loginId);
+        if(loginUser==null) return null;
         if(loginUser.getPassword().equals(password))
             return loginUser;
         else return null;
