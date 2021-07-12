@@ -1,6 +1,6 @@
-package com.community.service;
+package com.community.service.interfaceService;
 
-import com.community.entity.User;
+import com.community.domain.entity.User;
 
 import java.util.List;
 

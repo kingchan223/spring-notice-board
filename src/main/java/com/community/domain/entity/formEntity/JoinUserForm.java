@@ -1,7 +1,6 @@
-package com.community.entity;
+package com.community.domain.entity.formEntity;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotEmpty;
 

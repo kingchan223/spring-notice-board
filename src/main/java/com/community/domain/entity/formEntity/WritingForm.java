@@ -1,12 +1,8 @@
-package com.community.entity;
+package com.community.domain.entity.formEntity;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
 
 @Data
 public class WritingForm {

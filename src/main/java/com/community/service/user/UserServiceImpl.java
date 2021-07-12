@@ -1,11 +1,11 @@
-package com.community.service;
+package com.community.service.user;
 
 
-import com.community.entity.User;
+import com.community.domain.entity.User;
+import com.community.service.interfaceService.UserService;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @Primary
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private Map<String, User> store = new ConcurrentHashMap<>();
 

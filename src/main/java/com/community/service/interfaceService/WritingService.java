@@ -1,6 +1,6 @@
-package com.community.service;
+package com.community.service.interfaceService;
 
-import com.community.entity.Writing;
+import com.community.domain.entity.Writing;
 
 import java.util.List;
 

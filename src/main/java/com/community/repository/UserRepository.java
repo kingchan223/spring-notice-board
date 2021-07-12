@@ -1,7 +1,7 @@
 package com.community.repository;
 
 
-import com.community.entity.User;
+import com.community.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

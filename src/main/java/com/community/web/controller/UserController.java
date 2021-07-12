@@ -1,12 +1,12 @@
-package com.community.controller;
+package com.community.web.controller;
 
 import com.community.SessionConst;
-import com.community.entity.JoinUserForm;
-import com.community.entity.LoginUserForm;
-import com.community.entity.User;
-import com.community.entity.Writing;
-import com.community.service.WritingService;
-import com.community.service.UserService;
+import com.community.domain.entity.formEntity.JoinUserForm;
+import com.community.domain.entity.formEntity.LoginUserForm;
+import com.community.domain.entity.User;
+import com.community.domain.entity.Writing;
+import com.community.service.interfaceService.WritingService;
+import com.community.service.interfaceService.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

@@ -1,15 +1,13 @@
-package com.community.controller;
+package com.community.web.controller;
 
 import com.community.SessionConst;
-import com.community.entity.User;
-import com.community.entity.Writing;
-import com.community.entity.WritingForm;
-import com.community.service.WritingService;
-import com.community.service.UserService;
+import com.community.domain.entity.User;
+import com.community.domain.entity.Writing;
+import com.community.domain.entity.formEntity.WritingForm;
+import com.community.service.interfaceService.WritingService;
+import com.community.service.interfaceService.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.connector.Response;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

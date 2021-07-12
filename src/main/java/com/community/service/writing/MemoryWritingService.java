@@ -1,9 +1,10 @@
-package com.community.service;
+package com.community.service.writing;
 
-import com.community.entity.User;
-import com.community.entity.Writing;
+import com.community.domain.entity.User;
+import com.community.domain.entity.Writing;
+import com.community.service.interfaceService.UserService;
+import com.community.service.interfaceService.WritingService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;

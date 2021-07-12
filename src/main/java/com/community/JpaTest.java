@@ -1,7 +1,7 @@
 package com.community;
 
-import com.community.entity.RoleType;
-import com.community.entity.User;
+import com.community.domain.entity.RoleType;
+import com.community.domain.entity.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
