@@ -25,6 +25,9 @@
         제목:<h1 th:text="${writing.title}"></h1>
     </div>
     <br>
+    <div>
+        작성자:<h2 th:text="${writing.user.username}"></h2>
+    </div>
     <br>
     <div>
         <label>글 내용:</label>
@@ -34,10 +37,10 @@
     <hr class="my-4">
 
     <div class="row">
-        <div class="col">
+        <div class="col"  th:if="${right}">
             <button class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='editForm.html'"
-                    th:onclick="|location.href='@{/writings/{writingId}/edit(writingId=${writing.id})}'|"
+                    th:onclick="|location.href='@{/edit/{writingId}/(writingId=${writing.id})}'|"
                     type="button">글 수정</button>
         </div>
         <div class="col">
@@ -47,14 +50,13 @@
                     type="button">목록으로</button>
         </div>
 
-        <div class="col">
+        <div class="col"  th:if="${right}">
             <button class="w-100 btn btn-danger btn-lg"
                     onclick="location.href='main.html'"
                     th:onclick="|location.href='@{/writings/{writingId}/delete/(writingId=${writing.id})}'|"
                     type="button">삭제하기</button>
         </div>
     </div>
-
 </div> <!-- /container -->
 </body>
 </html>

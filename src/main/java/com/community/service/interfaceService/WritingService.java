@@ -23,7 +23,7 @@ public interface WritingService {
     Writing add(Writing writing);
 
     //POST /writings/{writingNum} : 글 수정
-    void update(Writing writing);
+    void update(Long beforeWritingId, Writing afterWriting);
 
     //DELETE /writings/{writingNum} : 글 삭제
     void delete(Long id);

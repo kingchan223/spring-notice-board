@@ -1,21 +1,24 @@
 package com.community.domain.entity.formEntity;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotEmpty;
 
 @Data
-public class WritingForm {
+public class AddWritingForm {
 
     @NotEmpty(message = "제목을 입려하세요")
+    @Length(min=3, max=15)
     private String title;
 
     @NotEmpty(message="글을 입력하세요")
     private String content;
 
-    public WritingForm(){}
+    public AddWritingForm(){}
 
-    public WritingForm(String title, String content) {
+    public AddWritingForm(String title, String content) {
         this.title = title;
         this.content = content;
     }

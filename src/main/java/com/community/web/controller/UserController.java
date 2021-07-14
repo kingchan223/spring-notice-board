@@ -48,7 +48,7 @@ public class UserController {
         return "/basic/loginForm";
     }
 
-    /*로그인*/
+    /*로그인 ( 세션만들어준다. )*/
     @PostMapping("/login")
     public String login(@Validated @ModelAttribute("loginUserForm") LoginUserForm loginUserForm,
                         BindingResult bindingResult

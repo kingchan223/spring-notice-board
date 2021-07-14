@@ -39,10 +39,10 @@ public class MemoryWritingService implements WritingService {
     }
 
     @Override
-    public void update(Writing writing) {
-        Writing findWriting = getOne(writing.getId());
-        findWriting.setTitle(writing.getTitle());
-        findWriting.setContent(writing.getContent());
+    public void update(Long beforeWritingId, Writing afterWriting) {
+        Writing findWriting = getOne(beforeWritingId);
+        findWriting.setTitle(afterWriting.getTitle());
+        findWriting.setContent(afterWriting.getContent());
     }
 
     @Override

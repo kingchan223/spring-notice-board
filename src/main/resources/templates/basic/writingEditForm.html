@@ -23,8 +23,8 @@
     <div class="py-5 text-center">
         <h2>글쓰기</h2>
     </div>
-
-    <form action="joinForm.html" th:action="@{/writing}" th:object="${addWritingForm}" method="post" enctype="multipart/form-data">
+<!--      |location.href='@{/writings/{writingId}/delete/(writingId=${writing.id})}'|-->
+    <form action="joinForm.html" th:action="@{/edit/{writingId}/(writingId=${writing.id})}" th:object="${writing}" method="post" enctype="multipart/form-data">
         <div>
             <label for="title">글제목</label>
             <input type="text" id="title" name="title"
