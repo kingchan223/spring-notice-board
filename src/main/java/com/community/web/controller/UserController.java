@@ -44,15 +44,18 @@ public class UserController {
 
     /*로그인 view*/
     @GetMapping("/login")
-    public String loginForm(@ModelAttribute("loginUserForm") LoginUserForm loginUserForm){
+    public String loginForm(@ModelAttribute("loginUserForm") LoginUserForm loginUserForm,
+                            @RequestParam(defaultValue="/") String redirectURL){
+        log.info("GET redirectUrl={}", redirectURL);
         return "/basic/loginForm";
     }
 
     /*로그인 ( 세션만들어준다. )*/
     @PostMapping("/login")
     public String login(@Validated @ModelAttribute("loginUserForm") LoginUserForm loginUserForm,
-                        BindingResult bindingResult
-                        ,HttpServletRequest request){
+                        BindingResult bindingResult,
+                        @RequestParam(defaultValue="/") String redirectURL,
+                        HttpServletRequest request){
 
         log.info("bindingResult={}", bindingResult);
         if(bindingResult.hasErrors()){
@@ -69,7 +72,8 @@ public class UserController {
         HttpSession session = request.getSession(true);
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginUser);
         log.info("loginUser={}", loginUser);
-        return "redirect:/";
+        log.info("POST redirectUrl={}", redirectURL);
+        return "redirect:"+redirectURL;
     }
 
     @GetMapping("/logout")

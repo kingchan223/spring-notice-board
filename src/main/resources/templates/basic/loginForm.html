@@ -35,7 +35,7 @@
 
 
     <form action="loginForm.html"
-          th:action="@{/login}"
+          th:action
           th:object="${loginUserForm}"
           method="post">
         <div th:if="${#fields.hasGlobalErrors()}">
