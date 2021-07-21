@@ -24,8 +24,8 @@ public class Writing {
     @Column(name="DATE")
     private String date;
 
-    @ManyToOne
-    @JoinColumn(name="EMAIL")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="USER_ID")
     private User user;
 
     public Writing(){}

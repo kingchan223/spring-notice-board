@@ -1,12 +1,14 @@
 package com.community.repository;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
-import com.community.domain.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import javax.persistence.EntityManagerFactory;
 
-import java.util.Optional;
+@Repository
+@RequiredArgsConstructor
+public class UserRepository {
+//    private final EntityManagerFactory emf;
 
-public interface UserRepository extends JpaRepository<User, String> {
-    Optional<User> findByEmail(String email); // 이미 가입한 사람인지 아닌지를 판단하기 위해서
 
 }

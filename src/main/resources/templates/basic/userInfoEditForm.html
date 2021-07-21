@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link
+            th:href="@{/css/bootstrap.min.css}"
+            href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2>회원정보 수정하기</h2>
+    </div>
+    <!-- -->
+<!--    <h2 th:if="${param.status}" th:text="'상품등록이 완료되었습니다.'"></h2>-->
+
+    <br>
+    <br>
+    <form th:action="@{/userinfo/edit}" method="post">
+        <div>
+            <label>이름</label>
+            <input type="text" class="form-control" name="username"  th:placeholder="${user.username}">
+        </div>
+        <div>
+            <label>이메일</label>
+            <input type="text" class="form-control" name="email" th:placeholder="${user.email}">
+        </div>
+        <div>
+            <label>아이디</label>
+            <input type="text" class="form-control" name="loginId"  th:placeholder="${user.loginId}">
+        </div>
+<!--        <div>-->
+<!--            <label>아이디</label>-->
+<!--            <input type="text" class="form-control"  th:text="${user.email}">-->
+<!--        </div>-->
+
+    <hr class="my-4">
+
+    <hr class="my-4">
+
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='main.html'"
+                    th:onclick="|location.href='@{/}'|"
+                    type="submit">변경확인🙆🏼‍♂️</button>
+        </div>
+
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='main.html'"
+                    th:onclick="|location.href='@{/userInfo/editpw}'|"
+                    type="button">비밀번호 변경🔑</button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='main.html'"
+                    th:onclick="|location.href='@{/}'|"
+                    type="button">HOME</button>
+        </div>
+    </div>
+    </form>
+</div> <!-- /container -->
+</body>
+</html>

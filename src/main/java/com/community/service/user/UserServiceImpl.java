@@ -2,7 +2,9 @@ package com.community.service.user;
 
 
 import com.community.domain.entity.User;
+import com.community.domain.entity.formEntity.editUserForm;
 import com.community.service.interfaceService.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @Primary
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private Map<String, User> store = new ConcurrentHashMap<>();
@@ -34,11 +37,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(String loginId, String password) {
         User loginUser = store.get(loginId);
+        log.info("loginUser={}", loginUser);
         if(loginUser==null) return null;
         if(loginUser.getPassword().equals(password))
             return loginUser;
         else return null;
     }
+
+
 
     /*회원 조회*/
     @Override
@@ -51,6 +57,15 @@ public class UserServiceImpl implements UserService {
     public List<User> getAll() {
         return new ArrayList<>(store.values());
     }
+
+    /*회원정보 변경*/
+    @Override
+    public User changeUserInfo(String loginId, editUserForm newUser) {
+        log.info("loginId={}", loginId);
+        User user = findUser(loginId);
+        return user.changeUser(newUser);
+    }
+
 
 //    @PostConstruct
 //    public void initUser(){
