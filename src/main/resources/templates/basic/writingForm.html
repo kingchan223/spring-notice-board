@@ -24,7 +24,7 @@
         <h2>글쓰기</h2>
     </div>
 
-    <form action="joinForm.html" th:action="@{/writing}" th:object="${addWritingForm}" method="post">
+    <form action="joinForm.html" th:action="@{/writing}" th:object="${addWritingForm}" method="post" enctype="multipart/form-data">
         <div>
             <label for="title">글제목</label>
             <input type="text" id="title" name="title"
@@ -41,6 +41,11 @@
                       th:errorclass="field-error"
                       class="form-control" placeholder="글을 입력하세요"></textarea>
             <div class="field-error" th:errors="*{content}">글 내용</div>
+        </div>
+        <div>
+            <label for="content">이미지올리기</label>
+            <input type="file" id="imageFiles" name="imageFiles" class="form-control" multiple="multiple">
+
         </div>
 
         <hr class="my-4">

@@ -12,37 +12,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
-@Entity
-@Builder
+//@Entity
 @AllArgsConstructor
-@Table(name="USER")
+//@Table(name="USER")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="USER_ID")
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column(name="USER_ID")
     private Long id;
 
-    @Column(name ="USERNAME")
+//    @Column(name ="USERNAME")
     private String username;
 
-    @Column(name ="LOGINID")
+//    @Column(name ="LOGINID")
     private String loginId;
 
-    @Column(name ="EMAIL")
+//    @Column(name ="EMAIL")
     private String email;
 
-    @Column(name ="PASSWORD")
+    //@Column(name ="PASSWORD")
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name ="ROLE")
+//    @Enumerated(EnumType.STRING)
+//    @Column(name ="ROLE")
     private RoleType role;
 
-    @Column(name ="JOINEDDATE")
+//    @Column(name ="JOINEDDATE")
     private String joinedDate;
 
-    @OneToMany(mappedBy="user")
+//    @OneToMany(mappedBy="user")
     private List<Writing> writings = new ArrayList<Writing>();
 
     private void setId(Long id) {

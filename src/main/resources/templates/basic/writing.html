@@ -33,6 +33,9 @@
         <label>글 내용:</label>
         <text type="textarea" class="form-control"  th:text="${writing.content}" readonly></text>
     </div>
+    <br>
+    <img th:each="imageFile : ${writing.imageFiles}" th:src="|/images/${imageFile.getStoreFilename()}|"
+         width="500" height="500"/>
 
     <hr class="my-4">
 

@@ -57,8 +57,8 @@ public class MemoryWritingService implements WritingService {
         userService.addUserBasic(user1);
         userService.addUserBasic(user2);
 
-        Writing writing1 = new Writing("안녕하세요", "하하하", user1);
-        Writing writing2 = new Writing("하이~", "하하하", user2);
+        Writing writing1 = new Writing("안녕하세요", "하하하", user1, null);
+        Writing writing2 = new Writing("하이~", "하하하", user2, null);
         add(writing1);
         add(writing2);
     }

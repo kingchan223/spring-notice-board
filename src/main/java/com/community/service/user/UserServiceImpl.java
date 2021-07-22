@@ -44,8 +44,6 @@ public class UserServiceImpl implements UserService {
         else return null;
     }
 
-
-
     /*회원 조회*/
     @Override
     public User findUser(String loginId) {

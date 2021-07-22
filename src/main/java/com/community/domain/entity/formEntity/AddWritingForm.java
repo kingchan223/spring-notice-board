@@ -3,8 +3,10 @@ package com.community.domain.entity.formEntity;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Data
 public class AddWritingForm {
@@ -15,6 +17,8 @@ public class AddWritingForm {
 
     @NotEmpty(message="글을 입력하세요")
     private String content;
+
+    private List<MultipartFile> imageFiles;
 
     public AddWritingForm(){}
 
