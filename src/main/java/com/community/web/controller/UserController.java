@@ -5,7 +5,7 @@ import com.community.domain.entity.formEntity.JoinUserForm;
 import com.community.domain.entity.formEntity.LoginUserForm;
 import com.community.domain.entity.User;
 import com.community.domain.entity.Writing;
-import com.community.domain.entity.formEntity.editUserForm;
+import com.community.domain.entity.formEntity.EditUserForm;
 import com.community.service.interfaceService.WritingService;
 import com.community.service.interfaceService.UserService;
 import lombok.RequiredArgsConstructor;
@@ -68,12 +68,12 @@ public class UserController {
                         @RequestParam(defaultValue="/") String redirectURL,
                         HttpServletRequest request){
 
-        log.info("bindingResult={}", bindingResult);
+//        log.info("bindingResult={}", bindingResult);
         if(bindingResult.hasErrors()){
             return "/basic/loginForm";
         }
 
-        User loginUser = userService.login(loginUserForm.getLoginId(),  loginUserForm.getPassword());
+        User loginUser = userService.login(loginUserForm.getLoginId(), loginUserForm.getPassword());
 
         if(loginUser==null){
             bindingResult.reject("loginFail", "아이디 또는 비밀번호를 확인하세요.");
@@ -82,8 +82,8 @@ public class UserController {
 
         HttpSession session = request.getSession(true);
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginUser);
-        log.info("loginUser={}", loginUser);
-        log.info("POST redirectUrl={}", redirectURL);
+//        log.info("loginUser={}", loginUser);
+//        log.info("POST redirectUrl={}", redirectURL);
         return "redirect:"+redirectURL;
     }
 
@@ -115,11 +115,8 @@ public class UserController {
 //            log.info("bindingResult = {}", bindingResult);
             return "/basic/joinForm";
         }
+        userService.addUser(joinUserForm);
 
-        User savedUser = new User(joinUserForm.getUsername(), joinUserForm.getEmail(),
-                joinUserForm.getPassword(), joinUserForm.getLoginId());
-
-        userService.addUserBasic(savedUser);
         redirectAttributes.addAttribute("status", true);
 //        LoginUserForm loginUserForm = new LoginUserForm(savedUser.getLoginId(), savedUser.getPassword());
 //        model.addAttribute("loginUserForm", loginUserForm);
@@ -175,22 +172,21 @@ public class UserController {
         if((loginId==null) || (loginId.isEmpty())){
             loginId = user.getLoginId();
         }
-        editUserForm newUserInfo = new editUserForm(username, email, loginId);
-        User editedUser = userService.changeUserInfo(ogLoginId, newUserInfo);
+
+        EditUserForm editUserForm = new EditUserForm(username, email, loginId);
+        userService.changeUserInfo(ogLoginId, editUserForm);
 
         //아이디를 바꿨다면 세션을 삭제하고 다시 로그인 요청하기
-        if(!ogLoginId.equals(username)){
+        if(!ogLoginId.equals(loginId)){
             HttpSession session = request.getSession(false);
             if(session!=null){
                 session.invalidate();
             }
-            redirectAttributes.addAttribute("chanedId", true);
+            redirectAttributes.addAttribute("changedId", true);
             return "redirect:/login";
         }
 
-        model.addAttribute("user", editedUser);
+        model.addAttribute("user", editUserForm);
         return "/basic/userInfo";
     }
-
-
 }

@@ -150,6 +150,7 @@ public class WritingController {
 
         return "redirect:/{writingId}";
     }
+
     @ResponseBody
     @GetMapping("/images/{filename}")
     public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {

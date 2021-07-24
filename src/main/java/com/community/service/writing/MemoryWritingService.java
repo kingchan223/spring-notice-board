@@ -2,6 +2,7 @@ package com.community.service.writing;
 
 import com.community.domain.entity.User;
 import com.community.domain.entity.Writing;
+import com.community.domain.entity.formEntity.JoinUserForm;
 import com.community.service.interfaceService.UserService;
 import com.community.service.interfaceService.WritingService;
 import lombok.RequiredArgsConstructor;
@@ -52,13 +53,13 @@ public class MemoryWritingService implements WritingService {
 
     @PostConstruct
     public void init(){
-        User user1 = new User("찬영", "kinhchan223@gmail.com", "1111", "k");
-        User user2 = new User("상운", "sanhun@gmail.com", "1111", "sang112");
-        userService.addUserBasic(user1);
-        userService.addUserBasic(user2);
+        JoinUserForm JoinUserForm1 = new JoinUserForm("k", "1111", "이찬영", "kingchan223@gmail.com");
+        JoinUserForm JoinUserForm2 = new JoinUserForm("l", "1111", "이상운", "sang@github.io.com");
+        User initUser1 = userService.addUser(JoinUserForm1);
+        User initUser2 = userService.addUser(JoinUserForm2);
 
-        Writing writing1 = new Writing("안녕하세요", "하하하", user1, null);
-        Writing writing2 = new Writing("하이~", "하하하", user2, null);
+        Writing writing1 = new Writing("안녕하세요", "하하하", initUser1, null);
+        Writing writing2 = new Writing("하이~", "하하하", initUser2, null);
         add(writing1);
         add(writing2);
     }

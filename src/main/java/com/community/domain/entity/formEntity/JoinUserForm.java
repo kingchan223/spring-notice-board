@@ -1,10 +1,12 @@
 package com.community.domain.entity.formEntity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 
 @Data
+@AllArgsConstructor
 public class JoinUserForm {
 
     @NotEmpty(message="아이디는 필수 입니다.")

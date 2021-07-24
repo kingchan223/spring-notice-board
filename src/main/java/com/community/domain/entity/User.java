@@ -1,8 +1,6 @@
 package com.community.domain.entity;
 
-import com.community.domain.entity.formEntity.editUserForm;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,36 +10,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
-//@Entity
+@Entity
 @AllArgsConstructor
-//@Table(name="USER")
+@Table(name="USER")
 public class User {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name="USER_ID")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="USER_ID")
     private Long id;
 
-//    @Column(name ="USERNAME")
+    @Column(name ="USERNAME")
     private String username;
 
-//    @Column(name ="LOGINID")
+    @Column(name ="LOGINID")
     private String loginId;
 
-//    @Column(name ="EMAIL")
+    @Column(name ="EMAIL")
     private String email;
 
-    //@Column(name ="PASSWORD")
+    @Column(name ="PASSWORD")
     private String password;
 
-//    @Enumerated(EnumType.STRING)
-//    @Column(name ="ROLE")
+    @Enumerated(EnumType.STRING)
+    @Column(name ="ROLE")
     private RoleType role;
 
-//    @Column(name ="JOINEDDATE")
+    @Column(name ="JOINEDDATE")
     private String joinedDate;
 
-//    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user")
     private List<Writing> writings = new ArrayList<Writing>();
 
     private void setId(Long id) {
@@ -78,20 +76,22 @@ public class User {
 
     public User(){}
 
-    public User(String username, String email, String password, String loginId) {
+    public User(String username, String email, String password, String loginId, Long Long) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.loginId = loginId;
         this.joinedDate = LocalDateTime.now().toString();
         this.role = RoleType.USER;
+        this.id = id;
     }
 
-    public User changeUser(editUserForm newUser){
-        this.username = newUser.getUsername();
-        this.email = newUser.getEmail();
-        this.loginId = newUser.getLoginId();
-
+    public User changeUser(String username, String email, String loginId){
+        this.username = username;
+        this.email = email;
+        this.loginId = loginId;
         return this;
     }
+
+
 }

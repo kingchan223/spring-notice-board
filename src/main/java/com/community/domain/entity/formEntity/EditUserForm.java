@@ -3,7 +3,7 @@ package com.community.domain.entity.formEntity;
 import lombok.Data;
 
 @Data
-public class editUserForm {
+public class EditUserForm {
 
     private String username;
 
@@ -11,7 +11,7 @@ public class editUserForm {
 
     private String email;
 
-    public editUserForm(String username, String email, String loginId) {
+    public EditUserForm(String username, String email, String loginId) {
         this.username = username;
         this.loginId = loginId;
         this.email = email;

@@ -11,26 +11,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
-//@Table(name="BOARD")
-//@Entity
+@Table(name="BOARD")
+@Entity
 public class Writing {
-//    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name="BOARD_ID")
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="BOARD_ID")
     private Long id;
 
-//    @Column(name="TITLE")
+    @Column(name="TITLE")
     private String title;
 
-//    @Column(name="CONTENT")
+    @Column(name="CONTENT")
     private String content;
 
-//    @Column(name="DATE")
+    @Column(name="DATE")
     private String date;
 
+    @Transient
     private List<UploadFile> imageFiles;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name="USER_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="USER_ID")
     private User user;
 
     public Writing(){}
