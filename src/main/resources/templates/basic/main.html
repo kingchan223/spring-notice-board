@@ -12,7 +12,7 @@
         <h2>게시글 목록</h2>
         <br>
         <h2 th:if="${param.status}" th:text="삭제되었습니다."></h2>
-        <h4 class="mb-3" th:text="|${user.username}님 안녕하세요!🖥|"></h4>
+        <h4 class="mb-3" th:text="|${member.name}님 안녕하세요!🖥|"></h4>
     </div>
 
     <div class="row">
@@ -57,7 +57,7 @@
                 <td><a href="writing.html" th:href="@{/{writingId}(writingId=${writing.id})}" th:text="${writing.id}"></a></td>
                 <td><a href="writing.html" th:href="@{|/${writing.id}|}" th:text="${writing.title}">글제목</a></td>
                 <td><a href="writing.html" th:href="@{|/${writing.id}|}" th:text="${writing.date}">날짜</a></td>
-                <td><a href="writing.html" th:href="@{|/${writing.id}|}" th:text="${writing.user.loginId}">작성자</a></td>
+                <td><a href="writing.html" th:href="@{|/${writing.id}|}" th:text="${writing.member.loginId}">작성자</a></td>
             </tr>
             </tbody>
         </table>

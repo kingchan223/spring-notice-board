@@ -19,11 +19,6 @@
             font-weight:bold;
         }
     </style>
-    <th:block th:if="${param.status}">
-        <script>
-            top.alert("회원가입에 성공하셨습니다. 로그인해주세요.");
-        </script>
-    </th:block>
 </head>
 <body>
 
@@ -32,12 +27,12 @@
     <div class="py-5 text-center">
         <h2>로그인</h2>
     </div>
-<!--    <h3 th:if="${status}" th:text="'회원가입에 성공하셨습니다. 로그인 해주세요.'"></h3>-->
-<!--    <h3 th:if="${changedId}" th:text="'변경된 아이디로 로그인해주세요.'"></h3>-->
+    <h2 th:if="${param.status}" th:text="'회원가입에 성공하셨습니다. 로그인 해주세요.'"></h2>
+<!--    <h3 th:if="${param.changedId}" th:text="'변경된 아이디로 로그인해주세요.'"></h3>-->
 
     <form action="loginForm.html"
           th:action
-          th:object="${loginUserForm}"
+          th:object="${loginMemberForm}"
           method="post">
         <div th:if="${#fields.hasGlobalErrors()}">
             <p class="field-error global-error" th:each="err:${#fields.globalErrors()}" th:text="${err}"></p>

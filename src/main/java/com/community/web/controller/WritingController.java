@@ -1,13 +1,13 @@
 package com.community.web.controller;
 
 import com.community.SessionConst;
-import com.community.domain.entity.User;
+import com.community.domain.entity.Member;
 import com.community.domain.entity.Writing;
 import com.community.domain.entity.formEntity.AddWritingForm;
 import com.community.service.FileStore;
 import com.community.service.UploadFile;
 import com.community.service.interfaceService.WritingService;
-import com.community.service.interfaceService.UserService;
+import com.community.service.interfaceService.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +33,7 @@ import java.util.List;
 @RequestMapping("/")
 public class WritingController {
     private final WritingService writingService;
-    private final UserService userService;
+    private final MemberService memberService;
     private final FileStore fileStore;
 
     @Value("${file.dir}")
@@ -49,33 +49,26 @@ public class WritingController {
 
     /*글 상세*/
     @GetMapping("{writingId}")
-    public String detail(@SessionAttribute(name= SessionConst.LOGIN_MEMBER, required = false) User user,
+    public String detail(@SessionAttribute(name= SessionConst.LOGIN_MEMBER, required = false) Member member,
                          @PathVariable Long writingId, Model model){
-        if(user == null){
+        if(member == null){
             return "redirect:/";
         }
 
-        User writingUser = writingService.getOne(writingId).getUser();
+        Member writingMember = writingService.findOne(writingId).getMember();
 
-        if(user.getEmail().equals(writingUser.getEmail()) && user.getUsername().equals(writingUser.getUsername())){
+        if(member.getEmail().equals(writingMember.getEmail()) && member.getName().equals(writingMember.getName())){
             model.addAttribute("right", true);
         }
 
-        log.info("user.getEmail()={}", user.getEmail());
-        log.info("writingUser.getEmail()={}", writingUser.getEmail());
-
-        log.info("user.getUsername()={}", user.getUsername());
-        log.info("writingUser.getUsername()={}", writingUser.getUsername());
-
-
-        model.addAttribute("writing", writingService.getOne(writingId));
+        model.addAttribute("writing", writingService.findOne(writingId));
         return "/basic/writing";
     }
 
     /*글 수정 회면 보여주기*/
     @GetMapping("/edit/{writingId}")
     public String editView(@PathVariable Long writingId,Model model){
-        Writing writing = writingService.getOne(writingId);
+        Writing writing = writingService.findOne(writingId);
         model.addAttribute("writing", writing);
         return "/basic/writingEditForm";
     }
@@ -88,24 +81,23 @@ public class WritingController {
         Writing afterWriting = new Writing(addWritingForm.getTitle(), addWritingForm.getContent(), null);
         writingService.update(writingId, afterWriting);
         /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
-
         return "redirect:/";
     }
 
     /*글 작성으로 이동*/
     @GetMapping("writing")
-    public String writingForm(@SessionAttribute(name= SessionConst.LOGIN_MEMBER, required = false) User user,
+    public String writingForm(@SessionAttribute(name= SessionConst.LOGIN_MEMBER, required = false) Member member,
             @ModelAttribute("addWritingForm") AddWritingForm addWritingForm){
-        if(user == null){
+        if(member == null){
             return "redirect:/";
         }
-//        log.info("user.name={}", user.getEmail());
-//        log.info("user.name={}", user.getJoinedDate());
-//        log.info("user.name={}", user.getId());
-//        log.info("user.name={}", user.getLoginId());
-//        log.info("user.name={}", user.getPassword());
-//        log.info("user.name={}", user.getUsername());
-//        log.info("user.name={}", user.getRole());
+//        log.info("member.name={}", member.getEmail());
+//        log.info("member.name={}", member.getJoinedDate());
+//        log.info("member.name={}", member.getId());
+//        log.info("member.name={}", member.getLoginId());
+//        log.info("member.name={}", member.getPassword());
+//        log.info("member.name={}", member.getUsername());
+//        log.info("member.name={}", member.getRole());
         return "/basic/writingForm";
     }
 
@@ -121,31 +113,27 @@ public class WritingController {
             return "/basic/writingForm";
         }
 
-
         //유저찾기
         HttpSession session = request.getSession(false);
-        User user = (User)session.getAttribute(SessionConst.LOGIN_MEMBER);
-
+        Member member = (Member)session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         List<MultipartFile> imageFiles = addWritingForm.getImageFiles();
-//        for (MultipartFile imageFile : imageFiles) {
-//            System.out.println("imageFile = " + imageFile);
-//        }
+
         List<UploadFile> uploadFiles = fileStore.storeFiles(imageFiles);
         System.out.println("uploadFiles = " + uploadFiles);
         for (UploadFile uploadFile : uploadFiles) {
             System.out.println("uploadFile = " + uploadFile);
         }
-        Writing savedWriting = new Writing(addWritingForm.getTitle(), addWritingForm.getContent(), uploadFiles);
+//        Writing savedWriting = new Writing(addWritingForm.getTitle(), addWritingForm.getContent(), uploadFiles);
         //글 작성자에 유저 등록
-        savedWriting.setUser(user);
+//        savedWriting.setMember(member);
         //글 저장
-        writingService.add(savedWriting);
+        Writing writing = writingService.save(member.getId(), addWritingForm);
 
-        model.addAttribute("writings",writingService.getAll());
-        model.addAttribute("user", user);
+        model.addAttribute("writings",writingService.findAll());
+        model.addAttribute("user", member);
 
-        redirectAttributes.addAttribute("writingId", savedWriting.getId());
+        redirectAttributes.addAttribute("writingId", writing.getId());
         redirectAttributes.addAttribute("status", true);
 
         return "redirect:/{writingId}";

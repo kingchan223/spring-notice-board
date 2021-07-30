@@ -29,15 +29,15 @@
 
     <form action="joinForm.html"
           th:action="@{/join}"
-          th:object="${joinUserForm}"
+          th:object="${joinMemberForm}"
           method="post">
         <div>
             <label for="username">이름</label>
             <input type="text" id="username" name="username" class="form-control" placeholder="이름을 입력하세요"
-                   th:field="*{username}"
+                   th:field="*{name}"
                    th:errorclass="field-error" />
 
-            <div class="field-error" th:errors="*{username}">
+            <div class="field-error" th:errors="*{name}">
                 이름 오류
             </div>
 <!--            <input type="text" id="username" name="username" class="form-control" placeholder="이름을 입력하세요">-->
@@ -73,6 +73,42 @@
                   class="form-control" placeholder="이름을 입력하세요">
             <div class="field-error" th:errors="*{password}">
                 패스워드 오류
+            </div>
+        </div>
+
+        <div>
+            <label for="city">도시</label>
+            <!--            <input type="password" id="password" name="password" class="form-control" placeholder="패스워드 입력하세요">-->
+            <input type="text" id="city" name="city"
+                   th:field="*{city}"
+                   th:errorclass="field-error"
+                   class="form-control" placeholder="이름을 입력하세요">
+            <div class="field-error" th:errors="*{city}">
+                도시 오류
+            </div>
+        </div>
+
+        <div>
+            <label for="street">구, 군</label>
+            <!--            <input type="password" id="password" name="password" class="form-control" placeholder="패스워드 입력하세요">-->
+            <input type="text" id="street" name="street"
+                   th:field="*{street}"
+                   th:errorclass="field-error"
+                   class="form-control" placeholder="이름을 입력하세요">
+            <div class="field-error" th:errors="*{street}">
+                구, 군 오류
+            </div>
+        </div>
+
+        <div>
+            <label for="zipcode">우편번호</label>
+            <!--            <input type="password" id="password" name="password" class="form-control" placeholder="패스워드 입력하세요">-->
+            <input type="text" id="zipcode" name="zipcode"
+                   th:field="*{zipcode}"
+                   th:errorclass="field-error"
+                   class="form-control" placeholder="이름을 입력하세요">
+            <div class="field-error" th:errors="*{zipcode}">
+                우편번호 오류
             </div>
         </div>
 

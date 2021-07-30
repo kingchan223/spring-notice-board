@@ -1,5 +1,6 @@
 package com.community.domain.entity;
 
+import com.community.domain.entity.formEntity.JoinMemberForm;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,42 +13,39 @@ import java.util.List;
 @Getter @Setter
 @Entity
 @AllArgsConstructor
-@Table(name="USER")
-public class User {
+@Table(name="member")
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="USER_ID")
+    @Column(name="member_id")
     private Long id;
 
-    @Column(name ="USERNAME")
-    private String username;
+    private String name;
 
-    @Column(name ="LOGINID")
     private String loginId;
 
-    @Column(name ="EMAIL")
     private String email;
 
-    @Column(name ="PASSWORD")
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name ="ROLE")
     private RoleType role;
 
-    @Column(name ="JOINEDDATE")
-    private String joinedDate;
+    private LocalDateTime joinedDate;
 
-    @OneToMany(mappedBy="user")
+    @Embedded
+    private Address address;
+
+    @OneToMany(mappedBy="member")
     private List<Writing> writings = new ArrayList<Writing>();
 
     private void setId(Long id) {
         this.id = id;
     }
 
-    private void setUsername(String username) {
-        this.username = username;
+    private void setName(String name) {
+        this.name = name;
     }
 
     private void setLoginId(String loginId) {
@@ -66,7 +64,7 @@ public class User {
         this.role = role;
     }
 
-    private void setJoinedDate(String joinedDate) {
+    private void setJoinedDate(LocalDateTime joinedDate) {
         this.joinedDate = joinedDate;
     }
 
@@ -74,20 +72,33 @@ public class User {
         this.writings = writings;
     }
 
-    public User(){}
+    public Member(){}
 
-    public User(String username, String email, String password, String loginId, Long Long) {
-        this.username = username;
+    public static Member createMember(JoinMemberForm joinForm){
+        Member member = new Member();
+        member.setName(joinForm.getName());
+        member.setEmail(joinForm.getEmail());
+        member.setLoginId(joinForm.getLoginId());
+        member.setPassword(joinForm.getPassword());
+        Address address = new Address(joinForm.getCity(), joinForm.getStreet(), joinForm.getZipcode());
+        member.setAddress(address);
+        member.setRole(RoleType.USER);
+        member.setJoinedDate(LocalDateTime.now());
+        return member;
+    }
+
+    public Member(String name, String email, String password, String loginId, Long Long) {
+        this.name = name;
         this.email = email;
         this.password = password;
         this.loginId = loginId;
-        this.joinedDate = LocalDateTime.now().toString();
+        this.joinedDate = LocalDateTime.now();
         this.role = RoleType.USER;
         this.id = id;
     }
 
-    public User changeUser(String username, String email, String loginId){
-        this.username = username;
+    public Member changeUser(String name, String email, String loginId){
+        this.name = name;
         this.email = email;
         this.loginId = loginId;
         return this;

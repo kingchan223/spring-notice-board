@@ -1,6 +1,7 @@
 package com.community.service.interfaceService;
 
 import com.community.domain.entity.Writing;
+import com.community.domain.entity.formEntity.AddWritingForm;
 
 import java.util.List;
 
@@ -14,13 +15,13 @@ public interface WritingService {
      */
 
     //GET /writings  : 글목록 조회(main)
-    List<Writing> getAll();
+    List<Writing> findAll();
 
     //GET /writings/{writingNum}  : 글 상세조회
-    Writing getOne(Long id);
+    Writing findOne(Long id);
 
     //POST /writings : 글 생성
-    Writing add(Writing writing);
+    Writing save(Long memberId, AddWritingForm writingForm);
 
     //POST /writings/{writingNum} : 글 수정
     void update(Long beforeWritingId, Writing afterWriting);

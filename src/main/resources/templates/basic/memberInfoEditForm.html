@@ -26,19 +26,19 @@
     <form th:action="@{/userinfo/edit}" method="post">
         <div>
             <label>이름</label>
-            <input type="text" class="form-control" name="username"  th:placeholder="${user.username}">
+            <input type="text" class="form-control" name="username"  th:placeholder="${member.username}">
         </div>
         <div>
             <label>이메일</label>
-            <input type="text" class="form-control" name="email" th:placeholder="${user.email}">
+            <input type="text" class="form-control" name="email" th:placeholder="${member.email}">
         </div>
         <div>
             <label>아이디</label>
-            <input type="text" class="form-control" name="loginId"  th:placeholder="${user.loginId}">
+            <input type="text" class="form-control" name="loginId"  th:placeholder="${member.loginId}">
         </div>
 <!--        <div>-->
 <!--            <label>아이디</label>-->
-<!--            <input type="text" class="form-control"  th:text="${user.email}">-->
+<!--            <input type="text" class="form-control"  th:text="${member.email}">-->
 <!--        </div>-->
 
     <hr class="my-4">

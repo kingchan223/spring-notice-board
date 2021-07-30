@@ -39,9 +39,9 @@
             </thead>
             <tbody>
             <tr th:each="writing:${writings}">
-                <td><a href="writing.html" th:href="@{/{userId}(userId=${user.id})}" th:text="${user.id}"></a></td>
-                <td><a href="writing.html" th:href="@{|/${user.id}|}" th:text="${user.userName}">이름</a></td>
-                <td><a href="writing.html" th:href="@{|/${user.id}|}" th:text="${user.email}">이메일</a></td>
+                <td><a href="writing.html" th:href="@{/{userId}(userId=${member.id})}" th:text="${member.id}"></a></td>
+                <td><a href="writing.html" th:href="@{|/${member.id}|}" th:text="${member.userName}">이름</a></td>
+                <td><a href="writing.html" th:href="@{|/${member.id}|}" th:text="${member.email}">이메일</a></td>
                 <td><button class="btn btn-primary float-end"
                                         th:onclick="|location.href='@{/addUser}'|"
                                         onclick="location.href='addForm.html'"

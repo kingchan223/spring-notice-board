@@ -1,0 +1,43 @@
+spring:
+  message:
+    basename: errors
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+
+  mvc:
+    ignore-default-model-on-redirect: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/community
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+
+server:
+  servlet:
+    session:
+      tracking-modes: cookie
+      timeout: 1800
+  address: localhost
+  port: 8080
+
+
+file:
+  dir: /Users/leechanyoung/Downloads/image/communityFiles/
+
+
+
+

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Data
 @AllArgsConstructor
-public class LoginUserForm {
+public class LoginMemberForm {
 
     @NotEmpty(message = "아이디를 입력하세요.")
     private String loginId;
