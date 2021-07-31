@@ -97,10 +97,13 @@ public class Member {
         this.id = id;
     }
 
-    public Member changeUser(String name, String email, String loginId){
+    public Member changeMember(String name, String email, String loginId, String city, String street, String zipcode){
         this.name = name;
         this.email = email;
         this.loginId = loginId;
+        this.address.setCity(city);
+        this.address.setStreet(street);
+        this.address.setZipcode(zipcode);
         return this;
     }
 

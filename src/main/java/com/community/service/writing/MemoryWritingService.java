@@ -1,17 +1,10 @@
 package com.community.service.writing;
 
-import com.community.domain.entity.Member;
 import com.community.domain.entity.Writing;
 import com.community.domain.entity.formEntity.AddWritingForm;
-import com.community.domain.entity.formEntity.JoinMemberForm;
-import com.community.service.interfaceService.MemberService;
-import com.community.service.interfaceService.WritingService;
+import com.community.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

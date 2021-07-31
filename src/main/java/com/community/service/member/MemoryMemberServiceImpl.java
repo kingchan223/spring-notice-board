@@ -2,12 +2,9 @@ package com.community.service.member;
 
 
 import com.community.domain.entity.Member;
-import com.community.domain.entity.formEntity.EditUserForm;
+import com.community.domain.entity.formEntity.EditMemberForm;
 import com.community.domain.entity.formEntity.JoinMemberForm;
-import com.community.service.interfaceService.MemberService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,9 +68,10 @@ public class MemoryMemberServiceImpl implements MemberService {
 
     /*회원정보 변경*/
     @Override
-    public void changeUserInfo(String loginId, EditUserForm editedUser) {
-        Member member = findById(loginId);
-        member.changeUser(editedUser.getUsername(), editedUser.getEmail(), editedUser.getLoginId());
+    public Member changeUserInfo(Long loginId, EditMemberForm editedUser) {
+//        Member member = findById(loginId);
+//        member.changeUser(editedUser.getUsername(), editedUser.getEmail(), editedUser.getLoginId());
+        return null;
     }
 
     @Override

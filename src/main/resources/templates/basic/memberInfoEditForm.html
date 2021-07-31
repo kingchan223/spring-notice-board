@@ -23,23 +23,31 @@
 
     <br>
     <br>
-    <form th:action="@{/userinfo/edit}" method="post">
+    <form th:action="@{/userinfo/edit}" th:object="${editMemberForm}" method="post">
         <div>
             <label>이름</label>
-            <input type="text" class="form-control" name="username"  th:placeholder="${member.username}">
+            <input type="text" class="form-control" th:field="*{name}" th:placeholder="${editMemberForm.name}">
         </div>
         <div>
             <label>이메일</label>
-            <input type="text" class="form-control" name="email" th:placeholder="${member.email}">
+            <input type="text" class="form-control" th:field="*{email}" name="email" th:placeholder="${editMemberForm.email}">
         </div>
         <div>
             <label>아이디</label>
-            <input type="text" class="form-control" name="loginId"  th:placeholder="${member.loginId}">
+            <input type="text" class="form-control" th:field="*{loginId}" name="loginId"  th:placeholder="${editMemberForm.loginId}">
         </div>
-<!--        <div>-->
-<!--            <label>아이디</label>-->
-<!--            <input type="text" class="form-control"  th:text="${member.email}">-->
-<!--        </div>-->
+        <div>
+            <label>city</label>
+            <input type="text" class="form-control"th:field="*{city}"  name="city"  th:placeholder="${editMemberForm.city}">
+        </div>
+        <div>
+            <label>street</label>
+            <input type="text" class="form-control" th:field="*{street}" name="street"  th:placeholder="${editMemberForm.street}">
+        </div>
+        <div>
+            <label>postcode</label>
+            <input type="text" class="form-control" th:field="*{zipcode}" name="zipcode"  th:placeholder="${editMemberForm.zipcode}">
+        </div>
 
     <hr class="my-4">
 
@@ -49,7 +57,7 @@
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg"
                     onclick="location.href='main.html'"
-                    th:onclick="|location.href='@{/}'|"
+                    th:onclick="|location.href='@{/userinfo/edit}'|"
                     type="submit">변경확인🙆🏼‍♂️</button>
         </div>
 

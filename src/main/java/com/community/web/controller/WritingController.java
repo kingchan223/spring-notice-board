@@ -5,9 +5,8 @@ import com.community.domain.entity.Member;
 import com.community.domain.entity.Writing;
 import com.community.domain.entity.formEntity.AddWritingForm;
 import com.community.service.FileStore;
-import com.community.service.UploadFile;
-import com.community.service.interfaceService.WritingService;
-import com.community.service.interfaceService.MemberService;
+import com.community.service.writing.WritingService;
+import com.community.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,14 +17,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -78,8 +75,8 @@ public class WritingController {
     public String edit(@PathVariable Long writingId,
                        @Validated @ModelAttribute("writingForm") AddWritingForm addWritingForm){
         /*@@@@@@@@@@@@@@@@@@@수정에도 이미지@@@@@@@@@@@@@@@@@@@@@@@@@*/
-        Writing afterWriting = new Writing(addWritingForm.getTitle(), addWritingForm.getContent(), null);
-        writingService.update(writingId, afterWriting);
+//        Writing afterWriting = new Writing(addWritingForm.getTitle(), addWritingForm.getContent(), null);
+//        writingService.update(writingId, afterWriting);
         /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
         return "redirect:/";
     }
@@ -91,19 +88,13 @@ public class WritingController {
         if(member == null){
             return "redirect:/";
         }
-//        log.info("member.name={}", member.getEmail());
-//        log.info("member.name={}", member.getJoinedDate());
-//        log.info("member.name={}", member.getId());
-//        log.info("member.name={}", member.getLoginId());
-//        log.info("member.name={}", member.getPassword());
-//        log.info("member.name={}", member.getUsername());
-//        log.info("member.name={}", member.getRole());
+
         return "/basic/writingForm";
     }
 
     /*글 작성*/
     @PostMapping("writing")
-    public String writing(@Validated @ModelAttribute("writingForm") AddWritingForm addWritingForm,
+    public String writing(@Validated @ModelAttribute AddWritingForm addWritingForm,
                           BindingResult bindingResult,
                           HttpServletRequest request,
                           Model model,
@@ -114,29 +105,27 @@ public class WritingController {
         }
 
         //유저찾기
-        HttpSession session = request.getSession(false);
-        Member member = (Member)session.getAttribute(SessionConst.LOGIN_MEMBER);
-
-        List<MultipartFile> imageFiles = addWritingForm.getImageFiles();
-
-        List<UploadFile> uploadFiles = fileStore.storeFiles(imageFiles);
-        System.out.println("uploadFiles = " + uploadFiles);
-        for (UploadFile uploadFile : uploadFiles) {
-            System.out.println("uploadFile = " + uploadFile);
-        }
+        Member member = findSessionMember(request);
 //        Writing savedWriting = new Writing(addWritingForm.getTitle(), addWritingForm.getContent(), uploadFiles);
         //글 작성자에 유저 등록
 //        savedWriting.setMember(member);
+
         //글 저장
         Writing writing = writingService.save(member.getId(), addWritingForm);
 
-        model.addAttribute("writings",writingService.findAll());
+        model.addAttribute("writing",writing);
         model.addAttribute("user", member);
 
         redirectAttributes.addAttribute("writingId", writing.getId());
         redirectAttributes.addAttribute("status", true);
 
         return "redirect:/{writingId}";
+    }
+
+    private Member findSessionMember(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Member member = (Member)session.getAttribute(SessionConst.LOGIN_MEMBER);
+        return member;
     }
 
     @ResponseBody

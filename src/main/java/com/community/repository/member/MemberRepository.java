@@ -30,9 +30,9 @@ public class MemberRepository {
         return em.createQuery("select m from Member m", Member.class).getResultList();
     }
 
-    public List<Member> findByName(String name){
-        return em.createQuery("select m from Member m where m.name=:name").setParameter("name", name).getResultList();
-    }
+//    public List<Member> findByName(String name){
+//        return em.createQuery("select m from Member m where m.name=:name").setParameter("name", name).getResultList();
+//    }
 
     public Member findByLoginId(String loginId){
         return em.createQuery("select m from Member m where m.loginId=:loginId", Member.class)

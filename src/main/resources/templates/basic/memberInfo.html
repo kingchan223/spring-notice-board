@@ -25,7 +25,7 @@
     <br>
     <div>
         <label>이름</label>
-        <text type="textarea" class="form-control"  th:text="${member.username}" readonly></text>
+        <text type="textarea" class="form-control"  th:text="${member.name}" readonly></text>
     </div>
     <div>
         <label>아이디</label>
@@ -35,12 +35,26 @@
         <label>이메일</label>
         <text type="textarea" class="form-control"  th:text="${member.email}" readonly></text>
     </div>
+    <div>
+        <label>city</label>
+        <text type="textarea" class="form-control"  th:text="${member.address.city}" readonly></text>
+    </div>
+    <div>
+        <label>street</label>
+        <text type="textarea" class="form-control"  th:text="${member.address.street}" readonly></text>
+    </div>
+    <div>
+        <label>postcode
+        </label>
+        <text type="textarea" class="form-control"  th:text="${member.address.zipcode}" readonly></text>
+    </div>
     <hr class="my-4">
     <div id="map" style="width:500px;height:400px;"></div>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e890d377680f8bd3ffa9d0a49a4a05b0"></script>
     <script>
         var container = document.getElementById('map');
         var options = {
+
             center: new kakao.maps.LatLng(33.450701, 126.570667),
             level: 3
         };

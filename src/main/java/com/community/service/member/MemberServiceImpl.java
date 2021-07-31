@@ -1,10 +1,9 @@
 package com.community.service.member;
 
 import com.community.domain.entity.Member;
-import com.community.domain.entity.formEntity.EditUserForm;
+import com.community.domain.entity.formEntity.EditMemberForm;
 import com.community.domain.entity.formEntity.JoinMemberForm;
 import com.community.repository.member.MemberRepository;
-import com.community.service.interfaceService.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -50,8 +49,17 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
-    public void changeUserInfo(String loginId, EditUserForm newUser) {
+    public Member changeUserInfo(Long loginId, EditMemberForm form) {
+        Member member = memberRepository.findOne(loginId);
+        member.changeMember(
+                form.getName(),
+                form.getEmail(),
+                form.getLoginId(),
+                form.getCity(),
+                form.getStreet(),
+                form.getZipcode());
 
+        return member;
     }
 
     @Transactional

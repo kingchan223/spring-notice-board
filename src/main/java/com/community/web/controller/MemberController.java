@@ -2,12 +2,12 @@ package com.community.web.controller;
 
 import com.community.SessionConst;
 import com.community.domain.entity.Member;
+import com.community.domain.entity.formEntity.EditMemberForm;
 import com.community.domain.entity.formEntity.JoinMemberForm;
 import com.community.domain.entity.formEntity.LoginMemberForm;
 import com.community.domain.entity.Writing;
-import com.community.domain.entity.formEntity.EditUserForm;
-import com.community.service.interfaceService.WritingService;
-import com.community.service.interfaceService.MemberService;
+import com.community.service.writing.WritingService;
+import com.community.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -88,7 +88,7 @@ public class MemberController {
 
     /*회원가입 view*/
     @GetMapping("join")
-    public String join(@ModelAttribute("joinUserForm") JoinMemberForm joinMemberForm){
+    public String join(@ModelAttribute JoinMemberForm joinMemberForm){
         return "/basic/joinForm";
     }
 
@@ -115,24 +115,33 @@ public class MemberController {
         return "/basic/joinForm";
     }
 
+    /*회원 정보보기*/
     @GetMapping("userinfo")
     public String userInfo(@SessionAttribute(name=SessionConst.LOGIN_MEMBER, required = false) Member loginMember,
                            Model model){
         if(loginMember == null){
             return "redirect:/login";
         }
-        model.addAttribute("user", loginMember);
-        return "MemberInfo";
+        model.addAttribute("member", memberService.findUser(loginMember.getId()));
+        return "basic/memberInfo";
     }
-
+    /*회원 정보 수정 화면*/
     @GetMapping("userinfo/edit")
     public String editUserInfoForm(@SessionAttribute(name=SessionConst.LOGIN_MEMBER, required = false) Member member,
                                Model model){
         if(member ==null){
             return "redirect:/login";
         }
-        model.addAttribute("user", member);
-        return "memberInfoEditForm";
+        EditMemberForm editMemberForm = EditMemberForm.craeteEditUserForm(
+                member.getName(),
+                member.getEmail(),
+                member.getLoginId(),
+                member.getAddress().getCity(),
+                member.getAddress().getStreet(),
+                member.getAddress().getZipcode()
+        );
+        model.addAttribute("editMemberForm", editMemberForm);
+        return "basic/memberInfoEditForm";
     }
 
     /*회원 정보 수정하기*/
@@ -140,39 +149,36 @@ public class MemberController {
     public String editUserInfo(@SessionAttribute(name=SessionConst.LOGIN_MEMBER, required = false) Member member,
                                HttpServletRequest request,
                                RedirectAttributes redirectAttributes,
-                               @RequestParam String username,
-                               @RequestParam String email,
-                               @RequestParam String loginId,
+                               EditMemberForm editMemberForm,
                                Model model){
-        String ogLoginId = member.getLoginId();
+        Long memberId = member.getId();
 
         if(member ==null){
             return "redirect:/login";
         }
-        if((username==null) || (username.isEmpty())){
-            username = member.getName();
-        }
-        if((email==null) || (email.isEmpty())){
-            email = member.getEmail();
-        }
-        if((loginId==null) || (loginId.isEmpty())){
-            loginId = member.getLoginId();
-        }
+//        if((username==null) || (username.isEmpty())){
+//            username = member.getName();
+//        }
+//        if((email==null) || (email.isEmpty())){
+//            email = member.getEmail();
+//        }
+//        if((loginId==null) || (loginId.isEmpty())){
+//            loginId = member.getLoginId();
+//        }
 
-        EditUserForm editUserForm = new EditUserForm(username, email, loginId);
-        memberService.changeUserInfo(ogLoginId, editUserForm);
+        Member editMember = memberService.changeUserInfo(memberId, editMemberForm);
 
         //아이디를 바꿨다면 세션을 삭제하고 다시 로그인 요청하기
-        if(!ogLoginId.equals(loginId)){
-            HttpSession session = request.getSession(false);
-            if(session!=null){
-                session.invalidate();
-            }
-            redirectAttributes.addAttribute("changedId", true);
-            return "redirect:/login";
-        }
+//        if(!ogLoginId.equals(loginId)){
+//            HttpSession session = request.getSession(false);
+//            if(session!=null){
+//                session.invalidate();
+//            }
+//            redirectAttributes.addAttribute("changedId", true);
+//            return "redirect:/login";
+//        }
 
-        model.addAttribute("user", editUserForm);
-        return "MemberInfo";
+        model.addAttribute("member", editMember);
+        return "basic/memberInfo";
     }
 }

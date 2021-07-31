@@ -1,4 +1,4 @@
-package com.community.service.interfaceService;
+package com.community.service.writing;
 
 import com.community.domain.entity.Writing;
 import com.community.domain.entity.formEntity.AddWritingForm;

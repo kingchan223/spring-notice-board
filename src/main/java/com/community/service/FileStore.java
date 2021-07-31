@@ -1,5 +1,6 @@
 package com.community.service;
 
+import com.community.domain.entity.AttachedFile;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -17,18 +18,18 @@ public class FileStore {
     @Value("${file.dir}")
     private String fileDir;
 
-    public List<UploadFile> storeFiles(List<MultipartFile> imageFiles) throws IOException {
-        List<UploadFile> storeFileResult = new ArrayList<>();
+    public List<AttachedFile> storeFiles(List<MultipartFile> imageFiles) throws IOException {
+        List<AttachedFile> storeFileResult = new ArrayList<>();
         for (MultipartFile imageFile : imageFiles) {
             if(!imageFile.isEmpty()){
-                UploadFile uploadFile = storeFile(imageFile);
+                AttachedFile uploadFile = storeFile(imageFile);
                 storeFileResult.add(uploadFile);
             }
         }
         return storeFileResult;
     }
 
-    public UploadFile storeFile(MultipartFile multipartFile) throws IOException {
+    public AttachedFile storeFile(MultipartFile multipartFile) throws IOException {
         if(multipartFile.isEmpty()){
             return null;
         }
@@ -36,7 +37,7 @@ public class FileStore {
         String storeFilename = UUID.randomUUID().toString()+"."+ extractExt(originalFilename);
 
         multipartFile.transferTo(new File(fileDir+storeFilename));
-        return new UploadFile(originalFilename, storeFilename);
+        return AttachedFile.createAttachedFile(originalFilename, storeFilename);
     }
 
     private String extractExt(String originalFilename) {
