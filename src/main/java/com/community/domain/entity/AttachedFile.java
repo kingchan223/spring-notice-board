@@ -54,4 +54,8 @@ public class AttachedFile {
 
         return attachedFile;
     }
+    //연관관계 편의 메소드
+    public void addWriting(Writing writing){
+        this.setWriting(writing);
+    }
 }

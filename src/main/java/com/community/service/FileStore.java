@@ -15,15 +15,15 @@ import java.util.UUID;
 @Slf4j
 @Component
 public class FileStore {
-    @Value("${file.dir}")
-    private String fileDir;
+//    @Value("${file.dir}")
+    private String fileDir = "/Users/leechanyoung/Downloads/coding/community/src/main/resources/static/clientImages/";
 
     public List<AttachedFile> storeFiles(List<MultipartFile> imageFiles) throws IOException {
         List<AttachedFile> storeFileResult = new ArrayList<>();
         for (MultipartFile imageFile : imageFiles) {
             if(!imageFile.isEmpty()){
-                AttachedFile uploadFile = storeFile(imageFile);
-                storeFileResult.add(uploadFile);
+                AttachedFile attachedFile = storeFile(imageFile);
+                storeFileResult.add(attachedFile);
             }
         }
         return storeFileResult;
@@ -34,14 +34,19 @@ public class FileStore {
             return null;
         }
         String originalFilename = multipartFile.getOriginalFilename();
-        String storeFilename = UUID.randomUUID().toString()+"."+ extractExt(originalFilename);
+        assert originalFilename != null;
+        String storeFilename = UUID.randomUUID() +"."+ extractExt(originalFilename);
 
-        multipartFile.transferTo(new File(fileDir+storeFilename));
+        multipartFile.transferTo(new File(getFullPath(storeFilename)));
         return AttachedFile.createAttachedFile(originalFilename, storeFilename);
     }
 
     private String extractExt(String originalFilename) {
-        int extIndex = originalFilename.lastIndexOf('.');//qweas.png
+        int extIndex = originalFilename.lastIndexOf('.');
         return originalFilename.substring(extIndex + 1);
+    }
+
+    public String getFullPath(String filename){
+        return fileDir + filename;
     }
 }

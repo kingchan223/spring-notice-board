@@ -51,8 +51,10 @@ public class Writing{
 
         FileStore fileStore = new FileStore();
         List<AttachedFile> attachedFiles = fileStore.storeFiles(writingForm.getImageFiles());
-
-        writing.setAttachedFiles(attachedFiles);
+        for (AttachedFile attachedFile : attachedFiles) {
+            writing.getAttachedFiles().add(attachedFile);
+            attachedFile.addWriting(writing);
+        }
         writing.setDate(LocalDateTime.now());
         return writing;
     }

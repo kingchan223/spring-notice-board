@@ -3,6 +3,7 @@ package com.community.service.writing;
 import com.community.domain.entity.Writing;
 import com.community.domain.entity.formEntity.AddWritingForm;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface WritingService {
@@ -21,7 +22,7 @@ public interface WritingService {
     Writing findOne(Long id);
 
     //POST /writings : 글 생성
-    Writing save(Long memberId, AddWritingForm writingForm);
+    Writing save(Long memberId, AddWritingForm writingForm) throws IOException;
 
     //POST /writings/{writingNum} : 글 수정
     void update(Long beforeWritingId, Writing afterWriting);

@@ -2,6 +2,7 @@ package com.community.web.controller;
 
 import com.community.SessionConst;
 import com.community.domain.entity.Member;
+import com.community.domain.entity.Result;
 import com.community.domain.entity.Writing;
 import com.community.domain.entity.formEntity.AddWritingForm;
 import com.community.service.FileStore;
@@ -12,12 +13,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import reactor.core.publisher.Mono;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -33,8 +37,8 @@ public class WritingController {
     private final MemberService memberService;
     private final FileStore fileStore;
 
-    @Value("${file.dir}")
-    private String fileDir;
+//    @Value("${file.dir}")
+    private final String fileDir = "/Users/leechanyoung/Downloads/coding/community/src/main/resources/static/clientImages/";
 
     /*
     *  POST /writings : 글 생성
@@ -134,5 +138,19 @@ public class WritingController {
         // sdh1df14-12ee-2353-1593-sd34dfg434.png (filename) - > fileStore.getFullPath(filename)하면
         // file"/Users/leechanyoung/Downloads/image/communityImageFiles/sdh1df14-12ee-2353-1593-sd34dfg434.png 로 바뀐다.
         return new UrlResource("file:"+fileDir+filename);
+    }
+
+    @ResponseBody
+    @GetMapping("test")
+    public Mono<Result> doTest() {
+        WebClient client = WebClient.create("https://dapi.kakao.com/v2/search/web");
+        Mono<Result> resultMono = client.get().uri(uriBuilder -> uriBuilder
+                .queryParam("query", "이효리")
+                .build())
+                .header("Authorization", "KakaoAK 0f1c2dc0e54ea9a29fae393f0834cedd")
+                .retrieve()
+                .bodyToMono(Result.class);
+
+        return resultMono;
     }
 }
