@@ -1,6 +1,7 @@
 package com.community.web.controller;
 
 import com.community.SessionConst;
+import com.community.domain.entity.Documents;
 import com.community.domain.entity.Member;
 import com.community.domain.entity.Result;
 import com.community.domain.entity.Writing;
@@ -8,25 +9,37 @@ import com.community.domain.entity.formEntity.AddWritingForm;
 import com.community.service.FileStore;
 import com.community.service.writing.WritingService;
 import com.community.service.member.MemberService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StopWatch;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import reactor.core.publisher.Mono;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.nio.charset.CharacterCodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -39,6 +52,7 @@ public class WritingController {
 
 //    @Value("${file.dir}")
     private final String fileDir = "/Users/leechanyoung/Downloads/coding/community/src/main/resources/static/clientImages/";
+    private final ObjectMapper objectMapper;
 
     /*
     *  POST /writings : 글 생성
@@ -142,15 +156,49 @@ public class WritingController {
 
     @ResponseBody
     @GetMapping("test")
-    public Mono<Result> doTest() {
+    public Result doTest() {
+
         WebClient client = WebClient.create("https://dapi.kakao.com/v2/search/web");
+
         Mono<Result> resultMono = client.get().uri(uriBuilder -> uriBuilder
-                .queryParam("query", "이효리")
+                .queryParam("query", "스프링")
                 .build())
                 .header("Authorization", "KakaoAK 0f1c2dc0e54ea9a29fae393f0834cedd")
                 .retrieve()
                 .bodyToMono(Result.class);
 
-        return resultMono;
+        Result result = resultMono.block();
+
+        ArrayList<Documents> documents = result.getDocuments();
+        for (Documents document : documents) {
+            System.out.println("===================================");
+            System.out.println("document = " + document);
+            System.out.println("document.getTitle() = " + document.getTitle());
+            System.out.println("document.getContents() = " + document.getContents());
+            System.out.println("document.getTitle() = " + document.getTitle());
+            System.out.println("document.getUrl() = " + document.getUrl());
+        }
+
+        return result;
+    }
+
+    @ResponseBody
+    @GetMapping("test2")
+    public ResponseEntity<Result> doTest2(){
+
+        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add("Content-Type", "application/json;charset=UTF-8");
+        headers.set("Authorization", "KakaoAK 0f1c2dc0e54ea9a29fae393f0834cedd");
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+
+        HttpEntity entity = new HttpEntity("parameters", headers);
+
+        URI url = URI.create("https://dapi.kakao.com/v2/search/web?query=아이언맨");
+        ResponseEntity<Result> response = restTemplate.exchange(url, HttpMethod.GET, entity, Result.class);
+        return response;
+
     }
 }
