@@ -36,6 +36,12 @@
         </div>
         <div class="col">
             <button class="btn btn-primary float-end"
+                    th:onclick="|location.href='@{/message/memberList}'|"
+                    onclick="location.href='main.html'"
+                    type="button">메시지 </button>
+        </div>
+        <div class="col">
+            <button class="btn btn-primary float-end"
                     th:onclick="|location.href='@{/logout}'|"
                     onclick="location.href='main.html'"
                     type="button">로그아웃</button>
