@@ -29,10 +29,4 @@ public interface WritingService {
 
     //DELETE /writings/{writingNum} : 글 삭제
     void delete(Long id);
-
-
-
-
-
-
 }

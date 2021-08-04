@@ -31,7 +31,7 @@
 <!--    <h3 th:if="${param.changedId}" th:text="'변경된 아이디로 로그인해주세요.'"></h3>-->
 
     <form action="loginForm.html"
-          th:action
+          th:action="@{/login}"
           th:object="${loginMemberForm}"
           method="post">
         <div th:if="${#fields.hasGlobalErrors()}">

@@ -1,6 +1,6 @@
-package com.community.web.intercepter;
+package com.community.config.intercepter;
 
-import com.community.SessionConst;
+import com.community.config.SessionConst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <link th:href="@{/css/bootstrap.min.css}"
+        href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container" style="max-width: 600px">
+  <div class="py-5 text-center">
+    <h1>관리자 화면입니다.</h1>
+    <h2>게시글 목록</h2>
+  </div>
+</div>
+  <br>
+  <div class="row">
+
+    <div class="col">
+      <button class="btn btn-primary float-end"
+              th:onclick="|location.href='@{/member/userinfo}'|"
+              onclick="location.href='main.html'"
+              type="button">모든 회원조회</button>
+    </div>
+
+    <div class="col">
+      <button class="btn btn-primary float-end"
+              th:onclick="|location.href='@{/logout}'|"
+              onclick="location.href='main.html'"
+              type="button">로그아웃</button>
+    </div>
+  </div>
+  <hr class="my-4">
+  <div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>글제목</th>
+        <th>작성일</th>
+        <th>작성자</th>
+        <th>삭제하기</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="writing:${writings}">
+        <td><a href="writing/writing.html" th:href="@{/writing/{writingId}(writingId=${writing.id})}" th:text="${writing.id}"></a></td>
+        <td><a href="writing/writing.html" th:href="@{|/writing/${writing.id}|}" th:text="${writing.title}">글제목</a></td>
+        <td><a href="writing/writing.html" th:href="@{|/writing/${writing.id}|}" th:text="${writing.date}">작성일</a></td>
+        <td><a href="writing/writing.html" th:href="@{|/writing/${writing.id}|}" th:text="${writing.member.loginId}">작성자</a></td>
+        <td><button class="btn btn-primary float-end" th:onclick="|location.href='@{/admin/writing/{writingId}(writingId=${writing.id})}'|" onclick="location.href='main.html'" type="button">삭제</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div> <!-- /container -->
+
+</body>
+</html>

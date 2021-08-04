@@ -43,7 +43,7 @@
         <div class="col"  th:if="${right}">
             <button class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='editForm.html'"
-                    th:onclick="|location.href='@{/edit/{writingId}/(writingId=${writing.id})}'|"
+                    th:onclick="|location.href='@{/writing/edit/{writingId}/(writingId=${writing.id})}'|"
                     type="button">글 수정
             </button>
         </div>
@@ -58,7 +58,7 @@
         <div class="col"  th:if="${right}">
             <button class="w-100 btn btn-danger btn-lg"
                     onclick="location.href='main.html'"
-                    th:onclick="|location.href='@{/writings/{writingId}/delete/(writingId=${writing.id})}'|"
+                    th:onclick="|location.href='@{/writing/writings/{writingId}/delete/(writingId=${writing.id})}'|"
                     type="button">삭제하기
             </button>
         </div>

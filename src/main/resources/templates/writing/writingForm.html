@@ -24,7 +24,7 @@
         <h2>글쓰기</h2>
     </div>
 
-    <form action="joinForm.html" th:action="@{/writing}" th:object="${addWritingForm}" method="post" enctype="multipart/form-data">
+    <form action="../basic/joinForm.html" th:action="@{/writing}" th:object="${addWritingForm}" method="post" enctype="multipart/form-data">
         <div>
             <label for="title">글제목</label>
             <input type="text" id="title" name="title"

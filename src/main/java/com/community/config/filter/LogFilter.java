@@ -1,6 +1,6 @@
-package com.community.web.filter;
+package com.community.config.filter;
 
-import com.community.SessionConst;
+import com.community.config.SessionConst;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.*;
@@ -25,6 +25,7 @@ public class LogFilter implements Filter {
         try{
             log.info("REQUEST : [{}][{}]", uuid, requestURI);
             log.info("CLIENT SESSIOM = {}", httpRequest.getSession().getAttribute(SessionConst.LOGIN_MEMBER));
+            log.info("REQUEST URL = {}", requestURI);
             chain.doFilter(request, response);
         }catch(Exception e){
             throw e;

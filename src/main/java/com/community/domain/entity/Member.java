@@ -3,7 +3,10 @@ package com.community.domain.entity;
 import com.community.domain.entity.formEntity.JoinMemberForm;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,6 +18,9 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name="member")
 public class Member {
+
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -73,13 +79,15 @@ public class Member {
     }
 
     public Member(){}
+    //비회원 홈화면을 위한 멤버생성자
+    public Member(String name){this.name = name;}
 
-    public static Member createMember(JoinMemberForm joinForm){
+    public static Member createMember(JoinMemberForm joinForm, String encPw){
         Member member = new Member();
         member.setName(joinForm.getName());
         member.setEmail(joinForm.getEmail());
         member.setLoginId(joinForm.getLoginId());
-        member.setPassword(joinForm.getPassword());
+        member.setPassword(encPw);
         Address address = new Address(joinForm.getCity(), joinForm.getStreet(), joinForm.getZipcode());
         member.setAddress(address);
         member.setRole(RoleType.USER);
@@ -106,6 +114,4 @@ public class Member {
         this.address.setZipcode(zipcode);
         return this;
     }
-
-
 }

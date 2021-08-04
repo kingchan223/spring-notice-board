@@ -12,9 +12,24 @@
         <h2>게시글 목록</h2>
         <br>
         <h2 th:if="${param.status}" th:text="삭제되었습니다."></h2>
-        <h4 class="mb-3" th:text="|${member.name}님 안녕하세요!🖥|"></h4>
+        <h4 class="mb-3" th:if="${member}" th:text="|${member}님 안녕하세요!🖥|"></h4>
     </div>
 
+    <div th:unless="${member}" class="row">
+        <div class="col">
+            <button class="btn btn-danger float-end"
+                    th:onclick="|location.href='@{/loginForm}'|"
+                    onclick="location.href='addForm.html'"
+                    type="button">로그인하기</button>
+        </div>
+        <div class="col">
+            <button class="btn btn-danger float-end"
+                    th:onclick="|location.href='@{/join}'|"
+                    onclick="location.href='addForm.html'"
+                    type="button">회원가입</button>
+        </div>
+    </div>
+    <br>
     <div class="row">
         <div class="col">
             <button class="btn btn-primary float-end"
@@ -24,21 +39,15 @@
         </div>
         <div class="col">
             <button class="btn btn-primary float-end"
-                    th:onclick="|location.href='@{/userinfo}'|"
+                    th:onclick="|location.href='@{/member/userinfo}'|"
                     onclick="location.href='main.html'"
-                    type="button">회원상세정보</button>
+                    type="button">회원정보</button>
         </div>
         <div class="col">
             <button class="btn btn-primary float-end"
-                    th:onclick="|location.href='@{/userinfo/edit}'|"
+                    th:onclick="|location.href='@{/member/message/memberList}'|"
                     onclick="location.href='main.html'"
-                    type="button">회원정보수정</button>
-        </div>
-        <div class="col">
-            <button class="btn btn-primary float-end"
-                    th:onclick="|location.href='@{/message/memberList}'|"
-                    onclick="location.href='main.html'"
-                    type="button">메시지 </button>
+                    type="button">메시지</button>
         </div>
         <div class="col">
             <button class="btn btn-primary float-end"
@@ -60,10 +69,10 @@
             </thead>
             <tbody>
             <tr th:each="writing:${writings}">
-                <td><a href="writing.html" th:href="@{/{writingId}(writingId=${writing.id})}" th:text="${writing.id}"></a></td>
-                <td><a href="writing.html" th:href="@{|/${writing.id}|}" th:text="${writing.title}">글제목</a></td>
-                <td><a href="writing.html" th:href="@{|/${writing.id}|}" th:text="${writing.date}">날짜</a></td>
-                <td><a href="writing.html" th:href="@{|/${writing.id}|}" th:text="${writing.member.loginId}">작성자</a></td>
+                <td><a href="writing/writing.html" th:href="@{/writing/{writingId}(writingId=${writing.id})}" th:text="${writing.id}"></a></td>
+                <td><a href="writing/writing.html" th:href="@{|/writing/${writing.id}|}" th:text="${writing.title}">글제목</a></td>
+                <td><a href="writing/writing.html" th:href="@{|/writing/${writing.id}|}" th:text="${writing.date}">작성일</a></td>
+                <td><a href="writing/writing.html" th:href="@{|/writing/${writing.id}|}" th:text="${writing.member.loginId}">작성자</a></td>
             </tr>
             </tbody>
         </table>

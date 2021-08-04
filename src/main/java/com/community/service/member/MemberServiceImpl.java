@@ -5,10 +5,13 @@ import com.community.domain.entity.formEntity.EditMemberForm;
 import com.community.domain.entity.formEntity.JoinMemberForm;
 import com.community.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Transient;
 import java.util.List;
 
 @Primary
@@ -18,12 +21,13 @@ import java.util.List;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @Transactional
     @Override
     public Member addUser(JoinMemberForm joinMemberForm) {
-        Member member = Member.createMember(joinMemberForm);
+        Member member = Member.createMember(joinMemberForm, bCryptPasswordEncoder.encode(joinMemberForm.getPassword()));
         return memberRepository.save(member);
     }
 

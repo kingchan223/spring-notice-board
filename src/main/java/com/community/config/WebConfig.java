@@ -1,7 +1,7 @@
-package com.community;
+package com.community.config;
 
-import com.community.web.filter.LogFilter;
-import com.community.web.intercepter.LoginCheckInintercepter;
+import com.community.config.filter.LogFilter;
+import com.community.config.intercepter.LoginCheckInintercepter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,13 +13,13 @@ import javax.servlet.Filter;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginCheckInintercepter())
-                .order(1)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/", "/login", "/join","/css/**","/error/**");
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(new LoginCheckInintercepter())
+//                .order(1)
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/", "/login", "/join","/css/**","/error/**");
+//    }
 
     @Bean
     public FilterRegistrationBean logFilter(){
