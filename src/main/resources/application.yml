@@ -7,25 +7,21 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
   mvc:
     ignore-default-model-on-redirect: false
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 100MB
-
   datasource:
-    url: jdbc:h2:tcp://localhost/~/community
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
-
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/community?serverTimezone=Asia/Seoul
+    username: kingchan
+    password: Kingchan223~
 logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
-
 server:
   servlet:
     session:
@@ -33,8 +29,6 @@ server:
       timeout: 1800
   address: localhost
   port: 8080
-
-
 file:
   dir: /Users/leechanyoung/Downloads/coding/community/src/main/resources/static/clientImages/
 
