@@ -1,7 +1,9 @@
 package com.community.config.oauth;
 
 import com.community.config.auth.PrincipalDetails;
+import com.community.config.auth.provider.FacebookUserInfo;
 import com.community.config.auth.provider.GoogleUserInfo;
+import com.community.config.auth.provider.NaverUserInfo;
 import com.community.config.auth.provider.OAuth2UserInfo;
 import com.community.domain.entity.Member;
 import com.community.domain.entity.RoleType;
@@ -15,6 +17,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -34,6 +37,12 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 
         if(userRequest.getClientRegistration().getRegistrationId().equals("google")){
             oauth2UserInfo = new GoogleUserInfo(oauth2User.getAttributes());
+        }
+        else if(userRequest.getClientRegistration().getRegistrationId().equals("facebook")){
+            oauth2UserInfo = new FacebookUserInfo(oauth2User.getAttributes());
+        }
+        else if(userRequest.getClientRegistration().getRegistrationId().equals("naver")){
+            oauth2UserInfo = new NaverUserInfo((Map)oauth2User.getAttributes().get("response"));
         }
         else{
             throw new OAuth2AuthenticationException("구글, 페이스북, 네이버 로그인만을 지원합니다.");
