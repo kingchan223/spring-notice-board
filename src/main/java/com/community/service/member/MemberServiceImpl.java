@@ -27,7 +27,8 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     @Override
     public Member addUser(JoinMemberForm joinMemberForm) {
-        Member member = Member.createMember(joinMemberForm, bCryptPasswordEncoder.encode(joinMemberForm.getPassword()));
+        Member member = Member.createMember(joinMemberForm,
+                bCryptPasswordEncoder.encode(joinMemberForm.getPassword()));
         return memberRepository.save(member);
     }
 
@@ -41,9 +42,10 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findAll();
     }
 
+    @Transactional
     @Override
     public Member addUserBasic(Member member) {
-        return null;
+        return memberRepository.save(member);
     }
 
     @Override

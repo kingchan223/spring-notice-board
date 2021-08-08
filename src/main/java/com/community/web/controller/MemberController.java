@@ -12,7 +12,10 @@ import com.community.service.writing.WritingService;
 import com.community.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,16 +35,15 @@ public class MemberController {
     private final WritingService writingService;
     private final MemberService memberService;
 
-
     @GetMapping
     public String home(@AuthenticationPrincipal PrincipalDetails principal, Model model){
         String member = null;
         if(principal!=null){
-            member = principal.getUsername();
-            if(principal.getRole()== RoleType.MANAGER){
+            member = principal.getName();
+            if(principal.getRole()== RoleType.ROLE_MANAGER){
 
             }
-            else if(principal.getRole()== RoleType.ADMIN){
+            else if(principal.getRole()== RoleType.ROLE_ADMIN){
                 return "redirect:/admin";
             }
         }
@@ -57,6 +59,23 @@ public class MemberController {
 //        model.addAttribute("writings", result);
 //        return "/basic/main";
 //    }
+
+    @ResponseBody
+    @GetMapping("test/oauth/login")
+    public String loginOauthTest(Authentication authentication,
+                                 @AuthenticationPrincipal OAuth2User oauth){
+
+        //OAuth에서 User 객체를 얻는 방법 1. : Authentication 의존성 주입 받기
+        /* Oauth는 OAuth2User 타입으로 다운 캐스팅 해줘야한다. */
+        OAuth2User oauth2User = (OAuth2User)authentication.getPrincipal();
+        System.out.println("authentication = " + oauth2User.getAttributes());
+
+        //OAuth에서 User 객체를 얻는 방법 2. : @AuthenticationPrincipal 사용
+        System.out.println("oauth = " + oauth.getAttributes());
+
+        return "OAuth 세션 정보 확인하기";
+    }
+
 
     @GetMapping("/loginForm")
     public String loginForm(Model model){

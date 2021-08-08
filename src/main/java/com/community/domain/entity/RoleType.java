@@ -1,5 +1,5 @@
 package com.community.domain.entity;
 
 public enum RoleType {
-    ADMIN, USER, MANAGER
+    ROLE_ADMIN, ROLE_USER, ROLE_MANAGER
 }

@@ -6,7 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.Embeddable;
 
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @Embeddable
 public class Address {
@@ -14,6 +15,13 @@ public class Address {
     private String street;
     private String zipcode;
 
-    protected Address() {
+    protected Address() {}
+
+    public static Address createAddress(String city, String street, String zipcode) {
+        Address address = new Address();
+        address.setCity(city);
+        address.setStreet(street);
+        address.setZipcode(zipcode);
+        return address;
     }
 }

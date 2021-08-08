@@ -6,19 +6,43 @@ import com.community.domain.entity.RoleType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
-@RequiredArgsConstructor
-public class PrincipalDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private final Member member;
+    private Map<String, Object> attributes;
 
+    // 일반 로그인 생성자
+    public PrincipalDetails(Member member){
+        this.member = member;
+    }
+    // OAuth로그인 생성자
+    public PrincipalDetails(Member member, Map<String, Object> attributes){
+        this.member = member;
+        this.attributes = attributes;
+    }
+
+    /*OAuth2User*/
+    @Override
+    public <A> A getAttribute(String name) {
+        return OAuth2User.super.getAttribute(name);
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return null;
+    }
+
+    /*일반유저*/
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collect = new ArrayList<>();
-        collect.add(()->{return "ROLE_"+member.getRole();});
+        collect.add(()->{return ""+member.getRole();});
         return collect;
     }
 

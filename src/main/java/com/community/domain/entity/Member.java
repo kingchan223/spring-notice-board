@@ -3,10 +3,9 @@ package com.community.domain.entity;
 import com.community.domain.entity.formEntity.JoinMemberForm;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,10 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name="member")
 public class Member {
-
-
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="member_id")
@@ -45,6 +40,9 @@ public class Member {
 
     @OneToMany(mappedBy="member")
     private List<Writing> writings = new ArrayList<Writing>();
+
+    private String provider;
+    private String providerId;
 
     private void setId(Long id) {
         this.id = id;
@@ -90,7 +88,7 @@ public class Member {
         member.setPassword(encPw);
         Address address = new Address(joinForm.getCity(), joinForm.getStreet(), joinForm.getZipcode());
         member.setAddress(address);
-        member.setRole(RoleType.USER);
+        member.setRole(RoleType.ROLE_USER);
         member.setJoinedDate(LocalDateTime.now());
         return member;
     }
@@ -101,7 +99,7 @@ public class Member {
         this.password = password;
         this.loginId = loginId;
         this.joinedDate = LocalDateTime.now();
-        this.role = RoleType.USER;
+        this.role = RoleType.ROLE_USER;
         this.id = id;
     }
 
@@ -113,5 +111,21 @@ public class Member {
         this.address.setStreet(street);
         this.address.setZipcode(zipcode);
         return this;
+    }
+
+    public static Member createOAuthMember(String name,
+                                           String loginId, String email,
+                                           String password, RoleType role,
+                                           String provider, String providerId){
+        Member member = new Member();
+        member.setName(name);
+        member.setLoginId(loginId);
+        member.setEmail(email);
+        member.setPassword(password);
+        member.setRole(role);
+        member.setProvider(provider);
+        member.setProviderId(providerId);
+        member.setAddress(Address.createAddress("empty", "empty", "empty"));
+        return member;
     }
 }
