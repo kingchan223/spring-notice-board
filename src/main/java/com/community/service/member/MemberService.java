@@ -1,5 +1,6 @@
 package com.community.service.member;
 
+import com.community.domain.dto.member.MemberDto;
 import com.community.domain.entity.Member;
 import com.community.domain.entity.formEntity.EditMemberForm;
 import com.community.domain.entity.formEntity.JoinMemberForm;
@@ -23,4 +24,6 @@ public interface MemberService {
     void deleteUser(String loginId);
 
     Member findById(String loginId);
+
+    Member addMemberFromDto(MemberDto memberDto);
 }

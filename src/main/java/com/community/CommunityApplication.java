@@ -17,5 +17,4 @@ public class CommunityApplication {
 				.properties(PROPERTIES)
 				.run(args);
 	}
-
 }

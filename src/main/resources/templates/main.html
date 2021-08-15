@@ -9,12 +9,11 @@
 
 <div class="container" style="max-width: 600px">
     <div class="py-5 text-center">
-        <h2>게시글 목록</h2>
+        <h2>🏠HOME🏠</h2>
         <br>
         <h2 th:if="${param.status}" th:text="삭제되었습니다."></h2>
         <h4 class="mb-3" th:if="${member}" th:text="|${member}님 안녕하세요!🖥|"></h4>
     </div>
-
     <div th:unless="${member}" class="row">
         <div class="col">
             <button class="btn btn-danger float-end"

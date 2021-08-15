@@ -1,5 +1,6 @@
 package com.community.domain.entity;
 
+import com.community.domain.dto.member.MemberDto;
 import com.community.domain.entity.formEntity.JoinMemberForm;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -87,6 +88,19 @@ public class Member {
         member.setLoginId(joinForm.getLoginId());
         member.setPassword(encPw);
         Address address = new Address(joinForm.getCity(), joinForm.getStreet(), joinForm.getZipcode());
+        member.setAddress(address);
+        member.setRole(RoleType.ROLE_USER);
+        member.setJoinedDate(LocalDateTime.now());
+        return member;
+    }
+
+    public static Member createMemberFromDto(MemberDto memberDto, String encodedPw){
+        Member member = new Member();
+        member.setName(memberDto.getName());
+        member.setEmail(memberDto.getEmail());
+        member.setLoginId(memberDto.getLoginId());
+        member.setPassword(encodedPw);
+        Address address = new Address(memberDto.getCity(), memberDto.getStreet(), memberDto.getZipcode());
         member.setAddress(address);
         member.setRole(RoleType.ROLE_USER);
         member.setJoinedDate(LocalDateTime.now());

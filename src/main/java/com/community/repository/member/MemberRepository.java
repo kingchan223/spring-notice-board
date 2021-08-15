@@ -3,6 +3,7 @@ package com.community.repository.member;
 import com.community.domain.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -16,6 +17,8 @@ public class MemberRepository {
 
     @PersistenceContext
     private final EntityManager em;
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Member save(Member member){
         em.persist(member);
@@ -46,13 +49,9 @@ public class MemberRepository {
     }
 
     public Member login(String loginId, String password) {
-        List<Member> memberList = findAll();
-        for (Member member : memberList) {
-            if(member.getLoginId().equals(loginId)){
-                if(member.getPassword().equals(password)){
-                    return member;
-                }
-            }
+        Member member = findByLoginId(loginId);
+        if(loginId.equals(member.getLoginId()) && bCryptPasswordEncoder.matches(password,member.getPassword())){
+            return member;
         }
         return null;
     }

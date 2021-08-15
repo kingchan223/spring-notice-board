@@ -1,5 +1,6 @@
 package com.community.service.member;
 
+import com.community.domain.dto.member.MemberDto;
 import com.community.domain.entity.Member;
 import com.community.domain.entity.formEntity.EditMemberForm;
 import com.community.domain.entity.formEntity.JoinMemberForm;
@@ -29,6 +30,12 @@ public class MemberServiceImpl implements MemberService {
     public Member addUser(JoinMemberForm joinMemberForm) {
         Member member = Member.createMember(joinMemberForm,
                 bCryptPasswordEncoder.encode(joinMemberForm.getPassword()));
+        return memberRepository.save(member);
+    }
+
+    @Transactional
+    public Member addMemberFromDto(MemberDto memberDto) {
+        Member member = Member.createMemberFromDto(memberDto, bCryptPasswordEncoder.encode(memberDto.getPassword()));
         return memberRepository.save(member);
     }
 

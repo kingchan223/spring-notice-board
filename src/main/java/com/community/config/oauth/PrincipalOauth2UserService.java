@@ -31,7 +31,6 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 
-
         OAuth2User oauth2User =  super.loadUser(userRequest);
         OAuth2UserInfo oauth2UserInfo = null;
 
@@ -62,10 +61,10 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
             memberService.addUserBasic(oAuthMember);
             return new PrincipalDetails(oAuthMember, oauth2User.getAttributes());
         }
+
         else{//이미 OAuth로 로그인한적 있음
             System.out.println("오아스 한적있음, 있던 회원 반환");
             return new PrincipalDetails(member);
         }
-
     }
 }
