@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -20,13 +19,7 @@ public class ApiMemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/api/member")
-    public ResponseEntity<?> join(@RequestBody MemberDto memberDto){
-        //System.out.println("memberDto = " + memberDto.toString());
-        return new ResponseEntity<>(memberService.addMemberFromDto(memberDto), HttpStatus.CREATED);
-    }
-
-    @PostMapping("/api/member/login")
+    @PostMapping("/api/login")
     public ResponseEntity<?> login(@RequestBody LoginMemberForm loginForm){
         Member member = memberService.login(loginForm.getLoginId(), loginForm.getPassword());
         if(member==null){
@@ -34,4 +27,12 @@ public class ApiMemberController {
         }
         return new ResponseEntity<>(member,HttpStatus.OK);
     }
+
+    @PostMapping("/api/join")
+    public ResponseEntity<?> join(@RequestBody MemberDto memberDto){
+        //System.out.println("memberDto = " + memberDto.toString());
+        return new ResponseEntity<>(memberService.addMemberFromDto(memberDto), HttpStatus.CREATED);
+    }
+
+
 }
