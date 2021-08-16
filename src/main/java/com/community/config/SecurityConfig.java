@@ -43,25 +43,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilter(corsFilter)
                 .formLogin().disable()//폼 로그인 비홠성화
-                .httpBasic().disable()//httpbasic방식 비활성화
-                .authorizeRequests()
-                .antMatchers("/member/**", "/writing/**").authenticated()
-                .antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
-                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/api/admin/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/api/member/**").access("hasRole('ROLE_ADMIN')")
-                .anyRequest().permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/loginForm")
-                .usernameParameter("loginId")
-                .loginProcessingUrl("/login")
-                .loginProcessingUrl("/api/login")
-                .defaultSuccessUrl("/")
-                .and()
-                .oauth2Login()
-                .loginPage("/loginForm")
-                .userInfoEndpoint()
-                .userService(principalOauth2UserService);
+                .httpBasic().disable();//httpbasic방식 비활성화
+        http.authorizeRequests().anyRequest().permitAll();
+//                .authorizeRequests()
+//                .antMatchers("/member/**", "/writing/**").authenticated()
+//                .antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
+//                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers("/api/admin/**").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers("/api/member/**").access("hasRole('ROLE_ADMIN')")
+//                .anyRequest().permitAll()
+//                .and()
+//                .formLogin()
+//                .loginPage("/loginForm")
+//                .usernameParameter("loginId")
+//                .loginProcessingUrl("/login")
+//                .loginProcessingUrl("/api/login")
+//                .defaultSuccessUrl("/")
+//                .and()
+//                .oauth2Login()
+//                .loginPage("/loginForm")
+//                .userInfoEndpoint()
+//                .userService(principalOauth2UserService);
     }
 }

@@ -31,8 +31,7 @@ public class Member {
 
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private RoleType role;
+    private String role;
 
     private LocalDateTime joinedDate;
 
@@ -65,7 +64,7 @@ public class Member {
         this.password = password;
     }
 
-    private void setRole(RoleType role) {
+    private void setRole(String role) {
         this.role = role;
     }
 
@@ -89,8 +88,22 @@ public class Member {
         member.setPassword(encPw);
         Address address = new Address(joinForm.getCity(), joinForm.getStreet(), joinForm.getZipcode());
         member.setAddress(address);
-        member.setRole(RoleType.ROLE_USER);
+        member.setRole("USER");
         member.setJoinedDate(LocalDateTime.now());
+        return member;
+    }
+
+
+    public static Member createMember(Long id,String loginId, String email, String name, String role){
+        Member member = new Member();
+        member.setId(id);
+        member.setName(name);
+        member.setEmail(email);
+        member.setLoginId(loginId);
+        member.setRole(role);
+        member.setAddress(null);
+        member.setPassword(null);
+        member.setJoinedDate(null);
         return member;
     }
 
@@ -100,9 +113,9 @@ public class Member {
         member.setEmail(memberDto.getEmail());
         member.setLoginId(memberDto.getLoginId());
         member.setPassword(encodedPw);
-        Address address = new Address(memberDto.getCity(), memberDto.getStreet(), memberDto.getZipcode());
-        member.setAddress(address);
-        member.setRole(RoleType.ROLE_USER);
+       // Address address = new Address(memberDto.getCity(), memberDto.getStreet(), memberDto.getZipcode());
+//        member.setAddress(address);
+        member.setRole("USER");
         member.setJoinedDate(LocalDateTime.now());
         return member;
     }
@@ -113,7 +126,7 @@ public class Member {
         this.password = password;
         this.loginId = loginId;
         this.joinedDate = LocalDateTime.now();
-        this.role = RoleType.ROLE_USER;
+        this.role ="USER";
         this.id = id;
     }
 
@@ -129,7 +142,7 @@ public class Member {
 
     public static Member createOAuthMember(String name,
                                            String loginId, String email,
-                                           String password, RoleType role,
+                                           String password, String role,
                                            String provider, String providerId){
         Member member = new Member();
         member.setName(name);

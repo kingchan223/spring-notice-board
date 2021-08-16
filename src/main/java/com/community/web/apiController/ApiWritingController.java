@@ -25,7 +25,7 @@ public class ApiWritingController {
     private final WritingService writingService;
     private final MemberService memberService;
 
-    @GetMapping("/api/board")
+    @GetMapping("/api/home")
     public ResponseEntity<?> boardsAll(){
         List<Writing> result = writingService.findAll();
         List<WritingDto> wrtings = new ArrayList<>();

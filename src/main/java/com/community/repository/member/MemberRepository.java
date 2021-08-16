@@ -50,6 +50,7 @@ public class MemberRepository {
 
     public Member login(String loginId, String password) {
         Member member = findByLoginId(loginId);
+//        System.out.println("MemberRepository login실행");
         if(loginId.equals(member.getLoginId()) && bCryptPasswordEncoder.matches(password,member.getPassword())){
             return member;
         }

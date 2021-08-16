@@ -40,10 +40,10 @@ public class MemberController {
         String member = null;
         if(principal!=null){
             member = principal.getName();
-            if(principal.getRole()== RoleType.ROLE_MANAGER){
+            if(principal.getRole()== "MANAGER"){
 
             }
-            else if(principal.getRole()== RoleType.ROLE_ADMIN){
+            else if(principal.getRole()=="ADMIN"){
                 return "redirect:/admin";
             }
         }

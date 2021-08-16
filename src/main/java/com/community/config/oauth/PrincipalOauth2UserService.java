@@ -53,7 +53,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
         String name = oauth2UserInfo.getName();
         String email = oauth2UserInfo.getEmail();
         String password = bCryptPasswordEncoder.encode(UUID.randomUUID().toString());
-        RoleType role = RoleType.ROLE_USER;
+        String role = "USER";
         Member member = memberRepository.findByLoginId(loginId);
         if(member == null){//OAuth로그인을 최초로 했음
             System.out.println("오아스 최초, 회원가입 진행");
