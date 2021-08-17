@@ -41,7 +41,7 @@ public class ApiMemberController {
     @GetMapping("/api/member")
     public ResponseEntity<?> userinfo(HttpServletRequest request) {
         System.out.println("userinfo 호출됨");
-        Member member = memberService.findUser((Long) request.getAttribute("id"));
+        Member member = memberService.findUser((Long) request.getAttribute("memberId"));
         return new ResponseEntity<>(new CMRespDto<Member>(1, "success", member), HttpStatus.OK);
     }
 

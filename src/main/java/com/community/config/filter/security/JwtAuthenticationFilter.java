@@ -43,6 +43,7 @@ public class JwtAuthenticationFilter implements Filter{
 
         // 1. username, password 받아야 함. (req) - json으로 받기 - 버퍼로 읽기
         ObjectMapper om = new ObjectMapper();
+//        System.out.println("req.getInputStream()"+req.getInputStream().);
         LoginReqDto loginReqDto = om.readValue(req.getInputStream(), LoginReqDto.class);
         System.out.println("다운 받은 데이터 : " + loginReqDto);
         // 2. memberService로 로그인하기
@@ -60,19 +61,16 @@ public class JwtAuthenticationFilter implements Filter{
         } else {
             System.out.println("로그인성공!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
-            String jwtToken = JWT.create().withSubject(JwtProperties.SUBJECT)
+            String jwtToken = JWT.create()
                     .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.ACCESS_EXPIRED_TIME))
                     .withClaim("loginId", loginMember.getLoginId())
                     .withClaim("email", loginMember.getEmail())
                     .withClaim("id", loginMember.getId())
-                    .withClaim("role", loginMember.getRole().toString())
+                    .withClaim("role", loginMember.getRole())
                     .sign(Algorithm.HMAC512(JwtProperties.ACCESS_SECRET));
             System.out.println("jwtToken = " + jwtToken);
             // 헤더 키값 = RFC문서
             resp.setHeader("Authorization", JwtProperties.AUTH + jwtToken);
-            resp.setHeader("Pragma", "no-cache");
-
-            resp.setContentType("application/json; charset=utf-8");
 
             CMRespDto<MemberDto> cmRespDto =
                     new CMRespDto<>(1, "success", MemberDto.createMemberDto(loginMember));
