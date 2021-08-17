@@ -1,6 +1,7 @@
 package com.community.service.member;
 
 
+import com.community.domain.dto.member.JoinReqDto;
 import com.community.domain.dto.member.MemberDto;
 import com.community.domain.entity.Member;
 import com.community.domain.entity.formEntity.EditMemberForm;
@@ -62,7 +63,7 @@ public class MemoryMemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member addMemberFromDto(MemberDto memberDto) {
+    public Member addMemberFromDto(JoinReqDto joinReqDto) {
         return null;
     }
 

@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class MemberDto {
-    private Long id;
+public class JoinReqDto {
     private String name;
     private String loginId;
     private String email;
@@ -18,10 +17,10 @@ public class MemberDto {
     private String city;
     private String street;
     private String zipcode;
+    private String password;
 
-    public static MemberDto createMemberDto(Long id, String name, String loginId, String email,String role){
-        MemberDto memberDto = new MemberDto();
-        memberDto.setId(id);
+    public static JoinReqDto createJoinReqDto(String name, String loginId, String email, String role){
+        JoinReqDto memberDto = new JoinReqDto();
         memberDto.setName(name);
         memberDto.setEmail(email);
         memberDto.setLoginId(loginId);
@@ -29,9 +28,8 @@ public class MemberDto {
         return memberDto;
     }
 
-    public static MemberDto createMemberDto(Member member){
-        MemberDto memberDto = new MemberDto();
-        memberDto.setId(member.getId());
+    public static JoinReqDto createJoinReqDto(Member member){
+        JoinReqDto memberDto = new JoinReqDto();
         memberDto.setName(member.getName());
         memberDto.setEmail(member.getEmail());
         memberDto.setLoginId(member.getLoginId());

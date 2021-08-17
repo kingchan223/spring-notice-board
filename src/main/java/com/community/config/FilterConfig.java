@@ -29,7 +29,7 @@ public class FilterConfig {
     @Bean
     public FilterRegistrationBean<LogFilter> logFilter(){
         FilterRegistrationBean<LogFilter> logFilter = new FilterRegistrationBean<>(new LogFilter());
-        logFilter.addUrlPatterns("/**");
+        logFilter.addUrlPatterns("/*");
         logFilter.setOrder(1);
         return logFilter;
     }

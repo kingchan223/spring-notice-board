@@ -1,5 +1,6 @@
 package com.community.service.member;
 
+import com.community.domain.dto.member.JoinReqDto;
 import com.community.domain.dto.member.MemberDto;
 import com.community.domain.entity.Member;
 import com.community.domain.entity.formEntity.EditMemberForm;
@@ -25,5 +26,5 @@ public interface MemberService {
 
     Member findById(String loginId);
 
-    Member addMemberFromDto(MemberDto memberDto);
+    Member addMemberFromDto(JoinReqDto joinReqDto);
 }

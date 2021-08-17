@@ -1,5 +1,6 @@
 package com.community.domain.entity;
 
+import com.community.domain.dto.member.JoinReqDto;
 import com.community.domain.dto.member.MemberDto;
 import com.community.domain.entity.formEntity.JoinMemberForm;
 import lombok.AllArgsConstructor;
@@ -107,14 +108,14 @@ public class Member {
         return member;
     }
 
-    public static Member createMemberFromDto(MemberDto memberDto, String encodedPw){
+    public static Member createMemberFromJoinReqDto(JoinReqDto joinReqDto, String encodedPw){
         Member member = new Member();
-        member.setName(memberDto.getName());
-        member.setEmail(memberDto.getEmail());
-        member.setLoginId(memberDto.getLoginId());
+        member.setName(joinReqDto.getName());
+        member.setEmail(joinReqDto.getEmail());
+        member.setLoginId(joinReqDto.getLoginId());
         member.setPassword(encodedPw);
-       // Address address = new Address(memberDto.getCity(), memberDto.getStreet(), memberDto.getZipcode());
-//        member.setAddress(address);
+        Address address = new Address(joinReqDto.getCity(), joinReqDto.getStreet(), joinReqDto.getZipcode());
+        member.setAddress(address);
         member.setRole("USER");
         member.setJoinedDate(LocalDateTime.now());
         return member;
