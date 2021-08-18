@@ -44,9 +44,10 @@ public class ApiMemberController {
         System.out.println("userinfo 호출됨");
         Long memberId = (Long) request.getAttribute("memberId");
         Member member = memberService.findUser(memberId);
-        MemberDto memberDto = MemberDto.createMemberDto(member.getId(), member.getName(), member.getLoginId(), member.getEmail(), member.getRole());
+        MemberDto memberDto = MemberDto.createMemberDto(member);
         return new ResponseEntity<>(new CMRespDto<MemberDto>(1, "success", memberDto), HttpStatus.OK);
     }
+
     // 회원 수정
     @PutMapping("/api/member/{id}")
     public ResponseEntity<?> editMemberInfo(@PathVariable Long id, @RequestBody EditMemberForm editMemberForm){

@@ -53,7 +53,8 @@ public class JwtAuthorizationFilter implements Filter {
                 req.setAttribute("memberId", id);
                 chain.doFilter(req, resp);
             }catch (Exception e){
-                log.error("토큰 검증실패");
+                log.error("access토큰 검증실패");
+                /*여기서 refresh 토큰 검증하면 될듯*/
                 PrintWriter out = resp.getWriter();
                 out.println("verify fail");
                 out.flush();

@@ -61,7 +61,7 @@ public class JwtAuthenticationFilter implements Filter{
         } else {
             System.out.println("로그인성공!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
-            String jwtToken = JWT.create()
+            String jwtAccess_Token = JWT.create()
                     .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.ACCESS_EXPIRED_TIME))
                     .withIssuer("LEEE")
                     .withClaim("loginId", loginMember.getLoginId())
@@ -69,10 +69,25 @@ public class JwtAuthenticationFilter implements Filter{
                     .withClaim("id", loginMember.getId())
                     .withClaim("role", loginMember.getRole())
                     .sign(Algorithm.HMAC512(JwtProperties.ACCESS_SECRET));
-            System.out.println("jwtToken = " + jwtToken);
+
+            String jwtRefresh_Token = JWT.create()
+                    .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.REFRESH_EXPIRED_TIME))
+                    .withIssuer("LEEE")
+                    .withClaim("loginId", loginMember.getLoginId())
+                    .withClaim("email", loginMember.getEmail())
+                    .withClaim("id", loginMember.getId())
+                    .withClaim("role", loginMember.getRole())
+                    .sign(Algorithm.HMAC512(JwtProperties.REFRESH_SECRET));
+
+            System.out.println("jwtAccess_Token = " + jwtAccess_Token);
+            System.out.println("jwtAccess_Token = " + jwtAccess_Token);
             // 헤더 키값 = RFC문서
-            resp.setHeader("Authorization", JwtProperties.AUTH + jwtToken);
+            resp.setHeader("Authorization", JwtProperties.AUTH + jwtAccess_Token);
             resp.setContentType("application/json; charset=utf-8");
+
+            //헤더에 access, refresh토큰 넣어주기
+            resp.setHeader("ACCESS_TOKEN", JwtProperties.AUTH + jwtAccess_Token);
+            resp.setHeader("REFRESH_TOKEN", JwtProperties.AUTH + jwtRefresh_Token);
 
             CMRespDto<MemberDto> cmRespDto =
                     new CMRespDto<>(1, "success", MemberDto.createMemberDto(loginMember));
