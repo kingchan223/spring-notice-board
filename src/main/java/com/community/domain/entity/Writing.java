@@ -26,8 +26,8 @@ public class Writing{
 
     private LocalDateTime date;
 
-    @OneToMany(mappedBy="writing", cascade=CascadeType.ALL)
-    private List<AttachedFile> attachedFiles = new ArrayList<>();
+//    @OneToMany(mappedBy="writing", cascade=CascadeType.ALL)
+//    private List<AttachedFile> attachedFiles = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
@@ -48,7 +48,7 @@ public class Writing{
         writing.setMember(member);
         writing.setTitle(writingForm.getTitle());
         writing.setContent(writingForm.getContent());
-        writing.setAttachedFiles(null);
+//        writing.setAttachedFiles(null);
 //        FileStore fileStore = new FileStore();
 //        List<AttachedFile> attachedFiles = fileStore.storeFiles(writingForm.getImageFiles());
 //        for (AttachedFile attachedFile : attachedFiles) {

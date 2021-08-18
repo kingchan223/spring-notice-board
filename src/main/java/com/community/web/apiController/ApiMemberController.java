@@ -32,19 +32,22 @@ public class ApiMemberController {
 //        return new ResponseEntity<>(  MemberDto.createMemberDto(member),HttpStatus.OK);
 //    }
 
+    // 회원가입
     @PostMapping("/api/join")
     public ResponseEntity<?> join(@RequestBody JoinReqDto joinReqDto){
         //System.out.println("memberDto = " + memberDto.toString());
         return new ResponseEntity<>(memberService.addMemberFromDto(joinReqDto), HttpStatus.CREATED);
     }
-
+    // memberInfo
     @GetMapping("/api/member")
-    public ResponseEntity<?> userinfo(HttpServletRequest request) {
+    public ResponseEntity<?> memberinfo(HttpServletRequest request) {
         System.out.println("userinfo 호출됨");
-        Member member = memberService.findUser((Long) request.getAttribute("memberId"));
-        return new ResponseEntity<>(new CMRespDto<Member>(1, "success", member), HttpStatus.OK);
+        Long memberId = (Long) request.getAttribute("memberId");
+        Member member = memberService.findUser(memberId);
+        MemberDto memberDto = MemberDto.createMemberDto(member.getId(), member.getName(), member.getLoginId(), member.getEmail(), member.getRole());
+        return new ResponseEntity<>(new CMRespDto<MemberDto>(1, "success", memberDto), HttpStatus.OK);
     }
-
+    // 회원 수정
     @PutMapping("/api/member/{id}")
     public ResponseEntity<?> editMemberInfo(@PathVariable Long id, @RequestBody EditMemberForm editMemberForm){
         Member member = memberService.changeUserInfo(id, editMemberForm);

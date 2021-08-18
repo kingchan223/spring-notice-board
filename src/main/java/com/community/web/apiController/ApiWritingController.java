@@ -48,6 +48,8 @@ public class ApiWritingController {
     public ResponseEntity<?> addboard(HttpServletRequest request, @RequestBody AddWritingForm addWritingForm) throws IOException {
         System.out.println("글쓰기 실행");
         System.out.println("request.getAttribute(\"memberId\"): "+request.getAttribute("memberId"));
+        /*왜 아래 라인처럼 하면 되고
+         writingService.save((Long)request.getAttribute("memberId"), addWritingForm) 이렇게 하면 안되는지 모르겠음*/
         Long memberId  = (Long) request.getAttribute("memberId");
         Writing writing = writingService.save(memberId, addWritingForm);
         return new ResponseEntity<>(createWritingDto(writing), HttpStatus.OK);
