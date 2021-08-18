@@ -46,7 +46,10 @@ public class ApiWritingController {
     // 글쓰기
     @PostMapping("/api/board")
     public ResponseEntity<?> addboard(HttpServletRequest request, @RequestBody AddWritingForm addWritingForm) throws IOException {
-        Writing writing = writingService.save(7L, addWritingForm);
+        System.out.println("글쓰기 실행");
+        System.out.println("request.getAttribute(\"memberId\"): "+request.getAttribute("memberId"));
+        Long memberId  = (Long) request.getAttribute("memberId");
+        Writing writing = writingService.save(memberId, addWritingForm);
         return new ResponseEntity<>(createWritingDto(writing), HttpStatus.OK);
     }
 }

@@ -1,8 +1,8 @@
 package com.community.config.filter.security;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.community.config.auth.properties.JwtProperties;
 import com.community.domain.entity.Member;
@@ -38,20 +38,14 @@ public class JwtAuthorizationFilter implements Filter {
         }
         else{
             jwtToken = jwtToken.replace(JwtProperties.AUTH, "");
-             System.out.println(jwtToken);
-
             try{
-//                DecodedJWT decodeJwt = JWT.require(Algorithm.HMAC512(JwtProperties.ACCESS_SECRET)).build().verify(jwtToken);
+                DecodedJWT decodeJwt = JWT.require(Algorithm.HMAC512(JwtProperties.ACCESS_SECRET)).withIssuer("LEEE").build().verify(jwtToken);
 
-                JWTVerifier verifier = JWT.require(Algorithm.HMAC256(JwtProperties.ACCESS_SECRET))
-                        .acceptExpiresAt(60*10*10) // 만료일 -4일
-                        .build();
-
-                DecodedJWT jwt = verifier.verify(jwtToken);
-                Integer loginId = jwt.getClaim("loginId").asInt();
-                Long id = jwt.getClaim("id").asLong();
-                String role = jwt.getClaim("role").asString();
-                Member loginUser = Member.createMember(Long.valueOf(loginId), null, null, null, role);
+                String loginId = decodeJwt.getClaim("loginId").asString();
+                Long id = decodeJwt.getClaim("id").asLong();
+                String email = decodeJwt.getClaim("email").asString();
+                String role = decodeJwt.getClaim("role").asString();
+                Member loginUser = Member.createMember(id, loginId, email, null, role);
 
                 HttpSession session = req.getSession();
                 session.setAttribute("principal", loginUser);

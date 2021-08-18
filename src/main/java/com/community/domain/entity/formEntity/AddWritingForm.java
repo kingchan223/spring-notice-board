@@ -18,8 +18,6 @@ public class AddWritingForm {
     @NotEmpty(message="글을 입력하세요")
     private String content;
 
-    private List<MultipartFile> imageFiles;
-
     public AddWritingForm(){}
 
     public AddWritingForm(String title, String content) {

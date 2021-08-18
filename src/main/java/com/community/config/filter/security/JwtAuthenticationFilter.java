@@ -63,6 +63,7 @@ public class JwtAuthenticationFilter implements Filter{
 
             String jwtToken = JWT.create()
                     .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.ACCESS_EXPIRED_TIME))
+                    .withIssuer("LEEE")
                     .withClaim("loginId", loginMember.getLoginId())
                     .withClaim("email", loginMember.getEmail())
                     .withClaim("id", loginMember.getId())
@@ -71,6 +72,7 @@ public class JwtAuthenticationFilter implements Filter{
             System.out.println("jwtToken = " + jwtToken);
             // 헤더 키값 = RFC문서
             resp.setHeader("Authorization", JwtProperties.AUTH + jwtToken);
+            resp.setContentType("application/json; charset=utf-8");
 
             CMRespDto<MemberDto> cmRespDto =
                     new CMRespDto<>(1, "success", MemberDto.createMemberDto(loginMember));

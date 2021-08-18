@@ -48,13 +48,13 @@ public class Writing{
         writing.setMember(member);
         writing.setTitle(writingForm.getTitle());
         writing.setContent(writingForm.getContent());
-
-        FileStore fileStore = new FileStore();
-        List<AttachedFile> attachedFiles = fileStore.storeFiles(writingForm.getImageFiles());
-        for (AttachedFile attachedFile : attachedFiles) {
-            writing.getAttachedFiles().add(attachedFile);
-            attachedFile.addWriting(writing);
-        }
+        writing.setAttachedFiles(null);
+//        FileStore fileStore = new FileStore();
+//        List<AttachedFile> attachedFiles = fileStore.storeFiles(writingForm.getImageFiles());
+//        for (AttachedFile attachedFile : attachedFiles) {
+//            writing.getAttachedFiles().add(attachedFile);
+//            attachedFile.addWriting(writing);
+//        }
         writing.setDate(LocalDateTime.now());
         return writing;
     }
