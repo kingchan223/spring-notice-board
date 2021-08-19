@@ -27,4 +27,6 @@ public interface MemberService {
     Member findById(String loginId);
 
     Member addMemberFromDto(JoinReqDto joinReqDto);
+
+    Member addRefreshToken(Long id, String refreshToken);
 }

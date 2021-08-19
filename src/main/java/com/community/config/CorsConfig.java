@@ -17,9 +17,12 @@ public class CorsConfig {
         config.addAllowedOrigin("http://localhost:3000");//해당 ip에 응답을 허용
         config.addAllowedHeader("*");//모든 header에 응답을 허용
         config.addAllowedMethod("*");//모든 post, get, put, delete, patch 요청을 허용하겠다.
-//        ACCESS-ORIGIN-EXPOSED-HEADERS
         config.setMaxAge(3600L);
+
+//        ACCESS-ORIGIN-EXPOSED-HEADERS
         config.addExposedHeader(JwtProperties.HEADER);
+        config.addExposedHeader(JwtProperties.ACCESS_NAME);
+        config.addExposedHeader(JwtProperties.REFRESH_NAME);
         source.registerCorsConfiguration("/api/**", config);
         return new CorsFilter(source);
     }

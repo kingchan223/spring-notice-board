@@ -63,8 +63,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
-    public Member changeUserInfo(Long loginId, EditMemberForm form) {
-        Member member = memberRepository.findOne(loginId);
+    public Member changeUserInfo(Long id, EditMemberForm form) {
+        Member member = memberRepository.findOne(id);
         member.changeMember(
                 form.getName(),
                 form.getEmail(),
@@ -73,6 +73,14 @@ public class MemberServiceImpl implements MemberService {
                 form.getStreet(),
                 form.getZipcode());
 
+        return member;
+    }
+
+    @Transactional
+    @Override
+    public Member addRefreshToken(Long id, String refreshToken){
+        Member member = memberRepository.findOne(id);
+        member.setRefreshToken(refreshToken);
         return member;
     }
 

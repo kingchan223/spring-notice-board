@@ -33,4 +33,6 @@ public class WritingRepository {
     public void delete(Long id){
         em.remove(findOne(id));
     }
+
+
 }

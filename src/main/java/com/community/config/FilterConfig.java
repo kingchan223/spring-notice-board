@@ -47,7 +47,7 @@ public class FilterConfig {
     @Bean
     public FilterRegistrationBean<JwtAuthorizationFilter> jwtAuthorizationFilter(){
         System.out.println("jwtAuthorizationFilter 필터 등록");
-        FilterRegistrationBean<JwtAuthorizationFilter> authorizationFilter = new FilterRegistrationBean<>(new JwtAuthorizationFilter());
+        FilterRegistrationBean<JwtAuthorizationFilter> authorizationFilter = new FilterRegistrationBean<>(new JwtAuthorizationFilter(memberService));
         authorizationFilter.addUrlPatterns("/api/member/*");
         authorizationFilter.addUrlPatterns("/api/board/*");
         authorizationFilter.setOrder(3);

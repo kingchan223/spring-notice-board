@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter
+@Getter
 @Entity
 @AllArgsConstructor
 @Table(name="member")
@@ -41,6 +41,8 @@ public class Member {
 
     @OneToMany(mappedBy="member")
     private List<Writing> writings = new ArrayList<Writing>();
+
+    private String refreshToken;
 
     private String provider;
     private String providerId;
@@ -75,6 +77,20 @@ public class Member {
 
     private void setWritings(List<Writing> writings) {
         this.writings = writings;
+    }
+
+    private void setAddress(Address address){this.address = address;}
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    private void setProvider(String provider) {
+        this.provider = provider;
+    }
+
+    private void setProviderId(String providerId) {
+        this.providerId = providerId;
     }
 
     public Member(){}

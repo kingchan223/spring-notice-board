@@ -67,6 +67,11 @@ public class MemoryMemberServiceImpl implements MemberService {
         return null;
     }
 
+    @Override
+    public Member addRefreshToken(Long id, String refreshToken) {
+        return null;
+    }
+
     /*모든 회원 조회*/
     @Override
     public List<Member> getAll() {
