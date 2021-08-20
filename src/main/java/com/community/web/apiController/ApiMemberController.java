@@ -38,6 +38,7 @@ public class ApiMemberController {
         //System.out.println("memberDto = " + memberDto.toString());
         return new ResponseEntity<>(memberService.addMemberFromDto(joinReqDto), HttpStatus.CREATED);
     }
+
     // memberInfo
     @GetMapping("/api/member")
     public ResponseEntity<?> memberinfo(HttpServletRequest request) {
@@ -51,7 +52,9 @@ public class ApiMemberController {
     // 회원 수정
     @PutMapping("/api/member/{id}")
     public ResponseEntity<?> editMemberInfo(@PathVariable Long id, @RequestBody EditMemberForm editMemberForm){
+        System.out.println("회원정보 수정 발동");
         Member member = memberService.changeUserInfo(id, editMemberForm);
-        return new ResponseEntity<>(new CMRespDto<Member>(1, "success", member), HttpStatus.OK);
+        MemberDto memberDto = MemberDto.createMemberDto(member);
+        return new ResponseEntity<>(new CMRespDto<MemberDto>(1, "success", memberDto), HttpStatus.OK);
     }
 }

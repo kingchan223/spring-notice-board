@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 
 
 @AllArgsConstructor
@@ -79,7 +78,13 @@ public class JwtAuthenticationFilter implements Filter{
 
             //refresh토큰 DB에 저장
             memberService.addRefreshToken(loginMember.getId(), refreshToken);
-
+            System.out.println("==========================");
+            System.out.println("loginMember = " + loginMember.getLoginId());
+            System.out.println("loginMember = " + loginMember.getId());
+            System.out.println("loginMember = " + loginMember.getName());
+            System.out.println("loginMember = " + loginMember.getRole());
+            System.out.println("loginMember = " + loginMember.getEmail());
+            System.out.println("==========================");
             CMRespDto<MemberDto> cmRespDto =
                     new CMRespDto<>(1, "success", MemberDto.createMemberDto(loginMember));
 
