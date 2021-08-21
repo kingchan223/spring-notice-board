@@ -2,6 +2,7 @@ package com.community.config;
 
 import com.community.config.filter.LogFilter;
 import com.community.config.filter.security.CorsFilter;
+import com.community.config.filter.security.JwtAdminAuthorizationFilter;
 import com.community.config.filter.security.JwtAuthenticationFilter;
 import com.community.config.filter.security.JwtAuthorizationFilter;
 import com.community.service.member.MemberService;
@@ -52,6 +53,15 @@ public class FilterConfig {
         authorizationFilter.addUrlPatterns("/api/board/*");
         authorizationFilter.setOrder(3);
         return authorizationFilter;
+    }
+
+    @Bean
+    public FilterRegistrationBean<JwtAdminAuthorizationFilter> jwtAdminAuthorizationFilter(){
+        System.out.println("JwtAdminAuthorizationFilter 필터 등록");
+        FilterRegistrationBean<JwtAdminAuthorizationFilter> adminAuthorizationFilter = new FilterRegistrationBean<>(new JwtAdminAuthorizationFilter(memberService));
+        adminAuthorizationFilter.addUrlPatterns("/api/admin/*");
+        adminAuthorizationFilter.setOrder(3);
+        return adminAuthorizationFilter;
     }
 
 //    @Bean
