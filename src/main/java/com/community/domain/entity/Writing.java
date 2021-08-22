@@ -29,6 +29,9 @@ public class Writing{
 //    @OneToMany(mappedBy="writing", cascade=CascadeType.ALL)
 //    private List<AttachedFile> attachedFiles = new ArrayList<>();
 
+    @OneToMany(mappedBy="writing")
+    private List<Comment> comments = new ArrayList<>();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
     private Member member;
@@ -38,6 +41,8 @@ public class Writing{
         this.member = member;
         member.getWritings().add(this);
     }
+
+
 //
 //    public void addAttachedFiles(List<AttachedFile> attachedFiles){
 //

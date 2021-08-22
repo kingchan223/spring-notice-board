@@ -40,7 +40,10 @@ public class Member {
     private Address address;
 
     @OneToMany(mappedBy="member")
-    private List<Writing> writings = new ArrayList<Writing>();
+    private List<Writing> writings = new ArrayList<>();
+
+    @OneToMany(mappedBy="member")
+    private List<Comment> comments = new ArrayList<>();
 
     private String refreshToken;
 
