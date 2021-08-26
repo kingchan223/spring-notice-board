@@ -32,9 +32,15 @@ public interface BoardService {
     //DELETE /boards/{boardNum} : 글 삭제
     void delete(Long id);
 
-    public List<BoardDto> getBoardList(Integer pageNum);
+    List<BoardDto> getBoardList(Integer pageNum);
 
-    public Integer[] getPageList(Integer currentPageNum);
+    Integer[] getPageList(Integer currentPageNum);
 
-    public Long getBoardCount();
+    Long getBoardCount();
+
+    List<BoardDto> searchPostsTitle(String keyword);
+
+
+
+
 }

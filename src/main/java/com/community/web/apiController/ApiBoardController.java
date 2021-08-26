@@ -77,10 +77,13 @@ public class ApiBoardController {
         return new ResponseEntity<>(createboardDto(board), HttpStatus.OK);
     }
 
+    //last페이지
     @GetMapping("api/maxPage")
     public ResponseEntity<?> getMaxPage(){
         Long postsTotalCount = boardService.getBoardCount();
         Integer totalLastPageNum = (int) (Math.ceil((postsTotalCount / PAGE_POST_COUNT)));//6
         return new ResponseEntity<>(totalLastPageNum, HttpStatus.OK);
     }
+
+
 }
