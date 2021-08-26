@@ -27,8 +27,8 @@ public class ApiBoardController {
 
     private final BoardService boardService;
     private final MemberService memberService;
-    private static final int BLOCK_PAGE_NUM_COUNT = 5;//블럭에 존재하는 페이지 수
-    private static final int PAGE_POST_COUNT = 7;//한 페이지에 존재하는 게시글 수
+    private static final double BLOCK_PAGE_NUM_COUNT = 5;//블럭에 존재하는 페이지 수
+    private static final double PAGE_POST_COUNT = 7;//한 페이지에 존재하는 게시글 수
 
     @GetMapping("/api/home")
     public ResponseEntity<?> boardsAll(@RequestParam(value="page", defaultValue="1") Integer page){
@@ -80,10 +80,7 @@ public class ApiBoardController {
     @GetMapping("api/maxPage")
     public ResponseEntity<?> getMaxPage(){
         Long postsTotalCount = boardService.getBoardCount();
-        System.out.println("postsTotalCount = " + postsTotalCount);
         Integer totalLastPageNum = (int) (Math.ceil((postsTotalCount / PAGE_POST_COUNT)));//6
-        System.out.println(("(postsTotalCount / PAGE_POST_COUNT) :"+postsTotalCount / PAGE_POST_COUNT));
-        System.out.println("totalLastPageNum = " + totalLastPageNum);
         return new ResponseEntity<>(totalLastPageNum, HttpStatus.OK);
     }
 }

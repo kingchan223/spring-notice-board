@@ -86,8 +86,8 @@ public class BoardServiceImpl implements BoardService {
         // 총 게시글 수를 기준으로 계산한 마지막 페이지 번호 계산  // PAGE_POST_COUNT = 7
                                                     // BLOCK_PAGE_NUM_COUNT = 5
         Integer totalLastPageNum = (int) (Math.ceil((postsTotalCount / PAGE_POST_COUNT)));//6
-
-        //현재 페이지를 기준으로 블럭의 마지막 페이지 번호 계산  6  1+5
+        System.out.println("totalLastPageNum = " + totalLastPageNum);
+        //현재 페이지를 기준으로 블럭의 마지막 페이지 번호 계산
         Integer blockLastPageNum = ( currentPageNum+(BLOCK_PAGE_NUM_COUNT-1) > totalLastPageNum)
                 ? totalLastPageNum
                 : currentPageNum + (BLOCK_PAGE_NUM_COUNT-1);
