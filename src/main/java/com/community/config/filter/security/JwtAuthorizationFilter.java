@@ -88,6 +88,7 @@ public class JwtAuthorizationFilter implements Filter {
 
                     resp.setHeader("ACCESS_TOKEN", JwtProperties.AUTH + accessTokenNEW);
                     log.info("refresh토큰 검사 후 access토큰 재발급 성공");
+                    System.out.println("memberId: "+ id);
                     req.setAttribute("memberId", id);
                     chain.doFilter(req, resp);
                 }catch(TokenExpiredException | ServletException e2){/*refresh토큰의 기간도 지났다면 재발급하자*/

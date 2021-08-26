@@ -3,13 +3,10 @@ package com.community.service.board;
 import com.community.domain.dto.board.BoardDto;
 import com.community.domain.entity.Board;
 import com.community.domain.entity.formEntity.AddboardForm;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public interface BoardService {
     /*
@@ -24,7 +21,7 @@ public interface BoardService {
     List<Board> findAll();
 
     //GET /boards/{boardNum}  : 글 상세조회
-    Board findOne(Long id);
+    Optional<Board> findOne(Long id);
 
     //POST /boards : 글 생성
     Board save(Long memberId, AddboardForm boardForm) throws IOException;
@@ -38,4 +35,6 @@ public interface BoardService {
     public List<BoardDto> getBoardList(Integer pageNum);
 
     public Integer[] getPageList(Integer currentPageNum);
+
+    public Long getBoardCount();
 }

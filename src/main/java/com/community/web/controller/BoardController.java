@@ -5,7 +5,7 @@ package com.community.web.controller;
 //@RequiredArgsConstructor
 //@Controller
 //@RequestMapping("/Board")
-public class boardController {
+public class  BoardController {
 //    private final BoardService BoardService;
 //    private final MemberService memberService;
 //    private final FileStore fileStore;

@@ -27,7 +27,7 @@ public class Comment {
         member.getComments().add(this);
     }
 
-    public void addboard(Board board){
+    public void addBoard(Board board){
         this.board = board;
         board.getComments().add(this);
     }

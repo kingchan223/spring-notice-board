@@ -27,7 +27,7 @@ public class Board {
 //    @OneToMany(mappedBy="Board", cascade=CascadeType.ALL)
 //    private List<AttachedFile> attachedFiles = new ArrayList<>();
 
-    @OneToMany(mappedBy="Board")
+    @OneToMany(mappedBy="board")
     private List<Comment> comments = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
