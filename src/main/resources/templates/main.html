@@ -32,7 +32,7 @@
     <div class="row">
         <div class="col">
             <button class="btn btn-primary float-end"
-                    th:onclick="|location.href='@{/writing}'|"
+                    th:onclick="|location.href='@{/board}'|"
                     onclick="location.href='addForm.html'"
                     type="button">글쓰기</button>
         </div>
@@ -67,11 +67,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="writing:${writings}">
-                <td><a href="writing/writing.html" th:href="@{/writing/{writingId}(writingId=${writing.id})}" th:text="${writing.id}"></a></td>
-                <td><a href="writing/writing.html" th:href="@{|/writing/${writing.id}|}" th:text="${writing.title}">글제목</a></td>
-                <td><a href="writing/writing.html" th:href="@{|/writing/${writing.id}|}" th:text="${writing.date}">작성일</a></td>
-                <td><a href="writing/writing.html" th:href="@{|/writing/${writing.id}|}" th:text="${writing.member.name}">작성자</a></td>
+            <tr th:each="board:${Boards}">
+                <td><a href="board/board.html" th:href="@{/board/{boardId}(boardId=${board.id})}" th:text="${board.id}"></a></td>
+                <td><a href="board/board.html" th:href="@{|/board/${board.id}|}" th:text="${board.title}">글제목</a></td>
+                <td><a href="board/board.html" th:href="@{|/board/${board.id}|}" th:text="${board.date}">작성일</a></td>
+                <td><a href="board/board.html" th:href="@{|/board/${board.id}|}" th:text="${board.member.name}">작성자</a></td>
             </tr>
             </tbody>
         </table>

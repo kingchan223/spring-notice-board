@@ -9,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Data
-public class AddWritingForm {
+public class AddboardForm {
 
     @NotEmpty(message = "제목을 입려하세요")
     @Length(min=3, max=15)
@@ -18,9 +18,9 @@ public class AddWritingForm {
     @NotEmpty(message="글을 입력하세요")
     private String content;
 
-    public AddWritingForm(){}
+    public AddboardForm(){}
 
-    public AddWritingForm(String title, String content) {
+    public AddboardForm(String title, String content) {
         this.title = title;
         this.content = content;
     }

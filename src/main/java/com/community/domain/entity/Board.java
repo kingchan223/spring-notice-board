@@ -1,8 +1,6 @@
 package com.community.domain.entity;
 
-import com.community.domain.entity.formEntity.AddWritingForm;
-import com.community.service.FileStore;
-import com.community.service.UploadFile;
+import com.community.domain.entity.formEntity.AddboardForm;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
-@Table(name="board")
+@Table(name="Board")
 @Entity
-public class Writing{
+public class Board {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="board_id")
     private Long id;
@@ -26,10 +24,10 @@ public class Writing{
 
     private LocalDateTime date;
 
-//    @OneToMany(mappedBy="writing", cascade=CascadeType.ALL)
+//    @OneToMany(mappedBy="Board", cascade=CascadeType.ALL)
 //    private List<AttachedFile> attachedFiles = new ArrayList<>();
 
-    @OneToMany(mappedBy="writing")
+    @OneToMany(mappedBy="Board")
     private List<Comment> comments = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -39,7 +37,7 @@ public class Writing{
     //==연관관계 편의 메서드==
     public void addMember(Member member){
         this.member = member;
-        member.getWritings().add(this);
+        member.getBoards().add(this);
     }
 
 
@@ -48,32 +46,32 @@ public class Writing{
 //
 //    }
 
-    public static Writing createWriting(Member member, AddWritingForm writingForm) throws IOException {
-        Writing writing = new Writing();
-        writing.setMember(member);
-        writing.setTitle(writingForm.getTitle());
-        writing.setContent(writingForm.getContent());
-//        writing.setAttachedFiles(null);
+    public static Board createBoard(Member member, AddboardForm boardForm) throws IOException {
+        Board board = new Board();
+        board.setMember(member);
+        board.setTitle(boardForm.getTitle());
+        board.setContent(boardForm.getContent());
+//        Board.setAttachedFiles(null);
 //        FileStore fileStore = new FileStore();
-//        List<AttachedFile> attachedFiles = fileStore.storeFiles(writingForm.getImageFiles());
+//        List<AttachedFile> attachedFiles = fileStore.storeFiles(boardForm.getImageFiles());
 //        for (AttachedFile attachedFile : attachedFiles) {
-//            writing.getAttachedFiles().add(attachedFile);
-//            attachedFile.addWriting(writing);
+//            Board.getAttachedFiles().add(attachedFile);
+//            attachedFile.addboard(Board);
 //        }
-        writing.setDate(LocalDateTime.now());
-        return writing;
+        board.setDate(LocalDateTime.now());
+        return board;
     }
 
-    public Writing(){}
+    public Board(){}
 
-//    public Writing(String title, String content, List<UploadFile> imageFiles) {
+//    public Board(String title, String content, List<UploadFile> imageFiles) {
 //        this.title = title;
 //        this.content = content;
 //        this.imageFiles = imageFiles;
 //        this.date = LocalDateTime.now();
 //    }
 //
-//    public Writing(String title, String content, Member member, List<UploadFile> imageFiles) {
+//    public Board(String title, String content, Member member, List<UploadFile> imageFiles) {
 //        this.title = title;
 //        this.content = content;
 //        this.member = member;

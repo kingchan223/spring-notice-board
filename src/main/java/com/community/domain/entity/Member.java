@@ -1,12 +1,9 @@
 package com.community.domain.entity;
 
 import com.community.domain.dto.member.JoinReqDto;
-import com.community.domain.dto.member.MemberDto;
 import com.community.domain.entity.formEntity.JoinMemberForm;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import lombok.Setter;
 
 
 import javax.persistence.*;
@@ -40,7 +37,7 @@ public class Member {
     private Address address;
 
     @OneToMany(mappedBy="member")
-    private List<Writing> writings = new ArrayList<>();
+    private List<Board> Boards = new ArrayList<>();
 
     @OneToMany(mappedBy="member")
     private List<Comment> comments = new ArrayList<>();
@@ -78,8 +75,8 @@ public class Member {
         this.joinedDate = joinedDate;
     }
 
-    private void setWritings(List<Writing> writings) {
-        this.writings = writings;
+    private void setboards(List<Board> Boards) {
+        this.Boards = Boards;
     }
 
     private void setAddress(Address address){this.address = address;}
@@ -175,4 +172,5 @@ public class Member {
         member.setAddress(Address.createAddress("empty", "empty", "empty"));
         return member;
     }
+
 }

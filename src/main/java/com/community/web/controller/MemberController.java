@@ -2,19 +2,17 @@ package com.community.web.controller;
 
 import com.community.config.SessionConst;
 import com.community.config.auth.PrincipalDetails;
+import com.community.domain.entity.Board;
 import com.community.domain.entity.Member;
-import com.community.domain.entity.RoleType;
 import com.community.domain.entity.formEntity.EditMemberForm;
 import com.community.domain.entity.formEntity.JoinMemberForm;
 import com.community.domain.entity.formEntity.LoginMemberForm;
-import com.community.domain.entity.Writing;
-import com.community.service.writing.WritingService;
+import com.community.service.board.BoardService;
 import com.community.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +30,7 @@ import java.util.List;
 @RequestMapping("/")
 public class MemberController {
 
-    private final WritingService writingService;
+    private final BoardService boardService;
     private final MemberService memberService;
 
     @GetMapping
@@ -47,16 +45,16 @@ public class MemberController {
                 return "redirect:/admin";
             }
         }
-        List<Writing> result = writingService.findAll();
-        model.addAttribute("writings", result);
+        List<Board> result = boardService.findAll();
+        model.addAttribute("boards", result);
         model.addAttribute("member", member);
         return "main";
     }
 
 //    @GetMapping("member/home")
 //    public String loginHome(@AuthenticationPrincipal PrincipalDetails principal, Model model){
-//        List<Writing> result = writingService.findAll();
-//        model.addAttribute("writings", result);
+//        List<Board> result = BoardService.findAll();
+//        model.addAttribute("boards", result);
 //        return "/basic/main";
 //    }
 

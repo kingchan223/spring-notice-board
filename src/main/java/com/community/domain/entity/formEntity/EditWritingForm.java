@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotEmpty;
 
 @Data
-public class EditWritingForm {
+public class EditboardForm {
 
     @NotEmpty(message = "제목을 입려하세요")
     @Length(min=3, max=15)
@@ -15,9 +15,9 @@ public class EditWritingForm {
     @NotEmpty(message="글을 입력하세요")
     private String content;
 
-    public EditWritingForm(){}
+    public EditboardForm(){}
 
-    public EditWritingForm(String title, String content){
+    public EditboardForm(String title, String content){
         this.title = title;
         this.content = content;
     }

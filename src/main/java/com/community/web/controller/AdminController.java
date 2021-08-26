@@ -1,7 +1,7 @@
 package com.community.web.controller;
 
-import com.community.domain.entity.Writing;
-import com.community.service.writing.WritingService;
+import com.community.domain.entity.Board;
+import com.community.service.board.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,18 +15,18 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    private final WritingService writingService;
+    private final BoardService boardService;
 
     @GetMapping
     public String adminHome(Model model){
-        List<Writing> writings = writingService.findAll();
-        model.addAttribute("writings", writings);
+        List<Board> Boards = boardService.findAll();
+        model.addAttribute("boards", Boards);
         return "/admin/main";
     }
 
-    @GetMapping("/writing/{writingId}")
-    public String delete(@PathVariable Long writingId){
-        writingService.delete(writingId);
+    @GetMapping("/board/{boardId}")
+    public String delete(@PathVariable Long boardId){
+        boardService.delete(boardId);
 
         return "redirect:/admin";
     }

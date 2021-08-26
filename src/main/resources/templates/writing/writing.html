@@ -22,19 +22,19 @@
     <h2 th:if="${param.status}" th:text="'글 등록이 완료되었습니다.'"></h2>
 
     <div>
-        제목:<h1 th:text="${writing.title}"></h1>
+        제목:<h1 th:text="${board.title}"></h1>
     </div>
     <br>
     <div>
-        작성자:<h2 th:text="${writing.member.name}"></h2>
+        작성자:<h2 th:text="${board.member.name}"></h2>
     </div>
     <br>
     <div>
         <label>글 내용:</label>
-        <text type="textarea" class="form-control"  th:text="${writing.content}" readonly></text>
+        <text type="textarea" class="form-control"  th:text="${board.content}" readonly></text>
     </div>
     <br>
-    <img th:each="attachedFile : ${writing.attachedFiles}" th:src="|/images/${attachedFile.getStoreFilename()}|"
+    <img th:each="attachedFile : ${board.attachedFiles}" th:src="|/images/${attachedFile.getStoreFilename()}|"
          width="500" height="500"/>
 
     <hr class="my-4">
@@ -43,7 +43,7 @@
         <div class="col"  th:if="${right}">
             <button class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='editForm.html'"
-                    th:onclick="|location.href='@{/writing/edit/{writingId}/(writingId=${writing.id})}'|"
+                    th:onclick="|location.href='@{/board/edit/{boardId}/(boardId=${board.id})}'|"
                     type="button">글 수정
             </button>
         </div>
@@ -58,7 +58,7 @@
         <div class="col"  th:if="${right}">
             <button class="w-100 btn btn-danger btn-lg"
                     onclick="location.href='main.html'"
-                    th:onclick="|location.href='@{/writing/writings/{writingId}/delete/(writingId=${writing.id})}'|"
+                    th:onclick="|location.href='@{/board/Boards/{boardId}/delete/(boardId=${board.id})}'|"
                     type="button">삭제하기
             </button>
         </div>

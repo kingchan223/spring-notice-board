@@ -19,16 +19,16 @@ public class Comment {
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="writing_id")
-    private Writing writing;
+    @JoinColumn(name="board_id")
+    private Board board;
 
     public void addMember(Member member){
         this.member = member;
         member.getComments().add(this);
     }
 
-    public void addWriting(Writing writing){
-        this.writing = writing;
-        writing.getComments().add(this);
+    public void addboard(Board board){
+        this.board = board;
+        board.getComments().add(this);
     }
 }

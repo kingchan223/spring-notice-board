@@ -1,7 +1,7 @@
-package com.community.repository.writing;
+package com.community.repository.board;
 
 
-import com.community.domain.entity.Writing;
+import com.community.domain.entity.Board;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
@@ -13,26 +13,24 @@ import java.util.List;
 @Primary
 @RequiredArgsConstructor
 @Repository
-public class WritingRepository {
+public class BoardRepository {
 
     @PersistenceContext
     private final EntityManager em;
 
-    public void save(Writing writing){
-        em.persist(writing);
+    public void save(Board board){
+        em.persist(board);
     }
 
-    public Writing findOne(Long id){
-        return em.find(Writing.class, id);
+    public Board findOne(Long id){
+        return em.find(Board.class, id);
     }
 
-    public List<Writing> findAll(){
-        return em.createQuery("select w from Writing w", Writing.class).getResultList();
+    public List<Board> findAll(){
+        return em.createQuery("select w from Board w", Board.class).getResultList();
     }
 
     public void delete(Long id){
         em.remove(findOne(id));
     }
-
-
 }

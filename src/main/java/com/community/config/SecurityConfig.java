@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable();//httpbasic방식 비활성화
         http.authorizeRequests().anyRequest().permitAll();
 //                .authorizeRequests()
-//                .antMatchers("/member/**", "/writing/**").authenticated()
+//                .antMatchers("/member/**", "/Board/**").authenticated()
 //                .antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
 //                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 //                .antMatchers("/api/admin/**").access("hasRole('ROLE_ADMIN')")

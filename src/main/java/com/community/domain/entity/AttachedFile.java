@@ -15,8 +15,8 @@ public class AttachedFile {
 //    private Long id;
 //
 //    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name ="writing_id")
-//    private Writing writing;
+//    @JoinColumn(name ="board_id")
+//    private Board Board;
 //
 //    private String storeFilename;
 //    private String uploadFilename;
@@ -24,8 +24,8 @@ public class AttachedFile {
 //    private void setId(Long id) {
 //        this.id = id;
 //    }
-//    private void setWriting(Writing writing) {
-//        this.writing = writing;
+//    private void setboard(Board Board) {
+//        this.Board = Board;
 //    }
 //    private void setStoreFilename(String storeFilename) {
 //        this.storeFilename = storeFilename;
@@ -37,8 +37,8 @@ public class AttachedFile {
 //    public Long getId() {
 //        return id;
 //    }
-//    public Writing getWriting() {
-//        return writing;
+//    public Board getboard() {
+//        return Board;
 //    }
 //    public String getStoreFilename() {
 //        return storeFilename;
@@ -55,7 +55,7 @@ public class AttachedFile {
 //        return attachedFile;
 //    }
 //    //연관관계 편의 메소드
-//    public void addWriting(Writing writing){
-//        this.setWriting(writing);
+//    public void addboard(Board Board){
+//        this.setboard(Board);
 //    }
 }
