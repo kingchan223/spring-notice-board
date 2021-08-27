@@ -130,5 +130,16 @@ public class BoardServiceImpl implements BoardService {
         return boardDtoList;
     }
 
+    @Override
+    public List<BoardDto> searchPostsContent(String keyword) {
+        List<Board> boards = boardRepository.findByContentContaining(keyword);
+        List<BoardDto> boardDtoList = new ArrayList<>();
+        if(boards.isEmpty()) return boardDtoList;
+        for (Board board : boards) {
+            boardDtoList.add(BoardDto.createboardDto(board));
+        }
+        return boardDtoList;
+    }
+
 
 }

@@ -32,30 +32,23 @@ public class ApiBoardController {
 
     @GetMapping("/api/home")
     public ResponseEntity<?> boardsAll(@RequestParam(value="page", defaultValue="1") Integer page){
-
-//        List<Board> result = boardService.findAll();
-//        List<BoardDto> wrtings = new ArrayList<>();
-
         Integer[] pageList = boardService.getPageList(page);
         List<BoardDto> boardList = boardService.getBoardList(page);
-//        for (Board board : result) {
-//            wrtings.add(createboardDto(board));
-//        }
         return new ResponseEntity<>(new BoardPageDto(pageList, boardList), HttpStatus.OK);
+    }
+
+    @GetMapping("/api/home/search")
+    public ResponseEntity<?> searchBoards(@RequestParam String selected, @RequestParam String keyword){
+
+        List<BoardDto> boardDtos = new ArrayList<>();
+
+        if(selected.equals("title")) boardDtos = boardService.searchPostsTitle(keyword);
+        else boardDtos = boardService.searchPostsContent(keyword);
+
+        return new ResponseEntity<>(boardDtos, HttpStatus.OK);
 
     }
 
-    @GetMapping("/api/home2")
-    public ResponseEntity<?> boardsAll2(@RequestParam(value="page", defaultValue="1") Integer page){
-
-        List<Board> result = boardService.findAll();
-        List<BoardDto> wrtings = new ArrayList<>();
-        for (Board board : result) {
-            wrtings.add(createboardDto(board));
-        }
-        return new ResponseEntity<>(wrtings, HttpStatus.OK);
-
-    }
 
     // 글 상세
     @GetMapping("/api/board/{id}")
@@ -84,6 +77,17 @@ public class ApiBoardController {
         Integer totalLastPageNum = (int) (Math.ceil((postsTotalCount / PAGE_POST_COUNT)));//6
         return new ResponseEntity<>(totalLastPageNum, HttpStatus.OK);
     }
+//    @GetMapping("/api/home2")
+//    public ResponseEntity<?> boardsAll2(@RequestParam(value="page", defaultValue="1") Integer page){
+//
+//        List<Board> result = boardService.findAll();
+//        List<BoardDto> wrtings = new ArrayList<>();
+//        for (Board board : result) {
+//            wrtings.add(createboardDto(board));
+//        }
+//        return new ResponseEntity<>(wrtings, HttpStatus.OK);
+//
+//    }
 
 
 }

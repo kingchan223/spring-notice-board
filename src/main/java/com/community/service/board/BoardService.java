@@ -39,6 +39,7 @@ public interface BoardService {
     Long getBoardCount();
 
     List<BoardDto> searchPostsTitle(String keyword);
+    List<BoardDto> searchPostsContent(String keyword);
 
 
 
