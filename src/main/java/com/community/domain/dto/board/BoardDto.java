@@ -14,6 +14,7 @@ public class BoardDto {
     private String author;
     private String content;
     private String date;
+    private String loginId;
 
     public static BoardDto createboardDto(Board board){
         BoardDto boardDto = new BoardDto();
@@ -22,6 +23,7 @@ public class BoardDto {
         boardDto.setAuthor(board.getMember().getName());
         boardDto.setContent(board.getContent());
         boardDto.setDate(board.getDate().toString());
+        boardDto.setLoginId(board.getMember().getLoginId());
         return boardDto;
     }
 }

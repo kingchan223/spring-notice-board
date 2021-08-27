@@ -26,7 +26,6 @@ import static com.community.domain.dto.board.BoardDto.createboardDto;
 public class ApiBoardController {
 
     private final BoardService boardService;
-    private final MemberService memberService;
     private static final double BLOCK_PAGE_NUM_COUNT = 5;//블럭에 존재하는 페이지 수
     private static final double PAGE_POST_COUNT = 7;//한 페이지에 존재하는 게시글 수
 
@@ -37,16 +36,14 @@ public class ApiBoardController {
         return new ResponseEntity<>(new BoardPageDto(pageList, boardList), HttpStatus.OK);
     }
 
+    // 글 keyword로 검색
     @GetMapping("/api/home/search")
     public ResponseEntity<?> searchBoards(@RequestParam String selected, @RequestParam String keyword){
-
         List<BoardDto> boardDtos = new ArrayList<>();
-
         if(selected.equals("title")) boardDtos = boardService.searchPostsTitle(keyword);
         else boardDtos = boardService.searchPostsContent(keyword);
 
         return new ResponseEntity<>(boardDtos, HttpStatus.OK);
-
     }
 
 
@@ -61,8 +58,6 @@ public class ApiBoardController {
     // 글쓰기
     @PostMapping("/api/board")
     public ResponseEntity<?> addboard(HttpServletRequest request, @RequestBody AddboardForm addboardForm) throws IOException {
-        System.out.println("글쓰기 실행");
-        System.out.println("request.getAttribute(\"memberId\"): "+request.getAttribute("memberId"));
         /*왜 아래 라인처럼 하면 되고
          BoardService.save((Long)request.getAttribute("memberId"), addboardForm) 이렇게 하면 안되는지 모르겠음*/
         Long memberId  = (Long) request.getAttribute("memberId");
