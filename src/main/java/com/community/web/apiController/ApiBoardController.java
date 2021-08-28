@@ -5,6 +5,7 @@ import com.community.domain.dto.board.BoardDto;
 import com.community.domain.dto.board.BoardPageDto;
 import com.community.domain.entity.Board;
 import com.community.domain.entity.formEntity.AddboardForm;
+import com.community.domain.entity.formEntity.EditBoardForm;
 import com.community.service.member.MemberService;
 import com.community.service.board.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -71,6 +72,15 @@ public class ApiBoardController {
         Board board = boardService.save(memberId, addboardForm);
         return new ResponseEntity<>(createboardDto(board), HttpStatus.OK);
     }
+
+    // 글쓰기
+    @PutMapping("/api/board")
+    public ResponseEntity<?> editboard(HttpServletRequest request, @RequestBody EditBoardForm editboardForm) throws IOException {
+        Long memberId  = (Long) request.getAttribute("memberId");
+        BoardDto boardDto = boardService.update(editboardForm.getId(), editboardForm);
+        return new ResponseEntity<>(boardDto, HttpStatus.OK);
+    }
+
 
     //last페이지
     @GetMapping("api/maxPage")

@@ -5,6 +5,7 @@ import com.community.domain.dto.board.BoardDto;
 import com.community.domain.entity.Board;
 import com.community.domain.entity.Member;
 import com.community.domain.entity.formEntity.AddboardForm;
+import com.community.domain.entity.formEntity.EditBoardForm;
 import com.community.repository.board.BoardRepository;
 import com.community.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,15 +45,16 @@ public class BoardServiceImpl implements BoardService {
         return board;
     }
 
-    public Optional<Board> findOne(Long id){
+    public Board findOne(Long id){
         return boardRepository.findById(id);
     }
-
 
     /*게시글 수정하기*/
     @Transactional
     @Override
-    public void update(Long beforeboardId, Board afterboard) {
+    public BoardDto update(Long beforeboardId, EditBoardForm editBoardForm) {
+        Optional<Board> board = findOne(beforeboardId);
+
 
     }
 

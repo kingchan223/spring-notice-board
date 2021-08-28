@@ -3,6 +3,7 @@ package com.community.service.board;
 import com.community.domain.dto.board.BoardDto;
 import com.community.domain.entity.Board;
 import com.community.domain.entity.formEntity.AddboardForm;
+import com.community.domain.entity.formEntity.EditBoardForm;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,7 +28,7 @@ public interface BoardService {
     Board save(Long memberId, AddboardForm boardForm) throws IOException;
 
     //POST /boards/{boardNum} : 글 수정
-    void update(Long beforeboardId, Board afterboard);
+    BoardDto update(Long beforeboardId, EditBoardForm editBoardForm)
 
     //DELETE /boards/{boardNum} : 글 삭제
     void delete(Long id);
