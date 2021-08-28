@@ -1,5 +1,6 @@
 package com.community.web.apiController;
 
+import com.community.domain.dto.CMRespDto;
 import com.community.domain.dto.board.BoardDto;
 import com.community.domain.dto.board.BoardPageDto;
 import com.community.domain.entity.Board;
@@ -53,6 +54,12 @@ public class ApiBoardController {
         Optional<Board> result = boardService.findOne(id);
         Board board = result.orElse(null);
         return new ResponseEntity<>(createboardDto(board), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/api/board/{id}")
+    public ResponseEntity<?> boardDelete(@PathVariable Long id){
+        boardService.delete(id);
+        return new ResponseEntity<>(new CMRespDto<>(1, "success", null), HttpStatus.OK);
     }
 
     // 글쓰기
