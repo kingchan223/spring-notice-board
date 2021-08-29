@@ -3,6 +3,7 @@ package com.community.web.apiController;
 import com.community.domain.dto.CMRespDto;
 import com.community.domain.dto.board.BoardDto;
 import com.community.domain.dto.board.BoardPageDto;
+import com.community.domain.dto.board.ReqCommentDto;
 import com.community.domain.entity.Board;
 import com.community.domain.entity.formEntity.AddboardForm;
 import com.community.domain.entity.formEntity.EditBoardForm;
@@ -47,7 +48,6 @@ public class ApiBoardController {
 
         return new ResponseEntity<>(boardDtos, HttpStatus.OK);
     }
-
 
     // 글 상세
     @GetMapping("/api/board/{id}")
@@ -100,6 +100,14 @@ public class ApiBoardController {
 //        return new ResponseEntity<>(wrtings, HttpStatus.OK);
 //
 //    }
-
-
+    /*댓글 관련*/
+    @PostMapping("api/board/comment")
+    public ResponseEntity<?> addComment(@RequestParam(value="board") Long boardId,
+                                        @RequestBody ReqCommentDto reqCommentDto,
+                                        HttpServletRequest request){
+        System.out.println("🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑");
+        Long memberId  = (Long) request.getAttribute("memberId");
+        BoardDto boardDto = boardService.addComment(boardId, memberId, reqCommentDto);
+        return new ResponseEntity<>(boardDto, HttpStatus.OK);
+    }
 }

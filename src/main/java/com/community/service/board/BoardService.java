@@ -1,6 +1,7 @@
 package com.community.service.board;
 
 import com.community.domain.dto.board.BoardDto;
+import com.community.domain.dto.board.ReqCommentDto;
 import com.community.domain.entity.Board;
 import com.community.domain.entity.formEntity.AddboardForm;
 import com.community.domain.entity.formEntity.EditBoardForm;
@@ -41,4 +42,11 @@ public interface BoardService {
 
     List<BoardDto> searchPostsTitle(String keyword);
     List<BoardDto> searchPostsContent(String keyword);
+
+    BoardDto addComment(Long boardId, Long commentMemberId, ReqCommentDto reqCommentDto);
+
+    BoardDto editComment(Long id, ReqCommentDto reqCommentDto);
+
+    BoardDto deleteComment(Long id);
+
 }

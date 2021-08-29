@@ -56,8 +56,6 @@ public class JwtAdminAuthorizationFilter implements Filter {
             try {/*access 토큰 검증 시작*/
                 log.info("access토큰 검사 시작");
                 DecodedJWT decodeJwt = JWT.require(Algorithm.HMAC512(JwtProperties.ACCESS_SECRET)).withIssuer("LEEE").build().verify(accessToken);
-
-//                String loginId = decodeJwt.getClaim("loginId").asString();
                 id = decodeJwt.getClaim("id").asLong();
                 String role = decodeJwt.getClaim("role").asString();
                 if (!role.equals("ADMIN")) {
@@ -67,13 +65,6 @@ public class JwtAdminAuthorizationFilter implements Filter {
                     out.print(cmRespDtoJson); // CMRespDto
                     out.flush();
                 }
-//                String email = decodeJwt.getClaim("email").asString();
-//                String role = decodeJwt.getClaim("role").asString();
-//                Member loginUser = Member.createMember(id, loginId, email, null, role);
-
-//                HttpSession session = req.getSession();
-//                session.setAttribute("principal", loginUser);
-//                System.out.println("id = " + id);
                 req.setAttribute("memberId", id);
                 log.info("access토큰 검증 성공");
                 chain.doFilter(req, resp);

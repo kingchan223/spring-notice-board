@@ -2,7 +2,9 @@ package com.community.service.board;
 
 
 import com.community.domain.dto.board.BoardDto;
+import com.community.domain.dto.board.ReqCommentDto;
 import com.community.domain.entity.Board;
+import com.community.domain.entity.Comment;
 import com.community.domain.entity.Member;
 import com.community.domain.entity.formEntity.AddboardForm;
 import com.community.domain.entity.formEntity.EditBoardForm;
@@ -143,6 +145,27 @@ public class BoardServiceImpl implements BoardService {
             boardDtoList.add(BoardDto.createboardDto(board));
         }
         return boardDtoList;
+    }
+
+    @Override
+    public BoardDto addComment(Long boardId, Long commentMemberId, ReqCommentDto reqCommentDto) {
+        Optional<Board> board = findOne(boardId);// 이때 board가 삭제된다면?
+        Member member = memberRepository.findOne(commentMemberId);
+        Board findBoard = board.orElse(null);
+        assert findBoard != null;
+        findBoard.addComment(Comment.createComment(reqCommentDto,member,findBoard));
+        BoardDto boardDto = BoardDto.createboardDto(findBoard);
+        return boardDto;
+    }
+
+    @Override
+    public BoardDto editComment(Long id, ReqCommentDto reqCommentDto) {
+        return null;
+    }
+
+    @Override
+    public BoardDto deleteComment(Long id) {
+        return null;
     }
 
 

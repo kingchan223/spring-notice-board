@@ -1,5 +1,7 @@
 package com.community.domain.entity;
 
+import com.community.domain.dto.board.ReqCommentDto;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -30,5 +32,54 @@ public class Comment {
     public void addBoard(Board board){
         this.board = board;
         board.getComments().add(this);
+    }
+
+    public static Comment createComment(ReqCommentDto reqCommentDto, Member member, Board board){
+        Comment comment = new Comment();
+        comment.setContent(reqCommentDto.getContent());
+        comment.setDate(LocalDateTime.now());
+        comment.setMember(member);
+        comment.setBoard(board);
+        return comment;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    private void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    private void setContent(String content) {
+        this.content = content;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    private void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    private void setMember(Member member) {
+        this.member = member;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    private void setBoard(Board board) {
+        this.board = board;
     }
 }

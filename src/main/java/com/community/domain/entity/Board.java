@@ -39,13 +39,10 @@ public class Board {
         this.member = member;
         member.getBoards().add(this);
     }
-
-
 //
 //    public void addAttachedFiles(List<AttachedFile> attachedFiles){
 //
 //    }
-
     public static Board createBoard(Member member, AddboardForm boardForm) throws IOException {
         Board board = new Board();
         board.setMember(member);
@@ -68,6 +65,10 @@ public class Board {
         this.setTitle(title);
         this.setContent(content);
         return this;
+    }
+
+    public void addComment(Comment comment){
+        this.comments.add(comment);
     }
 
 //    public Board(String title, String content, List<UploadFile> imageFiles) {
