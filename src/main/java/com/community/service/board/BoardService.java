@@ -28,7 +28,7 @@ public interface BoardService {
     Board save(Long memberId, AddboardForm boardForm) throws IOException;
 
     //POST /boards/{boardNum} : 글 수정
-    BoardDto update(Long beforeboardId, EditBoardForm editBoardForm)
+    BoardDto update(Long beforeboardId, EditBoardForm editBoardForm);
 
     //DELETE /boards/{boardNum} : 글 삭제
     void delete(Long id);
@@ -41,8 +41,4 @@ public interface BoardService {
 
     List<BoardDto> searchPostsTitle(String keyword);
     List<BoardDto> searchPostsContent(String keyword);
-
-
-
-
 }

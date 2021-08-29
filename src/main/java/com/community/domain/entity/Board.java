@@ -64,6 +64,12 @@ public class Board {
 
     public Board(){}
 
+    public Board editBoard(String title, String content){
+        this.setTitle(title);
+        this.setContent(content);
+        return this;
+    }
+
 //    public Board(String title, String content, List<UploadFile> imageFiles) {
 //        this.title = title;
 //        this.content = content;

@@ -3,6 +3,8 @@ package com.community.config.filter.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.community.config.auth.properties.JwtProperties;
 import com.community.domain.dto.CMRespDto;
 import com.community.domain.dto.member.LoginReqDto;
@@ -11,6 +13,8 @@ import com.community.domain.entity.Member;
 import com.community.service.member.MemberService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +22,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
+@Slf4j
 @AllArgsConstructor
 public class JwtAuthenticationFilter implements Filter{
 
@@ -59,32 +64,30 @@ public class JwtAuthenticationFilter implements Filter{
             PrintWriter out = resp.getWriter();
             out.println(cmRespDtoJson);
             out.flush();
-        // 3-2. null아니면 토큰 발급하고 response에 넣어주기
+        // 3-2. 회원의 id와 password가 일치하여 loginMember가 null아니면 access토큰 발급하고 refresh토큰은 검사하기
         } else {
             System.out.println("로그인성공");
 
+            //access토큰은 무조건 새로 발급하지만
             String accessToken = TokenManager.createAccessToken(loginMember);
-            String refreshToken = TokenManager.createRefreshToken(loginMember);
 
-            System.out.println("jwtAccessToken = " + accessToken);
-            System.out.println("jwtAccessToken = " + refreshToken);
-            // 헤더 키값 = RFC문서
-            resp.setHeader("Authorization", JwtProperties.AUTH + accessToken);
-            resp.setContentType("application/json; charset=utf-8");
+            //refresh토큰은 유효성 검사를 한후, 유효기간이 지났을시에만 새로 발급한다.(아래 try, catch문)
+            String refreshToken = loginMember.getRefreshToken();
+            try{/*refresh토큰 검사*/
+                log.info("refresh토큰 검사 AT Authentication");
+                DecodedJWT decodeJwt = JWT.require(Algorithm.HMAC512(JwtProperties.REFRESH_SECRET)).withIssuer("LEEE").build().verify(refreshToken);
+
+            }catch(TokenExpiredException e){
+                refreshToken = TokenManager.createRefreshToken(loginMember);
+                memberService.addRefreshToken(loginMember.getId(), refreshToken);
+            }
+
 
             //헤더에 access, refresh토큰 넣어주기
             resp.setHeader("ACCESS_TOKEN", JwtProperties.AUTH + accessToken);
             resp.setHeader("REFRESH_TOKEN", JwtProperties.AUTH + refreshToken);
+            resp.setContentType("application/json; charset=utf-8");
 
-            //refresh토큰 DB에 저장
-            memberService.addRefreshToken(loginMember.getId(), refreshToken);
-            System.out.println("==========================");
-            System.out.println("loginMember = " + loginMember.getLoginId());
-            System.out.println("loginMember = " + loginMember.getId());
-            System.out.println("loginMember = " + loginMember.getName());
-            System.out.println("loginMember = " + loginMember.getRole());
-            System.out.println("loginMember = " + loginMember.getEmail());
-            System.out.println("==========================");
             CMRespDto<MemberDto> cmRespDto =
                     new CMRespDto<>(1, "success", MemberDto.createMemberDto(loginMember));
 

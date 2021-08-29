@@ -9,9 +9,6 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @Data
 public class EditBoardForm {
-
-    private Long id;
-
     @NotEmpty(message = "제목을 입려하세요")
     @Length(min=3, max=15)
     private String title;
@@ -20,9 +17,4 @@ public class EditBoardForm {
     private String content;
 
     public EditBoardForm(){}
-
-    public EditBoardForm(String title, String content){
-        this.title = title;
-        this.content = content;
-    }
 }

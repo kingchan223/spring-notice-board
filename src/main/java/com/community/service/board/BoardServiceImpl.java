@@ -45,7 +45,7 @@ public class BoardServiceImpl implements BoardService {
         return board;
     }
 
-    public Board findOne(Long id){
+    public Optional<Board> findOne(Long id){
         return boardRepository.findById(id);
     }
 
@@ -54,8 +54,10 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public BoardDto update(Long beforeboardId, EditBoardForm editBoardForm) {
         Optional<Board> board = findOne(beforeboardId);
-
-
+        Board beforeBoard = board.orElse(null);
+        assert beforeBoard != null;
+        Board editedBoard = beforeBoard.editBoard(editBoardForm.getTitle(), editBoardForm.getContent());
+        return BoardDto.createboardDto(editedBoard);
     }
 
     /*게시글 삭제하기*/

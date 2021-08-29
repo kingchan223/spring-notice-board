@@ -57,8 +57,10 @@ public class ApiBoardController {
         return new ResponseEntity<>(createboardDto(board), HttpStatus.OK);
     }
 
+    //글 삭제
     @DeleteMapping("/api/board/{id}")
     public ResponseEntity<?> boardDelete(@PathVariable Long id){
+        System.out.println("글 삭제 작동@@@@@!!!!!");
         boardService.delete(id);
         return new ResponseEntity<>(new CMRespDto<>(1, "success", null), HttpStatus.OK);
     }
@@ -73,14 +75,12 @@ public class ApiBoardController {
         return new ResponseEntity<>(createboardDto(board), HttpStatus.OK);
     }
 
-    // 글쓰기
-    @PutMapping("/api/board")
-    public ResponseEntity<?> editboard(HttpServletRequest request, @RequestBody EditBoardForm editboardForm) throws IOException {
-        Long memberId  = (Long) request.getAttribute("memberId");
-        BoardDto boardDto = boardService.update(editboardForm.getId(), editboardForm);
+    // 글 수정
+    @PutMapping("/api/board/{id}")
+    public ResponseEntity<?> editboard(@PathVariable Long id, @RequestBody EditBoardForm editboardForm){
+        BoardDto boardDto = boardService.update(id, editboardForm);
         return new ResponseEntity<>(boardDto, HttpStatus.OK);
     }
-
 
     //last페이지
     @GetMapping("api/maxPage")
