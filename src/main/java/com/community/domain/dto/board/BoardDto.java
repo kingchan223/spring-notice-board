@@ -18,7 +18,7 @@ public class BoardDto {
     private String content;
     private String date;
     private String loginId;
-    private List<Comment> comments;
+    private List<CommentDto> commentDtos;
 
     public static BoardDto createboardDto(Board board){
         BoardDto boardDto = new BoardDto();
@@ -28,7 +28,7 @@ public class BoardDto {
         boardDto.setContent(board.getContent());
         boardDto.setDate(board.getDate().toString());
         boardDto.setLoginId(board.getMember().getLoginId());
-        boardDto.setComments(board.getComments());
+        boardDto.setCommentDtos(CommentDto.createCommentDtos(board.getComments()));
         return boardDto;
     }
 }
