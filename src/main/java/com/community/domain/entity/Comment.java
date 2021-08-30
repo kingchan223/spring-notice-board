@@ -38,8 +38,8 @@ public class Comment {
         Comment comment = new Comment();
         comment.setContent(reqCommentDto.getContent());
         comment.setDate(LocalDateTime.now());
-        comment.setMember(member);
-        comment.setBoard(board);
+        comment.addMember(member);
+        comment.addBoard(board);
         return comment;
     }
 

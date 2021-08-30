@@ -9,6 +9,7 @@ import com.community.domain.entity.Member;
 import com.community.domain.entity.formEntity.AddboardForm;
 import com.community.domain.entity.formEntity.EditBoardForm;
 import com.community.repository.board.BoardRepository;
+import com.community.repository.comment.CommentRepository;
 import com.community.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
@@ -31,6 +32,7 @@ public class BoardServiceImpl implements BoardService {
 
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
+    private final CommentRepository commentRepository;
 
     private static final int BLOCK_PAGE_NUM_COUNT = 5;//블럭에 존재하는 페이지 수
     private static final int PAGE_POST_COUNT = 7;//한 페이지에 존재하는 게시글 수
@@ -147,14 +149,16 @@ public class BoardServiceImpl implements BoardService {
         return boardDtoList;
     }
 
+    @Transactional
     @Override
     public BoardDto addComment(Long boardId, Long commentMemberId, ReqCommentDto reqCommentDto) {
-        Optional<Board> board = findOne(boardId);// 이때 board가 삭제된다면?
+        Optional<Board> board = findOne(boardId);/* 이때 board가 삭제된다면?*/
         Member member = memberRepository.findOne(commentMemberId);
         Board findBoard = board.orElse(null);
         assert findBoard != null;
-        findBoard.addComment(Comment.createComment(reqCommentDto,member,findBoard));
+        Comment comment = Comment.createComment(reqCommentDto, member, findBoard);
         BoardDto boardDto = BoardDto.createboardDto(findBoard);
+        commentRepository.save(comment);
         return boardDto;
     }
 
@@ -167,6 +171,4 @@ public class BoardServiceImpl implements BoardService {
     public BoardDto deleteComment(Long id) {
         return null;
     }
-
-
 }
