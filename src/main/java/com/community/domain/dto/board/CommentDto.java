@@ -15,7 +15,7 @@ public class CommentDto {
     String content;
     String authorLoginId;
     String date;
-
+    //comment
     public static List<CommentDto> createCommentDtos(List<Comment> comments){
         List<CommentDto> commentDtos = new ArrayList<>();
         for (Comment comment : comments) {
