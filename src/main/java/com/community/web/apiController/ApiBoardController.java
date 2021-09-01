@@ -45,7 +45,8 @@ public class ApiBoardController {
         List<BoardDto> boardDtos = new ArrayList<>();
         if(selected.equals("title")) boardDtos = boardService.searchPostsTitle(keyword);
         else boardDtos = boardService.searchPostsContent(keyword);
-
+//        Integer[] pageList = boardService.getPageList(1);/**/
+//        return new ResponseEntity<>(new BoardPageDto(pageList, boardDtos), HttpStatus.OK);
         return new ResponseEntity<>(boardDtos, HttpStatus.OK);
     }
 
@@ -89,17 +90,7 @@ public class ApiBoardController {
         Integer totalLastPageNum = (int) (Math.ceil((postsTotalCount / PAGE_POST_COUNT)));//6
         return new ResponseEntity<>(totalLastPageNum, HttpStatus.OK);
     }
-//    @GetMapping("/api/home2")
-//    public ResponseEntity<?> boardsAll2(@RequestParam(value="page", defaultValue="1") Integer page){
-//
-//        List<Board> result = boardService.findAll();
-//        List<BoardDto> wrtings = new ArrayList<>();
-//        for (Board board : result) {
-//            wrtings.add(createboardDto(board));
-//        }
-//        return new ResponseEntity<>(wrtings, HttpStatus.OK);
-//
-//    }
+
     /*댓글 관련*/
     @PostMapping("api/board/comment")
     public ResponseEntity<?> addComment(@RequestParam(value="board") Long boardId,
