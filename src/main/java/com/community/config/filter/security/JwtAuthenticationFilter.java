@@ -77,7 +77,7 @@ public class JwtAuthenticationFilter implements Filter{
                 log.info("refresh토큰 검사 AT Authentication");
                 DecodedJWT decodeJwt = JWT.require(Algorithm.HMAC512(JwtProperties.REFRESH_SECRET)).withIssuer("LEEE").build().verify(refreshToken);
 
-            }catch(TokenExpiredException e){
+            }catch(TokenExpiredException | NullPointerException e){
                 refreshToken = TokenManager.createRefreshToken(loginMember);
                 memberService.addRefreshToken(loginMember.getId(), refreshToken);
             }
