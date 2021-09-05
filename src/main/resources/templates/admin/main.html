@@ -13,46 +13,46 @@
     <h2>게시글 목록</h2>
   </div>
 </div>
-  <br>
-  <div class="row">
+<br>
+<div class="row">
 
-    <div class="col">
-      <button class="btn btn-primary float-end"
-              th:onclick="|location.href='@{/member/userinfo}'|"
-              onclick="location.href='main.html'"
-              type="button">모든 회원조회</button>
-    </div>
+  <div class="col">
+    <button class="btn btn-primary float-end"
+            th:onclick="|location.href='@{/member/userinfo}'|"
+            onclick="location.href='main.html'"
+            type="button">모든 회원조회</button>
+  </div>
 
-    <div class="col">
-      <button class="btn btn-primary float-end"
-              th:onclick="|location.href='@{/logout}'|"
-              onclick="location.href='main.html'"
-              type="button">로그아웃</button>
-    </div>
+  <div class="col">
+    <button class="btn btn-primary float-end"
+            th:onclick="|location.href='@{/logout}'|"
+            onclick="location.href='main.html'"
+            type="button">로그아웃</button>
   </div>
-  <hr class="my-4">
-  <div>
-    <table class="table">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>글제목</th>
-        <th>작성일</th>
-        <th>작성자</th>
-        <th>삭제하기</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="board:${Boards}">
-        <td><a href="board/board.html" th:href="@{/board/{boardId}(boardId=${board.id})}" th:text="${board.id}"></a></td>
-        <td><a href="board/board.html" th:href="@{|/board/${board.id}|}" th:text="${board.title}">글제목</a></td>
-        <td><a href="board/board.html" th:href="@{|/board/${board.id}|}" th:text="${board.date}">작성일</a></td>
-        <td><a href="board/board.html" th:href="@{|/board/${board.id}|}" th:text="${board.member.loginId}">작성자</a></td>
-        <td><button class="btn btn-primary float-end" th:onclick="|location.href='@{/admin/board/{boardId}(boardId=${board.id})}'|" onclick="location.href='main.html'" type="button">삭제</button></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+</div>
+<hr class="my-4">
+<!--  <div>-->
+<!--    <table class="table">-->
+<!--      <thead>-->
+<!--      <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>글제목</th>-->
+<!--        <th>작성일</th>-->
+<!--        <th>작성자</th>-->
+<!--        <th>삭제하기</th>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <tr th:each="board:${Boards}">-->
+<!--        <td><a href="board/board.html" th:href="@{/board/{boardId}(boardId=${board.id})}" th:text="${board.id}"></a></td>-->
+<!--        <td><a href="board/board.html" th:href="@{|/board/${board.id}|}" th:text="${board.title}">글제목</a></td>-->
+<!--        <td><a href="board/board.html" th:href="@{|/board/${board.id}|}" th:text="${board.date}">작성일</a></td>-->
+<!--        <td><a href="board/board.html" th:href="@{|/board/${board.id}|}" th:text="${board.member.loginId}">작성자</a></td>-->
+<!--        <td><button class="btn btn-primary float-end" th:onclick="|location.href='@{/admin/board/{boardId}(boardId=${board.id})}'|" onclick="location.href='main.html'" type="button">삭제</button></td>-->
+<!--      </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
 </div> <!-- /container -->
 
 </body>
