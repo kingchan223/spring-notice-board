@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -21,16 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 public class ApiMemberController {
 
     private final MemberService memberService;
-
-//    @PostMapping("/api/login")
-//    public ResponseEntity<?> login(@RequestBody LoginMemberForm loginForm){
-//        System.out.println("/api/login 실헹");
-//        Member member = memberService.login(loginForm.getLoginId(), loginForm.getPassword());
-//        if(member==null){
-//            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
-//        }
-//        return new ResponseEntity<>(  MemberDto.createMemberDto(member),HttpStatus.OK);
-//    }
 
     // 회원가입
     @PostMapping("/api/join")
@@ -56,5 +47,10 @@ public class ApiMemberController {
         Member member = memberService.changeUserInfo(id, editMemberForm);
         MemberDto memberDto = MemberDto.createMemberDto(member);
         return new ResponseEntity<>(new CMRespDto<MemberDto>(1, "success", memberDto), HttpStatus.OK);
+    }
+
+    @GetMapping("/api/allmember")
+    public List<MemberDto> getAllMember(){
+        return memberService.getAll();
     }
 }

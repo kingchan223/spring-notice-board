@@ -13,7 +13,7 @@ public interface MemberService {
 
     Member findUser(Long id);
 
-    List<Member> getAll();
+    List<MemberDto> getAll();
 
     Member addUserBasic(Member member);
 
@@ -29,4 +29,5 @@ public interface MemberService {
     Member addMemberFromDto(JoinReqDto joinReqDto);
 
     Member addRefreshToken(Long id, String refreshToken);
+
 }

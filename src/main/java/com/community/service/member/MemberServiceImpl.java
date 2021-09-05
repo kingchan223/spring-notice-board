@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Transient;
+import java.util.ArrayList;
 import java.util.List;
 
 @Primary
@@ -46,8 +47,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Member> getAll() {
-        return memberRepository.findAll();
+    public List<MemberDto> getAll() {
+        List<MemberDto> memberDtos = new ArrayList<>();
+        List<Member> members = memberRepository.findAll();
+        for (Member member : members) {
+            memberDtos.add(MemberDto.createMemberDto(member));
+        }
+        return memberDtos;
     }
 
     @Transactional
