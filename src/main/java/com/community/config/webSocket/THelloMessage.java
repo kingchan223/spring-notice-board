@@ -1,13 +1,13 @@
 package com.community.config.webSocket;
 
-public class HelloMessage {
+public class THelloMessage {
 
     private String content;
     private String username;
 
-    public HelloMessage() {}
+    public THelloMessage() {}
 
-    public HelloMessage(String content, String username) {
+    public THelloMessage(String content, String username) {
         this.content = content;
         this.username = username;
     }

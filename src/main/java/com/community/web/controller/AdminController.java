@@ -19,8 +19,8 @@ public class AdminController {
 
     @GetMapping
     public String adminHome(Model model){
-        List<Board> Boards = boardService.findAll();
-        model.addAttribute("boards", Boards);
+        List<Board> TBoards = boardService.findAll();
+        model.addAttribute("boards", TBoards);
         return "/admin/main";
     }
 

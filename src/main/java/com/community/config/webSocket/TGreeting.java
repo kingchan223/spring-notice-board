@@ -1,12 +1,12 @@
 package com.community.config.webSocket;
 
-public class Greeting {
+public class TGreeting {
 
     private String content;
 
-    public Greeting() {}
+    public TGreeting() {}
 
-    public Greeting(String content) {
+    public TGreeting(String content) {
         this.content = content;
     }
 

@@ -48,7 +48,7 @@ public class MemberController {
         List<Board> result = boardService.findAll();
         model.addAttribute("boards", result);
         model.addAttribute("member", member);
-        return "main";
+        return "rooms";
     }
 
 //    @GetMapping("member/home")

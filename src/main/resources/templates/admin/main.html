@@ -43,12 +43,12 @@
 <!--      </tr>-->
 <!--      </thead>-->
 <!--      <tbody>-->
-<!--      <tr th:each="board:${Boards}">-->
+<!--      <tr th:each="board:${TBoards}">-->
 <!--        <td><a href="board/board.html" th:href="@{/board/{boardId}(boardId=${board.id})}" th:text="${board.id}"></a></td>-->
 <!--        <td><a href="board/board.html" th:href="@{|/board/${board.id}|}" th:text="${board.title}">글제목</a></td>-->
 <!--        <td><a href="board/board.html" th:href="@{|/board/${board.id}|}" th:text="${board.date}">작성일</a></td>-->
 <!--        <td><a href="board/board.html" th:href="@{|/board/${board.id}|}" th:text="${board.member.loginId}">작성자</a></td>-->
-<!--        <td><button class="btn btn-primary float-end" th:onclick="|location.href='@{/admin/board/{boardId}(boardId=${board.id})}'|" onclick="location.href='main.html'" type="button">삭제</button></td>-->
+<!--        <td><button class="btn btn-primary float-end" th:onclick="|location.href='@{/admin/board/{boardId}(boardId=${board.id})}'|" onclick="location.href='rooms.html'" type="button">삭제</button></td>-->
 <!--      </tr>-->
 <!--      </tbody>-->
 <!--    </table>-->

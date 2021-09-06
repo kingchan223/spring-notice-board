@@ -35,10 +35,10 @@ public class Board {
     private Member member;
 
     //==연관관계 편의 메서드==
-    public void addMember(Member member){
-        this.member = member;
-        member.getBoards().add(this);
-    }
+//    public void addMember(Member member){
+//        this.member = member;
+//        member.getBoards().add(this);
+//    }
 //
 //    public void addAttachedFiles(List<AttachedFile> attachedFiles){
 //

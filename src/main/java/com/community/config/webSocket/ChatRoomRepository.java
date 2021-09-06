@@ -8,26 +8,29 @@ import java.util.*;
 @Repository
 public class ChatRoomRepository {
 
-    private Map<String, ChatRoomDto> chatRoomDtoMap;
+    private Map<String, ChatRoomDto> chatRoomDTOMap;
 
     @PostConstruct
     private void init(){
-        chatRoomDtoMap = new LinkedHashMap<>();
+        chatRoomDTOMap = new LinkedHashMap<>();
     }
 
     public List<ChatRoomDto> findAllRooms(){
-        List<ChatRoomDto> result = new ArrayList<>(chatRoomDtoMap.values());
+        //채팅방 생성 순서 최근 순으로 반환
+        List<ChatRoomDto> result = new ArrayList<>(chatRoomDTOMap.values());
         Collections.reverse(result);
+
         return result;
     }
 
     public ChatRoomDto findRoomById(String id){
-        return chatRoomDtoMap.get(id);
+        return chatRoomDTOMap.get(id);
     }
 
-    public ChatRoomDto createChatRoomDto(String name){
-        ChatRoomDto chatRoom = ChatRoomDto.create(name);
-        chatRoomDtoMap.put(chatRoom.getRoomId(),chatRoom);
-        return chatRoom;
+    public ChatRoomDto createChatRoomDTO(String name){
+        ChatRoomDto room = ChatRoomDto.create(name);
+        chatRoomDTOMap.put(room.getRoomId(), room);
+
+        return room;
     }
 }

@@ -58,7 +58,7 @@
         <div class="col"  th:if="${right}">
             <button class="w-100 btn btn-danger btn-lg"
                     onclick="location.href='main.html'"
-                    th:onclick="|location.href='@{/board/Boards/{boardId}/delete/(boardId=${board.id})}'|"
+                    th:onclick="|location.href='@{/board/TBoards/{boardId}/delete/(boardId=${board.id})}'|"
                     type="button">삭제하기
             </button>
         </div>

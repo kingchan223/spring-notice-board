@@ -37,7 +37,7 @@ public class Member {
     private Address address;
 
     @OneToMany(mappedBy="member")
-    private List<Board> Boards = new ArrayList<>();
+    private List<Board> TBoards = new ArrayList<>();
 
     @OneToMany(mappedBy="member")
     private List<Comment> comments = new ArrayList<>();
@@ -75,8 +75,8 @@ public class Member {
         this.joinedDate = joinedDate;
     }
 
-    private void setboards(List<Board> Boards) {
-        this.Boards = Boards;
+    private void setboards(List<Board> TBoards) {
+        this.TBoards = TBoards;
     }
 
     private void setAddress(Address address){this.address = address;}
