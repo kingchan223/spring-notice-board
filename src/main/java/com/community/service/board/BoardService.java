@@ -8,7 +8,8 @@ import com.community.domain.entity.Comment;
 import com.community.domain.entity.Member;
 import com.community.domain.entity.formEntity.AddboardForm;
 import com.community.domain.entity.formEntity.EditBoardForm;
-import com.community.repository.board.BoardRepository;
+import com.community.repository.board.BoardQueryRepository;
+import com.community.repository.board.DataBoardRepository;
 import com.community.repository.comment.CommentRepository;
 import com.community.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +32,9 @@ import java.util.Optional;
 public class BoardService{
 
     private final MemberRepository memberRepository;
-    private final BoardRepository boardRepository;
+    private final DataBoardRepository dataBoardRepository;
     private final CommentRepository commentRepository;
+    private final BoardQueryRepository boardQueryRepository;
 
     private static final int BLOCK_PAGE_NUM_COUNT = 5;//블럭에 존재하는 페이지 수
     private static final int PAGE_POST_COUNT = 7;//한 페이지에 존재하는 게시글 수
@@ -44,12 +46,12 @@ public class BoardService{
 
         Board board = Board.createBoard(member, boardForm);
 
-        boardRepository.save(board);
+        dataBoardRepository.save(board);
         return board;
     }
 
     public Optional<Board> findOne(Long id){
-        return boardRepository.findById(id);
+        return dataBoardRepository.findById(id);
     }
 
     /*게시글 수정하기*/
@@ -65,26 +67,17 @@ public class BoardService{
     /*게시글 삭제하기*/
     @Transactional
     public void delete(Long id) {
-        boardRepository.deleteById(id);
+        dataBoardRepository.deleteById(id);
     }
 
     /*전체 게시글 조회하기*/
     public List<Board> findAll(){
-        return boardRepository.findAll();
+        return dataBoardRepository.findAll();
     }
 
     /*게시글 PAGE_POST_COUNT만큼 가져오기*/
     public List<BoardDto> getBoardList(Integer pageNum){
-        Page<Board> page = boardRepository.findAll(PageRequest
-                .of(pageNum-1, PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "date")));
-
-//        List<Board> boards = page.getContent();
-//        List<BoardDto> boardDtoList = new ArrayList<>();
-//        for (Board board : boards) {
-//            boardDtoList.add(BoardDto.createboardDto(board));
-//        }
-//        return boardDtoList;
-        return null;
+        return boardQueryRepository.findAllByPaging(pageNum);
     }
 
     /*페이징 숫자 리스트 가져오기*/
@@ -142,12 +135,12 @@ public class BoardService{
 
     /*전체 게시글 수*/
     public Long getBoardCount(){
-        return boardRepository.count();
+        return dataBoardRepository.count();
     }
 
     /*Title에 keyword가 포함된 */
     public List<BoardDto> searchPostsTitle(String keyword) {
-        List<Board> boards = boardRepository.findByTitleContaining(keyword);
+        List<Board> boards = dataBoardRepository.findByTitleContaining(keyword);
         List<BoardDto> boardDtoList = new ArrayList<>();
         if(boards.isEmpty()) return boardDtoList;
         for (Board board : boards) {
@@ -157,7 +150,7 @@ public class BoardService{
     }
 
     public List<BoardDto> searchPostsContent(String keyword) {
-        List<Board> boards = boardRepository.findByContentContaining(keyword);
+        List<Board> boards = dataBoardRepository.findByContentContaining(keyword);
         List<BoardDto> boardDtoList = new ArrayList<>();
         if(boards.isEmpty()) return boardDtoList;
         for (Board board : boards) {
