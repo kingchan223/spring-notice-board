@@ -96,7 +96,6 @@ public class ApiBoardController {
     public ResponseEntity<?> addComment(@RequestParam(value="board") Long boardId,
                                         @RequestBody ReqCommentDto reqCommentDto,
                                         HttpServletRequest request){
-        System.out.println("🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑");
         Long memberId  = (Long) request.getAttribute("memberId");
         BoardDto boardDto = boardService.addComment(boardId, memberId, reqCommentDto);
         return new ResponseEntity<>(boardDto, HttpStatus.OK);
