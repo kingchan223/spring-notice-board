@@ -73,19 +73,18 @@ public class BoardService{
         return boardRepository.findAll();
     }
 
-
     /*게시글 PAGE_POST_COUNT만큼 가져오기*/
     public List<BoardDto> getBoardList(Integer pageNum){
         Page<Board> page = boardRepository.findAll(PageRequest
                 .of(pageNum-1, PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "date")));
 
-        List<Board> boards = page.getContent();
-        List<BoardDto> boardDtoList = new ArrayList<>();
-        for (Board board : boards) {
-            boardDtoList.add(BoardDto.createboardDto(board));
-        }
-
-        return boardDtoList;
+//        List<Board> boards = page.getContent();
+//        List<BoardDto> boardDtoList = new ArrayList<>();
+//        for (Board board : boards) {
+//            boardDtoList.add(BoardDto.createboardDto(board));
+//        }
+//        return boardDtoList;
+        return null;
     }
 
     /*페이징 숫자 리스트 가져오기*/
@@ -95,14 +94,12 @@ public class BoardService{
 
         // 총 게시글 수
         Double postsTotalCount = Double.valueOf(this.getBoardCount());
-        System.out.println("postsTotalCount = " + postsTotalCount);
         // 총 게시글 수를 기준으로 계산한 마지막 페이지 번호 계산  // PAGE_POST_COUNT = 7
                                                     // BLOCK_PAGE_NUM_COUNT = 5
         Integer totalLastPageNum = (int) (Math.ceil((postsTotalCount / PAGE_POST_COUNT)));//7
-        System.out.println("totalLastPageNum = " + totalLastPageNum);
+
         // 5개 이하면 바로 반환
         if(totalLastPageNum<=5){
-            System.out.println("YES");
             for(int i=0; i<totalLastPageNum; i++){
                 pageList[i] = i+1;
             }
@@ -111,7 +108,6 @@ public class BoardService{
 
         //3이하면 바로 반환
         if(3 >= currentPageNum){
-            System.out.println("if");
             for(int i=0; i<5; i++){
                 pageList[i] = i+1;
             }
@@ -124,12 +120,8 @@ public class BoardService{
             return pageList;
         }
         else{
-            System.out.println("else");
             for(int p=currentPageNum-2, i=0; p<=currentPageNum+2; p++, i++){
                 pageList[i] = p;
-            }
-            for (Integer integer : pageList) {
-                System.out.println("integer = " + integer);
             }
             return pageList;
         }
